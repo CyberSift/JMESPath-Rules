@@ -1,0 +1,6 @@
+[{
+  "title": "SSH to public IP",
+  "expression": "DestinationPort=='22' && isDestinationInternal=='false'",
+  "severity": "low",
+  "references": "https://outline.cybersift.io/doc/network-firewall-ixfdPyZQ6R#h-ssh-to-public-ip"
+}]
