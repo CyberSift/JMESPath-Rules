@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Potential Data Leak - Dropbox Usage",
+    "expression": "\"ASN Description\"=='DROPBOX'",
+    "severity": "medium",
+    "type": "syslog"
+  },
+  {
+    "title": "SMB to public IP",
+    "expression": "DestinationPort=='445' && isSourceInternal=='true' && isDestinationInternal=='false' && !denied_flow",
+    "severity": "medium",
+    "type": "syslog"
+  }
+]

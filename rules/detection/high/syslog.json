@@ -1,0 +1,20 @@
+[
+  {
+    "title": "SSH to or from known threat public IP",
+    "expression": "DestinationPort=='22' && !denied_flow && (\"cybersift.threat_info\".knownThreat)",
+    "severity": "high",
+    "type": "syslog"
+  },
+  {
+    "title": "RDP to or from known threat public IP",
+    "expression": "DestinationPort=='3389' && !denied_flow && (\"cybersift.threat_info\".knownThreat)",
+    "severity": "high",
+    "type": "syslog"
+  },
+  {
+    "title": "SMB to or from known threat public IP",
+    "expression": "DestinationPort=='445' && !denied_flow && (\"cybersift.threat_info\".knownThreat)",
+    "severity": "high",
+    "type": "syslog"
+  }
+]

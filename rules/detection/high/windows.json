@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Non-existent wordlist user login",
+    "expression": "event.code=='4625' && winlog.event_data.SubStatus=='0xc0000064' && contains(['ftpuser', 'backup', 'operator', 'superuser'], winlog.cybersift.TargetUserNameNormalized)",
+    "severity": "high",
+    "type": "windows"
+  },
+  {
+    "title": "Well known credential dumping tool use",
+    "expression": "winlog.cybersift.\"event.code\"==`4697` && (contains(winlog.event_data.ServiceFileName, 'cachedump')|| contains(winlog.event_data.ServiceFileName, 'dumpsvc')|| contains(winlog.event_data.ServiceFileName, 'fgexec')|| contains(winlog.event_data.ServiceFileName, 'gsecdump')|| contains(winlog.event_data.ServiceFileName, 'mimidrv')|| contains(winlog.event_data.ServiceFileName, 'pwdump')|| contains(winlog.event_data.ServiceFileName, 'servpw'))",
+    "severity": "high",
+    "type": "windows"
+  }
+]
