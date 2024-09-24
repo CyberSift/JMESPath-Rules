@@ -2,9 +2,8 @@
   {
     "title": "SSH to or from known threat public IP",
     "expression": "DestinationPort=='22' && !denied_flow && (\"cybersift.threat_info\".knownThreat)",
-    "severity": "medium",
-    "type": "syslog",
-    "yanked": true
+    "severity": "high",
+    "type": "syslog"
   },
   {
     "title": "RDP to or from known threat public IP",
