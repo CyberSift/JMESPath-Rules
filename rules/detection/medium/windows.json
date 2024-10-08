@@ -10,5 +10,41 @@
     "expression": "event.code=='4625' && winlog.event_data.SubStatus=='0xc0000064' && winlog.cybersift.TargetUserType=='user'",
     "severity": "medium",
     "type": "windows"
+  },
+  {
+    "title": "Abnormal Login Source Workstation First Time Seen",
+    "expression": "contains(Abnormalities, 'AbnormalLoginSource_FirstTimeSeen')",
+    "severity": "medium",
+    "type": "windows"
+  },
+  {
+    "title": "Abnormal Login Source Workstation Rarely Seen",
+    "expression": "contains(Abnormalities, 'AbnormalLoginSource_RarelySeen')",
+    "severity": "medium",
+    "type": "windows"
+  },
+  {
+    "title": "High Privilege User Login",
+    "expression": "contains(Abnormalities, 'HighPrivilegeUser')",
+    "severity": "medium",
+    "type": "windows"
+  },
+  {
+    "title": "Possible Lateral Movement",
+    "expression": "contains(Abnormalities, 'PossibleLateralMovement')",
+    "severity": "medium",
+    "type": "windows"
+  },
+  {
+    "title": "Possible NTLM Relay",
+    "expression": "contains(Abnormalities, 'Possible-NTLM-Relay')",
+    "severity": "medium",
+    "type": "windows"
+  },
+  {
+    "title": "Abnormal Login Source Workstation",
+    "expression": "contains(Abnormalities, 'AbnormalLoginSource_Workstation_Normal_Privilege_User')",
+    "severity": "medium",
+    "type": "windows"
   }
 ]

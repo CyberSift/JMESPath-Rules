@@ -10,5 +10,17 @@
     "expression": "winlog.cybersift.\"event.code\"==`4697` && (contains(winlog.event_data.ServiceFileName, 'cachedump')|| contains(winlog.event_data.ServiceFileName, 'dumpsvc')|| contains(winlog.event_data.ServiceFileName, 'fgexec')|| contains(winlog.event_data.ServiceFileName, 'gsecdump')|| contains(winlog.event_data.ServiceFileName, 'mimidrv')|| contains(winlog.event_data.ServiceFileName, 'pwdump')|| contains(winlog.event_data.ServiceFileName, 'servpw'))",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "NULL SID Login",
+    "expression": "contains(Abnormalities, 'AbnormalLogin_NULLSID')",
+    "severity": "high",
+    "type": "windows"
+  },
+  {
+    "title": "Abnormal Login Source Workstation by High Privilege User",
+    "expression": "contains(Abnormalities, 'AbnormalLoginSource_Workstation_High_Privilege_User')",
+    "severity": "medium",
+    "type": "windows"
   }
 ]
