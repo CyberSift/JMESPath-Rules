@@ -13,13 +13,13 @@
   },
   {
     "title": "NULL SID Login",
-    "expression": "contains(Abnormalities, 'AbnormalLogin_NULLSID')",
+    "expression": "contains(Abnormalities || '', 'AbnormalLogin_NULLSID')",
     "severity": "high",
     "type": "windows"
   },
   {
     "title": "Abnormal Login Source Workstation by High Privilege User",
-    "expression": "contains(Abnormalities, 'AbnormalLoginSource_Workstation_High_Privilege_User')",
+    "expression": "contains(Abnormalities || '', 'AbnormalLoginSource_Workstation_High_Privilege_User')",
     "severity": "medium",
     "type": "windows"
   }
