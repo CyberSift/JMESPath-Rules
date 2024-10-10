@@ -13,13 +13,13 @@
   },
   {
     "title": "Connection From Known Threat (Source IP Known Threat)",
-    "expression": "contains(Abnormal_Notes,'Known_Threat_Inbound') && !denied_flow && \"cybersift.deduped\"=='false'",
+    "expression": "contains(Abnormal_Notes || '','Known_Threat_Inbound') && !denied_flow && \"cybersift.deduped\"=='false'",
     "severity": "medium",
     "type": "syslog"
   },
   {
     "title": "Connection To Known Threat (Destination IP Known Threat)",
-    "expression": "contains(Abnormal_Notes,'Known_Threat_Outbound') && !denied_flow && \"cybersift.deduped\"=='false'",
+    "expression": "contains(Abnormal_Notes || '','Known_Threat_Outbound') && !denied_flow && \"cybersift.deduped\"=='false'",
     "severity": "medium",
     "type": "syslog"
   }
