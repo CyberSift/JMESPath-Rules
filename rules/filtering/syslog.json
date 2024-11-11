@@ -3,5 +3,10 @@
     "title": "Common DNS Servers",
     "expression": "contains(['8.8.8.8', '4.2.2.2', '4.2.2.1'], DestinationAddress)",
     "type": "syslog"
+  },
+  {
+    "title": "Link Local Traffic",
+    "expression": "DestinationAddress=='169.254.255.255'",
+    "type": "syslog"
   }
 ]
