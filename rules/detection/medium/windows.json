@@ -46,5 +46,11 @@
     "expression": "contains(Abnormalities || '', 'AbnormalLoginSource_Workstation_Normal_Privilege_User')",
     "severity": "medium",
     "type": "windows"
+  },
+  {
+    "title": "Disabled User Activity",
+    "expression": "winlog.event_data.Status=='0xc0000072' || winlog.event_data.SubStatus=='0xc0000072'",
+    "severity": "medium",
+    "type": "windows"
   }
 ]
