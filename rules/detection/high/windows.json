@@ -20,7 +20,13 @@
   {
     "title": "Abnormal Login Source Workstation by High Privilege User",
     "expression": "contains(Abnormalities || '', 'AbnormalLoginSource_Workstation_High_Privilege_User')",
-    "severity": "medium",
+    "severity": "high",
+    "type": "windows"
+  },
+  {
+    "title": "Administrator Login - direct administrator logins should be disabled.",
+    "expression": "(event.code=='4624'|| event.code=='4625') && contains(['2', '10'], winlog.event_data.LogonType) && winlog.event_data.TargetUserNameNormalized=='administrator'",
+    "severity": "high",
     "type": "windows"
   }
 ]
