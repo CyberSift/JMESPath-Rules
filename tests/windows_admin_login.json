@@ -1,0 +1,118 @@
+{
+    "@timestamp": "2024-10-21T13:08:53.874Z",
+    "@metadata": {
+      "beat": "winlogbeat",
+      "type": "_doc",
+      "version": "7.15.0"
+    },
+    "event": {
+      "action": "Logon",
+      "created": "2024-10-21T13:08:55.081Z",
+      "code": "4624",
+      "kind": "event",
+      "provider": "Microsoft-Windows-Security-Auditing",
+      "outcome": "success"
+    },
+    "log": {
+      "level": "information"
+    },
+    "message": "An account was successfully logged on.\n\nSubject:\n\tSecurity ID:\t\tS-1-5-18\n\tAccount Name:\t\tFOOBAZ$\n\tAccount Domain:\t\tWORKGROUP\n\tLogon ID:\t\t0x3E7\n\nLogon Type:\t\t\t2\n\nImpersonation Level:\t\tImpersonation\n\nNew Logon:\n\tSecurity ID:\t\tS-1-5-21-2224737262-2903874594-3848241394-500\n\tAccount Name:\t\tAdministrator\n\tAccount Domain:\t\tFOOBAZ\n\tLogon ID:\t\t0x1BF7DA\n\tLogon GUID:\t\t{00000000-0000-0000-0000-000000000000}\n\nProcess Information:\n\tProcess ID:\t\t0x234\n\tProcess Name:\t\tC:\\Windows\\System32\\winlogon.exe\n\nNetwork Information:\n\tWorkstation Name:\tFOOBAZ\n\tSource Network Address:\t127.0.0.1\n\tSource Port:\t\t0\n\nDetailed Authentication Information:\n\tLogon Process:\t\tUser32 \n\tAuthentication Package:\tNegotiate\n\tTransited Services:\t-\n\tPackage Name (NTLM only):\t-\n\tKey Length:\t\t0\n\nThis event is generated when a logon session is created. It is generated on the computer that was accessed.\n\nThe subject fields indicate the account on the local system which requested the logon. This is most commonly a service such as the Server service, or a local process such as Winlogon.exe or Services.exe.\n\nThe logon type field indicates the kind of logon that occurred. The most common types are 2 (interactive) and 3 (network).\n\nThe New Logon fields indicate the account for whom the new logon was created, i.e. the account that was logged on.\n\nThe network fields indicate where a remote logon request originated. Workstation name is not always available and may be left blank in some cases.\n\nThe impersonation level field indicates the extent to which a process in the logon session can impersonate.\n\nThe authentication information fields provide detailed information about this specific logon request.\n\t- Logon GUID is a unique identifier that can be used to correlate this event with a KDC event.\n\t- Transited services indicate which intermediate services have participated in this logon request.\n\t- Package name indicates which sub-protocol was used among the NTLM protocols.\n\t- Key length indicates the length of the generated session key. This will be 0 if no session key was requested.",
+    "host": {
+      "name": "FOOBAZ"
+    },
+    "agent": {
+      "ephemeral_id": "217e6bf5-ab75-4e29-918e-4ffd9ca2926f",
+      "id": "da555edf-e814-4b4a-9d92-9198f0bf605b",
+      "name": "FOOBAZ",
+      "type": "winlogbeat",
+      "version": "7.15.0",
+      "hostname": "FOOBAZ"
+    },
+    "ecs": {
+      "version": "1.11.0"
+    },
+    "fields": {
+      "csIndex": "winlogbeat"
+    },
+    "messageTitle": "An account was successfully logged on.",
+    "context_addition": "true",
+    "winlog": {
+      "opcode": "Info",
+      "channel": "Security",
+      "provider_name": "Microsoft-Windows-Security-Auditing",
+      "process": {
+        "pid": 632,
+        "thread": {
+          "id": 3776
+        }
+      },
+      "event_id": "4624",
+      "provider_guid": "{54849625-5478-4994-A5BA-3E3B0328C30D}",
+      "api": "wineventlog",
+      "version": 1,
+      "activity_id": "{9FC42AA4-A829-471B-AEC1-E2FBCF5909E6}",
+      "keywords": [
+        "Audit Success"
+      ],
+      "record_id": 1427503114,
+      "task": "Logon",
+      "computer_name": "FOOBAZ",
+      "cybersift": {
+        "event.code": 4624,
+        "ComputerNameNormalized": "FOOBAZ",
+        "LogSenderAddress": "10.2.1.1",
+        "TargetUserNameNormalized": "administrator",
+        "TargetUserType": "user",
+        "SubjectUserNameNormalized": "FOOBAZ$",
+        "SubjectUserType": "computer",
+        "LoginInfo": {
+          "DestinationName": "FOOBAZ",
+          "SourceAddress": "127.0.0.1",
+          "DestinationAddress": "127.0.0.1",
+          "SourceName": "FOOBAZ"
+        },
+        "LogonTypeText": "Interactive",
+        "mitre": [
+          {
+            "name": "SID-History Injection",
+            "id": "T1178",
+            "tactic": "Privilege Escalation"
+          }
+        ],
+        "citrix": {},
+        "HighPrivilegedUser": true,
+        "HighPrivilegedUserGroup": "Enterprise Admins",
+        "messageTitle": "An account was successfully logged on."
+      },
+      "LogSenderAddress": "10.2.1.1",
+      "event_data": {
+        "IpPort": "0",
+        "TargetUserSid": "S-1-5-21-2224737262-2903874594-3848241394-500",
+        "LogonType": "2",
+        "TransmittedServices": "-",
+        "SubjectUserSid": "S-1-5-18",
+        "WorkstationName": "FOOBAZ",
+        "IpAddress": "127.0.0.1",
+        "LogonGuid": "{00000000-0000-0000-0000-000000000000}",
+        "ProcessId": "0x234",
+        "SubjectDomainName": "WORKGROUP",
+        "SubjectLogonId": "0x3e7",
+        "AuthenticationPackageName": "Negotiate",
+        "TargetLogonId": "0x1bf7da",
+        "LogonProcessName": "User32 ",
+        "TargetUserName": "Administrator",
+        "LmPackageName": "-",
+        "KeyLength": "0",
+        "ProcessName": "C:\\Windows\\System32\\winlogon.exe",
+        "TargetDomainName": "FOOBAZ",
+        "ImpersonationLevel": "%%1833",
+        "SubjectUserName": "FOOBAZ$",
+        "TargetUserNameNormalized": "administrator",
+        "TargetUserType": "user",
+        "SubjectUserNameNormalized": "FOOBAZ$",
+        "SubjectUserType": "computer",
+        "LogonTypeText": "Interactive"
+      }
+    },
+    "time": "15:08:58"
+  }
