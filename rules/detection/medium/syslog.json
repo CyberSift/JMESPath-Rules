@@ -7,7 +7,7 @@
   },
   {
     "title": "SMB to public IP",
-    "expression": "DestinationPort=='445' && isSourceInternal=='true' && isDestinationInternal=='false' && !denied_flow",
+    "expression": "DestinationPort=='445' && isSourceInternal=='true' && isDestinationInternal=='false' && !denied_flow && DestinationAddress!='0.0.0.0'",
     "severity": "medium",
     "type": "syslog"
   },
