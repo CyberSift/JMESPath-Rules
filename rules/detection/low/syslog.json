@@ -1,19 +1,19 @@
 [
   {
     "title": "SSH to public IP",
-    "expression": "DestinationPort=='22' && isSourceInternal=='true' && isDestinationInternal=='false' && !denied_flow",
+    "expression": "DestinationPort=='22' && isSourceInternal=='true' && isDestinationInternal=='false' && !denied_flow && DestinationAddress!='0.0.0.0'",
     "severity": "low",
     "type": "syslog"
   },
   {
     "title": "RDP from public IP",
-    "expression": "DestinationPort=='3389' && isSourceInternal=='false' && !denied_flow",
+    "expression": "DestinationPort=='3389' && isSourceInternal=='false' && !denied_flow && DestinationAddress!='0.0.0.0'",
     "severity": "low",
     "type": "syslog"
   },
   {
     "title": "SMB from public IP",
-    "expression": "DestinationPort=='445' && isSourceInternal=='false' && !denied_flow",
+    "expression": "DestinationPort=='445' && isSourceInternal=='false' && !denied_flow && DestinationAddress!='0.0.0.0'",
     "severity": "low",
     "type": "syslog"
   }
