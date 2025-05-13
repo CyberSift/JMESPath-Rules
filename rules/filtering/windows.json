@@ -1,0 +1,8 @@
+[
+    {
+      "title": "COM Server application events 10016",
+      "expression": "event.code=='10016'",
+      "type": "windows"
+    }
+  ]
+  
