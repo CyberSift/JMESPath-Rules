@@ -1,7 +1,7 @@
 [
   {
     "title": "Local Administrator Activity",
-    "expression": "(winlog.cybersift.\"event.code\")!=`4798` && (winlog.cybersift.\"event.code\")!=`4780` && winlog.event_data.TargetUserName=='Administrator'",
+    "expression": "contains([`4624`, `4625`, `4648`, `4776`, `4688`], winlog.cybersift.\"event.code\") && winlog.event_data.TargetUserName=='Administrator'",
     "severity": "medium",
     "type": "windows"
   },
