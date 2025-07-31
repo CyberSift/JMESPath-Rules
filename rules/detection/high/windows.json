@@ -24,8 +24,14 @@
     "type": "windows"
   },
   {
-    "title": "Administrator Login - direct administrator logins should be disabled.",
+    "title": "Administrator Login - direct administrator logins should be disabled",
     "expression": "(event.code=='4624'|| event.code=='4625') && contains(['2', '10'], winlog.event_data.LogonType) && winlog.event_data.TargetUserNameNormalized=='administrator'",
+    "severity": "high",
+    "type": "windows"
+  },
+  {
+    "title": "PowerShell Remote Code Execution via Web Clients",
+    "expression": "(   contains(to_string(winlog.event_data.ParentProcessName), 'powershell.exe') ||   contains(to_string(winlog.event_data.NewProcessName), 'powershell.exe') ||   contains(to_string(winlog.event_data.ProcessName), 'powershell.exe') ||   contains(to_string(winlog.event_data.CommandLine), 'powershell.exe') ) && (   contains(to_string(winlog.event_data.CommandLine), 'IEX') ||   contains(to_string(winlog.event_data.CommandLine), 'Invoke-WebRequest') ||   contains(to_string(winlog.event_data.CommandLine), 'DownloadString') ||   contains(to_string(winlog.event_data.CommandLine), 'curl') ||   contains(to_string(winlog.event_data.CommandLine), 'wget') ||   contains(to_string(winlog.event_data.CommandLine), 'certutil') ||   contains(to_string(winlog.event_data.CommandLine), 'Net.WebClient') )",
     "severity": "high",
     "type": "windows"
   }
