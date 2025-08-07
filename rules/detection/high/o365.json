@@ -1,7 +1,7 @@
 [
   {
     "title": "O365 Suspicious Inbox Rule Created or Modified (MarkAsRead)",
-    "expression": "contains(['New-InboxRule', 'Set-InboxRule'], o365.audit.Operation) && to_string(o365.audit.Parameters.MarkAsRead)==`True`",
+    "expression": "contains(['New-InboxRule', 'Set-InboxRule'], o365.audit.Operation) && to_string(o365.audit.Parameters.MarkAsRead)=='True'",
     "severity": "high",
     "type": "o365"
   },
