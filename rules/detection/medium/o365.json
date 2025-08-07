@@ -1,0 +1,8 @@
+[
+  {
+    "title": "O365 Inbox Rule Created or Modified",
+    "expression": "contains(['New-InboxRule', 'Set-InboxRule'], o365.audit.Operation)",
+    "severity": "medium",
+    "type": "o365"
+  }
+]
