@@ -1,0 +1,14 @@
+[
+  {
+    "title": "O365 Suspicious Inbox Rule Created or Modified (MarkAsRead)",
+    "expression": "contains(['New-InboxRule', 'Set-InboxRule'], o365.audit.Operation) && to_string(o365.audit.Parameters.MarkAsRead)=='True'",
+    "severity": "high",
+    "type": "o365"
+  },
+  {
+    "title": "O365 Suspicious Inbox Rule Created or Modified (Suspicious Folder)",
+    "expression": "contains(['New-InboxRule', 'Set-InboxRule'], o365.audit.Operation) && (contains(to_string(o365.audit.Parameters.MoveToFolder), 'RSS') || contains(to_string(o365.audit.Parameters.MoveToFolder), 'Archive'))",
+    "severity": "high",
+    "type": "o365"
+  }
+]
