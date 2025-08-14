@@ -34,5 +34,11 @@
     "expression": "(   contains(to_string(winlog.event_data.ParentProcessName), 'powershell.exe') ||   contains(to_string(winlog.event_data.NewProcessName), 'powershell.exe') ||   contains(to_string(winlog.event_data.ProcessName), 'powershell.exe') ||   contains(to_string(winlog.event_data.CommandLine), 'powershell.exe') ) && (   contains(to_string(winlog.event_data.CommandLine), 'IEX') ||   contains(to_string(winlog.event_data.CommandLine), 'Invoke-WebRequest') ||   contains(to_string(winlog.event_data.CommandLine), 'DownloadString') ||   contains(to_string(winlog.event_data.CommandLine), 'curl') ||   contains(to_string(winlog.event_data.CommandLine), 'wget') ||   contains(to_string(winlog.event_data.CommandLine), 'certutil') ||   contains(to_string(winlog.event_data.CommandLine), 'Net.WebClient') )",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "Suspicious Scheduled Task Creation",
+    "expression": "event.code == '4698' && (contains(winlog.cybersift.TaskContent.Task.Actions.Exec.Command, 'cmd.exe') || contains(winlog.cybersift.TaskContent.Task.Actions.Exec.Command, 'wscript.exe') || contains(winlog.cybersift.TaskContent.Task.Actions.Exec.Command, 'rundll32.exe') || contains(winlog.cybersift.TaskContent.Task.Actions.Exec.Command, 'regsvr32.exe') || contains(winlog.cybersift.TaskContent.Task.Actions.Exec.Command, 'wmic.exe') || contains(winlog.cybersift.TaskContent.Task.Actions.Exec.Command, 'mshta.exe') || contains(winlog.cybersift.TaskContent.Task.Actions.Exec.Command, 'powershell.exe') || contains(winlog.cybersift.TaskContent.Task.Actions.Exec.Command, 'bitsadmin.exe') || contains(winlog.cybersift.TaskContent.Task.Actions.Exec.Command, 'wget.exe') || contains(winlog.cybersift.TaskContent.Task.Actions.Exec.Command, 'cscript.exe') || contains(winlog.cybersift.TaskContent.Task.Actions.Exec.Command, 'certutil.exe')) && !contains(winlog.cybersift.TaskContent.Task.Actions.Exec.Arguments, '%windir%\system32') && !contains(winlog.cybersift.TaskContent.Task.Actions.Exec.Arguments, '%systemroot%\system32\hpatchmonTask.cmd')",
+    "severity": "high",
+    "type": "windows"
   }
 ]
