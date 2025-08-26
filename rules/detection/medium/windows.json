@@ -52,5 +52,11 @@
     "expression": "winlog.event_data.Status=='0xc0000072' || winlog.event_data.SubStatus=='0xc0000072'",
     "severity": "medium",
     "type": "windows"
+  },
+    {
+    "title": "nltest Enumeration",
+    "expression": "event.code == '4688' && contains(to_string(winlog.event_data.NewProcessName), 'nltest.exe')",
+    "severity": "medium",
+    "type": "windows"
   }
 ]
