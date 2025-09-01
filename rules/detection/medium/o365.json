@@ -4,5 +4,11 @@
     "expression": "contains(['New-InboxRule', 'Set-InboxRule'], o365.audit.Operation)",
     "severity": "medium",
     "type": "o365"
+  },
+    {
+    "title": "O365 Exchange Anti-Phish Policy Deletion",
+    "expression": "event.dataset == 'o365.audit' && event.provider == 'Exchange' && event.category == 'web' && contains(to_string(event.action), 'Remove-AntiPhishPolicy')",
+    "severity": "medium",
+    "type": "o365"
   }
 ]
