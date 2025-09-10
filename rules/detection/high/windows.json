@@ -40,5 +40,11 @@
     "expression": "event.code == '4698' && (contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'cmd.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'wscript.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'rundll32.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'regsvr32.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'wmic.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'mshta.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'powershell.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'bitsadmin.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'wget.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'cscript.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'certutil.exe')) && !contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Arguments), '%windir%\\\\system32') && !contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Arguments), '%systemroot%\\\\system32\\\\hpatchmonTask.cmd')",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "Persistence via Run Keys",
+    "expression": "event.code == '4657' && (contains(to_string(winlog.event_data.ProcessName), 'powershell.exe') || contains(to_string(winlog.event_data.ProcessName), 'mshta.exe') || contains(to_string(winlog.event_data.ProcessName), 'wscript.exe')) && contains(to_string(winlog.event_data.ObjectName), 'Run')",
+    "severity": "high",
+    "type": "windows"
   }
 ]
