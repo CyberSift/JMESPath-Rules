@@ -10,5 +10,11 @@
     "expression": "contains(['New-InboxRule', 'Set-InboxRule'], o365.audit.Operation) && (contains(to_string(o365.audit.Parameters.MoveToFolder), 'RSS') || contains(to_string(o365.audit.Parameters.MoveToFolder), 'Archive'))",
     "severity": "high",
     "type": "o365"
+  },
+  {
+    "title": "O365 Mailbox Audit Logging Bypass",
+    "expression": "event.dataset == 'o365.audit' && event.provider == 'Exchange' && event.action == 'Set-MailboxAuditBypassAssociation' && event.outcome == 'success'",
+    "severity": "high",
+    "type": "o365"
   }
 ]
