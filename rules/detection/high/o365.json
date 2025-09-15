@@ -16,5 +16,11 @@
     "expression": "event.dataset == 'o365.audit' && event.provider == 'Exchange' && event.action == 'Set-MailboxAuditBypassAssociation' && event.outcome == 'success'",
     "severity": "high",
     "type": "o365"
+  },
+  {
+    "title": "O365 Exchange Transport Rule Creation",
+    "expression": "event.dataset == 'o365.audit' && event.provider == 'Exchange' && event.category == 'web' && event.action == 'New-TransportRule' && event.outcome == 'success'",
+    "severity": "high",
+    "type": "o365"
   }
 ]
