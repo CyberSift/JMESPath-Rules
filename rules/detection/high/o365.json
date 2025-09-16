@@ -22,5 +22,11 @@
     "expression": "event.dataset == 'o365.audit' && event.provider == 'Exchange' && event.category == 'web' && event.action == 'New-TransportRule' && event.outcome == 'success'",
     "severity": "high",
     "type": "o365"
+  },
+  {
+    "title": "O365 User Login with Suspicious User Agent",
+    "expression": "o365.audit.Operation == 'UserLoggedIn' && o365.audit.ExtendedProperties.UserAgent != null && (!starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Mozilla') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Windows-AzureAD-Authentication-Provider') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'BAV2ROPC') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'AppSSOAgent'))",
+    "severity": "high",
+    "type": "o365"
   }
 ]
