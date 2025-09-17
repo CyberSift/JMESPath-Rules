@@ -7,7 +7,7 @@
   },
   {
     "title": "Non-existent user login",
-    "expression": "event.code=='4625' && winlog.event_data.SubStatus=='0xc0000064' && winlog.cybersift.TargetUserType=='user'",
+    "expression": "to_string(event.code)=='4625' && winlog.event_data.SubStatus=='0xc0000064' && winlog.cybersift.TargetUserType=='user'",
     "severity": "medium",
     "type": "windows"
   },
@@ -55,7 +55,7 @@
   },
     {
     "title": "nltest Enumeration",
-    "expression": "event.code == '4688' && contains(to_string(winlog.event_data.NewProcessName), 'nltest.exe')",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.NewProcessName), 'nltest.exe')",
     "severity": "medium",
     "type": "windows"
   }
