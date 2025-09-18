@@ -55,7 +55,7 @@
   },
   {
     "title": "Windows Defender Bypass via PowerShell",
-    "expression": "to_string(event.code) == '4688' && contains(winlog.event_data.NewProcessName, 'powershell.exe') && (contains(winlog.event_data.CommandLine, 'Add-MpPreference') || contains(winlog.event_data.CommandLine, 'Set-MpPreference'))",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.NewProcessName), 'powershell.exe') && (contains(to_string(winlog.event_data.CommandLine), 'Add-MpPreference') || contains(to_string(winlog.event_data.CommandLine), 'Set-MpPreference'))",
     "severity": "high",
     "type": "windows"
   }
