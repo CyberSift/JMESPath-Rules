@@ -28,5 +28,11 @@
     "expression": "o365.audit.Operation == 'UserLoggedIn' && o365.audit.ExtendedProperties.UserAgent != null && (!starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Mozilla') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Windows-AzureAD-Authentication-Provider') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'BAV2ROPC') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'AppSSOAgent'))",
     "severity": "high",
     "type": "o365"
+  },
+  {
+    "title": "Excessive O365 Mailbox Items Accessed",
+    "expression": "event.dataset == 'o365.audit' && event.provider == 'Exchange' && event.action == 'MailItemsAccessed' && event.code == 'ExchangeItemAggregated' && ((contains(to_string(o365.audit.OperationProperties[].Name), 'IsThrottled') && contains(to_string(o365.audit.OperationProperties[].Value), 'True')) || o365.audit.OperationCount >= `100`)",
+    "severity": "high",
+    "type": "o365"
   }
 ]
