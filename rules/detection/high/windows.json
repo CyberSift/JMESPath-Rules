@@ -64,5 +64,11 @@
     "expression": "to_string(event.code) == '4663' && winlog.event_data.AccessMask == '0x20' && (contains(to_string(winlog.event_data.ObjectName), 'AppData\\Local\\Temp') || contains(to_string(winlog.event_data.ObjectName), 'AppData\\Roaming') || contains(to_string(winlog.event_data.ObjectName), 'Users\\Public'))",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "Resource-Based Constrained Delegation Abuse",
+    "expression": "to_string(event.code) == '5136' && winlog.event_data.AttributeLDAPDisplayName == 'msDS-AllowedToActOnBehalfOfOtherIdentity'",
+    "severity": "high",
+    "type": "windows"
   }
 ]
