@@ -58,5 +58,11 @@
     "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.NewProcessName), 'powershell.exe') && (contains(to_string(winlog.event_data.CommandLine), 'Add-MpPreference') || contains(to_string(winlog.event_data.CommandLine), 'Set-MpPreference'))",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "Suspicious Execution in User Writable Paths",
+    "expression": "to_string(event.code) == '4663' && winlog.event_data.AccessMask == '0x20' && (contains(to_string(winlog.event_data.ObjectName), 'AppData\\Local\\Temp') || contains(to_string(winlog.event_data.ObjectName), 'AppData\\Roaming') || contains(to_string(winlog.event_data.ObjectName), 'Users\\Public'))",
+    "severity": "high",
+    "type": "windows"
   }
 ]
