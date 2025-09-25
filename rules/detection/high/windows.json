@@ -70,5 +70,11 @@
     "expression": "to_string(event.code) == '5136' && winlog.event_data.AttributeLDAPDisplayName == 'msDS-AllowedToActOnBehalfOfOtherIdentity'",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "Unusual Kerberos TicketOptions",
+    "expression": "(to_string(event.code) == '4771' || to_string(event.code) == '4768') && to_string(winlog.event_data.TicketOptions) == '0x50800000'",
+    "severity": "high",
+    "type": "windows"
   }
 ]
