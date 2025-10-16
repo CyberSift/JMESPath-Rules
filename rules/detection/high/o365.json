@@ -37,7 +37,7 @@
   },
   {
     "title": "O365 Sharing Abuse from VPS",
-    "expression": "(o365.audit.Operation == 'SharingSet' || o365.audit.Operation == 'AddToSecureLink' || o365.audit.Operation == 'SecureLinkCreated') && ("cybersift.threat_info".usageType == 'hosting') && !(o365.audit.UserId == 'app@sharepoint' || source.as.organization.name == 'MICROSOFT-CORP-MSN-AS-BLOCK') && o365.audit.AuthenticationType=='FormsCookieAuth'",
+    "expression": "(o365.audit.Operation == 'SharingSet' || o365.audit.Operation == 'AddToSecureLink' || o365.audit.Operation == 'SecureLinkCreated') && (\"cybersift.threat_info\".usageType == 'hosting') && !(o365.audit.UserId == 'app@sharepoint' || source.as.organization.name == 'MICROSOFT-CORP-MSN-AS-BLOCK') && o365.audit.AuthenticationType=='FormsCookieAuth'",
     "severity": "high",
     "type": "o365"
   }
