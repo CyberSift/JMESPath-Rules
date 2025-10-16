@@ -34,5 +34,11 @@
     "expression": "event.dataset == 'o365.audit' && event.provider == 'Exchange' && event.action == 'MailItemsAccessed' && event.code == 'ExchangeItemAggregated' && ((contains(to_string(o365.audit.OperationProperties[].Name), 'IsThrottled') && contains(to_string(o365.audit.OperationProperties[].Value), 'True')) || o365.audit.OperationCount >= `100`)",
     "severity": "high",
     "type": "o365"
+  },
+  {
+    "title": "O365 Sharing Abuse from VPS",
+    "expression": "(o365.audit.Operation == 'SharingSet' || o365.audit.Operation == 'AddToSecureLink' || o365.audit.Operation == 'SecureLinkCreated') && (\"cybersift.threat_info\".usageType == 'hosting') && !(o365.audit.UserId == 'app@sharepoint' || source.as.organization.name == 'MICROSOFT-CORP-MSN-AS-BLOCK') && o365.audit.AuthenticationType=='FormsCookieAuth'",
+    "severity": "high",
+    "type": "o365"
   }
 ]
