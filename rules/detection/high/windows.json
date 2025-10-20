@@ -88,5 +88,11 @@
     "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.ParentProcessName), 'odbcconf.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'odbcconf.exe')) && (contains(to_string(winlog.event_data.CommandLine), '.dll') || contains(to_string(winlog.event_data.CommandLine), '.rsp') || contains(to_string(winlog.event_data.CommandLine), 'REGSVR'))",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "userCertificate Modifications by SYSTEM",
+    "expression": "to_string(event.code) == '5136' && winlog.event_data.AttributeLDAPDisplayName=='userCertificate' && winlog.cybersift.SubjectUserType=='user' && winlog.cybersift.SubjectUserNameNormalized=='system'",
+    "severity": "high",
+    "type": "windows"
   }
 ]
