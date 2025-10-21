@@ -16,5 +16,11 @@
     "expression": "DestinationPort=='445' && denied_flow==`false` && \"cybersift.threat_info\".knownThreat==`true` && DestinationAddress!='0.0.0.0'",
     "severity": "high",
     "type": "syslog"
+  },
+  {
+    "title": "WinRM Connections Detection",
+    "expression": "to_string(DestinationPort) == '5985' && action == 'accept'",
+    "severity": "high",
+    "type": "syslog"
   }
 ]
