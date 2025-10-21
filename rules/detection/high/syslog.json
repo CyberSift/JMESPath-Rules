@@ -19,7 +19,7 @@
   },
   {
     "title": "WinRM Connections Detection",
-    "expression": "to_string(DestinationPort) == '5985' && action == 'accept'",
+    "expression": "to_string(DestinationPort) == '5985' && denied_flow == 'false'",
     "severity": "high",
     "type": "syslog"
   }
