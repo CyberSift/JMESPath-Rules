@@ -100,5 +100,11 @@
     "expression": "to_string(event.code) == '4769' && winlog.event_data.TargetUserType == 'user' && winlog.event_data.SessionKeyEncryptionType == '0x17'",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "userCertificate Modifications by SYSTEM",
+    "expression": "to_string(event.code) == '5136' && winlog.event_data.AttributeLDAPDisplayName=='userCertificate' && winlog.cybersift.SubjectUserType=='user' && winlog.cybersift.SubjectUserNameNormalized=='system'",
+    "severity": "high",
+    "type": "windows"
   }
 ]
