@@ -106,5 +106,11 @@
     "expression": "to_string(event.code) == '5136' && winlog.event_data.AttributeLDAPDisplayName=='userCertificate' && winlog.cybersift.SubjectUserType=='user' && winlog.cybersift.SubjectUserNameNormalized=='system'",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "Potential Kerberos Delegation or Coerced Authentication Detected",
+    "expression": "to_string(event.code) == '4769' && winlog.event_data.TransmittedServices && to_string(winlog.event_data.TransmittedServices) =! '-'",
+    "severity": "high",
+    "type": "windows"
   }
 ]
