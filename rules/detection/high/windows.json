@@ -109,7 +109,7 @@
   },
   {
     "title": "Potential Kerberos Delegation or Coerced Authentication Detected",
-    "expression": "to_string(event.code) == '4769' && winlog.event_data.TransmittedServices && to_string(winlog.event_data.TransmittedServices) =! '-'",
+    "expression": "to_string(event.code) == '4769' && winlog.event_data.TransmittedServices && to_string(winlog.event_data.TransmittedServices) != '-'",
     "severity": "high",
     "type": "windows"
   }
