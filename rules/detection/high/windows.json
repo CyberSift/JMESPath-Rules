@@ -112,5 +112,11 @@
     "expression": "to_string(event.code) == '4769' && winlog.event_data.TransmittedServices && to_string(winlog.event_data.TransmittedServices) != '-'",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "User Account Created with Password Not Required",
+    "expression": "to_string(event.code) == '4741' && winlog.event_data.NewUacValue == '0x84'",
+    "severity": "high",
+    "type": "windows"
   }
 ]
