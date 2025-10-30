@@ -118,5 +118,11 @@
     "expression": "to_string(event.code) == '4741' && winlog.event_data.NewUacValue == '0x84'",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "WSUS RCE Process Spawn",
+    "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.ParentProcessName),'w3wp.exe') || ends_with(to_string(winlog.event_data.ParentProcessName),'wsusservice.exe')) && (ends_with(to_string(winlog.event_data.NewProcessName),'cmd.exe') || ends_with(to_string(winlog.event_data.NewProcessName),'powershell.exe'))",
+    "severity": "high",
+    "type": "windows"
   }
 ]
