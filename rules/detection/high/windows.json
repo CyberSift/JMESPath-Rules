@@ -109,7 +109,7 @@
   },
   {
     "title": "Potential Kerberos Delegation or Coerced Authentication Detected",
-    "expression": "to_string(event.code) == '4769' && winlog.event_data.TransmittedServices && to_string(winlog.event_data.TransmittedServices) != '-'",
+    "expression": "to_string(event.code) == '4769' && winlog.event_data.TransmittedServices != null && to_string(winlog.event_data.TransmittedServices) != '-'",
     "severity": "high",
     "type": "windows"
   },
@@ -122,6 +122,12 @@
   {
     "title": "WSUS RCE Process Spawn",
     "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.ParentProcessName),'w3wp.exe') || ends_with(to_string(winlog.event_data.ParentProcessName),'wsusservice.exe')) && (ends_with(to_string(winlog.event_data.NewProcessName),'cmd.exe') || ends_with(to_string(winlog.event_data.NewProcessName),'powershell.exe'))",
+    "severity": "high",
+    "type": "windows"
+  },
+  {
+    "title": "Kerberos Constrained Delegation Configured",
+    "expression": "winlog.event_data.AllowedToDelegateTo != null && to_string(winlog.event_data.AllowedToDelegateTo) != '-'",
     "severity": "high",
     "type": "windows"
   }
