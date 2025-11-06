@@ -124,5 +124,11 @@
     "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.ParentProcessName),'w3wp.exe') || ends_with(to_string(winlog.event_data.ParentProcessName),'wsusservice.exe')) && (ends_with(to_string(winlog.event_data.NewProcessName),'cmd.exe') || ends_with(to_string(winlog.event_data.NewProcessName),'powershell.exe'))",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "Kerberos Constrained Delegation Configured",
+    "expression": "winlog.event_data.AllowedToDelegateTo && to_string(winlog.event_data.AllowedToDelegateTo) != '-'",
+    "severity": "high",
+    "type": "windows"
   }
 ]
