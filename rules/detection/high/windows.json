@@ -142,5 +142,11 @@
     "expression": "to_string(event.code) == '5140' && (ends_with(to_string(winlog.event_data.ShareName), 'env_variables_oracle_permission_script') || ends_with(to_string(winlog.event_data.ShareName), 'Tasks') || ends_with(to_string(winlog.event_data.ShareName), 'GPO Installations') || ends_with(to_string(winlog.event_data.ShareName), 'scripts'))",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "Unusual RPC Access to Sensitive Shares via SMB",
+    "expression": "to_string(event.code) == '5145' && ends_with(to_string(winlog.event_data.ShareName), 'IPC$') && (to_string(winlog.event_data.RelativeTargetName) == 'DAV RPC Service' || to_string(winlog.event_data.RelativeTargetName) == 'svcctl' || to_string(winlog.event_data.RelativeTargetName) == 'cert' || to_string(winlog.event_data.RelativeTargetName) == 'lsass')",
+    "severity": "high",
+    "type": "windows"
   }
 ]
