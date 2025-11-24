@@ -148,5 +148,11 @@
     "expression": "to_string(event.code) == '5145' && ends_with(to_string(winlog.event_data.ShareName), 'IPC$') && (to_string(winlog.event_data.RelativeTargetName) == 'DAV RPC Service' || to_string(winlog.event_data.RelativeTargetName) == 'svcctl' || to_string(winlog.event_data.RelativeTargetName) == 'cert' || to_string(winlog.event_data.RelativeTargetName) == 'lsass')",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "GPO Access by Non-Admin User",
+    "expression": "to_string(event.code) == '4662' && winlog.cybersift.SubjectUserType == 'user' && winlog.event_data.ObjectServer == 'DS' && winlog.cybersift.KerberosObjectType == 'c-grouppolicycontainer'",
+    "severity": "high",
+    "type": "windows"
   }
 ]
