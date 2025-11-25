@@ -40,5 +40,11 @@
     "expression": "(o365.audit.Operation == 'SharingSet' || o365.audit.Operation == 'AddToSecureLink' || o365.audit.Operation == 'SecureLinkCreated') && (\"cybersift.threat_info\".usageType == 'hosting') && !(o365.audit.UserId == 'app@sharepoint' || source.as.organization.name == 'MICROSOFT-CORP-MSN-AS-BLOCK') && o365.audit.AuthenticationType=='FormsCookieAuth'",
     "severity": "high",
     "type": "o365"
+  },
+  {
+    "title": "O365 Login to High-Risk Admin Application from VPS",
+    "expression": "((o365.audit.Operation == 'UserLoggedIn' || o365.audit.LogonError == 'UserStrongAuthClientAuthNRequiredInterrupt') && cybersift.threat_info.usageType == 'hosting') && ((contains(o365.cybersift.application, 'Azure') || contains(o365.cybersift.application, 'Admin')) && (source.as.organization.name != 'MICROSOFT-CORP-MSN-AS-BLOCK'))",
+    "severity": "high",
+    "type": "o365"
   }
 ]
