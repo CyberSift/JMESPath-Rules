@@ -43,7 +43,7 @@
   },
   {
     "title": "O365 Login to High-Risk Admin Application from VPS",
-    "expression": "((o365.audit.Operation == 'UserLoggedIn' || o365.audit.LogonError == 'UserStrongAuthClientAuthNRequiredInterrupt') && cybersift.threat_info.usageType == 'hosting') && ((contains(o365.cybersift.application, 'Azure') || contains(o365.cybersift.application, 'Admin')) && (source.as.organization.name != 'MICROSOFT-CORP-MSN-AS-BLOCK'))",
+    "expression": "((o365.audit.Operation == 'UserLoggedIn' || o365.audit.LogonError == 'UserStrongAuthClientAuthNRequiredInterrupt') && cybersift.threat_info.usageType == 'hosting') && ((contains(to_string(o365.cybersift.application), 'Azure') || contains(to_string(o365.cybersift.application), 'Admin')) && (source.as.organization.name != 'MICROSOFT-CORP-MSN-AS-BLOCK'))",
     "severity": "high",
     "type": "o365"
   }
