@@ -46,5 +46,11 @@
     "expression": "((o365.audit.Operation == 'UserLoggedIn' || o365.audit.LogonError == 'UserStrongAuthClientAuthNRequiredInterrupt') && cybersift.threat_info.usageType == 'hosting') && ((contains(to_string(o365.cybersift.application), 'Azure') || contains(to_string(o365.cybersift.application), 'Admin')) && (source.as.organization.name != 'MICROSOFT-CORP-MSN-AS-BLOCK'))",
     "severity": "high",
     "type": "o365"
+  },
+  {
+    "title": "Possible Password Leak – Failed MFA from Non-Standard Browser",
+    "expression": "event.action == 'UserLoginFailed' && o365.audit.LogonError == 'UserStrongAuthClientAuthNRequiredInterrupt' && cybersift.DeviceProperties.BrowserType == 'Other'",
+    "severity": "high",
+    "type": "o365"
   }
 ]
