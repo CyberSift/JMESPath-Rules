@@ -52,5 +52,11 @@
     "expression": "event.action == 'UserLoginFailed' && o365.audit.LogonError == 'UserStrongAuthClientAuthNRequiredInterrupt' && cybersift.DeviceProperties.BrowserType == 'Other'",
     "severity": "high",
     "type": "o365"
+  },
+  {
+    "title": "Known Threat O365 User Login Attempt",
+    "expression": "event.action == 'UserLoggedIn' && to_string(cybersift.threat_info.knownThreat) == 'true' && (o365.audit.ExtendedProperties.RequestType == 'OAuth2:Token' || o365.audit.ExtendedProperties.RequestType == 'Login:login')",
+    "severity": "high",
+    "type": "o365"
   }
 ]
