@@ -150,8 +150,8 @@
     "type": "windows"
   },
   {
-    "title": "PowerShell Suspicious Download or Extraction",
-    "expression": "to_string(event.code) == '4104' && (contains(to_string(winlog.event_data.ScriptBlockText), 'expand-archive') || contains(to_string(winlog.event_data.ScriptBlockText), 'certutil') || contains(to_string(winlog.event_data.ScriptBlockText), 'curl') || contains(to_string(winlog.event_data.ScriptBlockText), 'wget') || contains(to_string(winlog.event_data.ScriptBlockText), 'bitsadmin') || contains(to_string(winlog.event_data.ScriptBlockText), 'Start-BitsTransfer') || contains(to_string(winlog.event_data.ScriptBlockText), 'DownloadFile') || contains(to_string(winlog.event_data.ScriptBlockText), 'Invoke-WebRequest') || contains(to_string(winlog.event_data.ScriptBlockText), 'iwr'))",
+    "title": "PowerShell Suspicious Download and Extraction",
+    "expression": "to_string(event.code) == '4104' && (contains(to_string(winlog.event_data.ScriptBlockText), 'certutil') || contains(to_string(winlog.event_data.ScriptBlockText), 'curl') || contains(to_string(winlog.event_data.ScriptBlockText), 'wget') || contains(to_string(winlog.event_data.ScriptBlockText), 'bitsadmin') || contains(to_string(winlog.event_data.ScriptBlockText), 'Start-BitsTransfer') || contains(to_string(winlog.event_data.ScriptBlockText), 'DownloadFile') || contains(to_string(winlog.event_data.ScriptBlockText), 'Invoke-WebRequest') || contains(to_string(winlog.event_data.ScriptBlockText), 'iwr')) && (contains(to_string(winlog.event_data.ScriptBlockText), 'Expand-Archive') || contains(to_string(winlog.event_data.ScriptBlockText), 'expand-archive'))",
     "severity": "high",
     "type": "windows"
   }
