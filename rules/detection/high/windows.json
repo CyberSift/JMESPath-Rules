@@ -154,5 +154,11 @@
     "expression": "to_string(event.code) == '4104' && (contains(to_string(winlog.event_data.ScriptBlockText), 'certutil') || contains(to_string(winlog.event_data.ScriptBlockText), 'curl') || contains(to_string(winlog.event_data.ScriptBlockText), 'wget') || contains(to_string(winlog.event_data.ScriptBlockText), 'bitsadmin') || contains(to_string(winlog.event_data.ScriptBlockText), 'Start-BitsTransfer') || contains(to_string(winlog.event_data.ScriptBlockText), 'DownloadFile') || contains(to_string(winlog.event_data.ScriptBlockText), 'Invoke-WebRequest') || contains(to_string(winlog.event_data.ScriptBlockText), 'iwr')) && (contains(to_string(winlog.event_data.ScriptBlockText), 'Expand-Archive') || contains(to_string(winlog.event_data.ScriptBlockText), 'expand-archive'))",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "AutoIt3 Execution",
+    "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), 'AutoIt3.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), 'AutoIt3.exe') || contains(to_string(winlog.event_data.CommandLine), '.au3') || contains(to_string(winlog.event_data.CommandLine), 'autoit'))",
+    "severity": "high",
+    "type": "windows"
   }
 ]
