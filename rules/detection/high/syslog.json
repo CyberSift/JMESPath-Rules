@@ -24,8 +24,8 @@
     "type": "syslog"
   },
   {
-    "title": "Suspicious SSO or Config Download",
-    "expression": "type == 'event' && subtype == 'system' && (contains(to_string(msg), 'sso') || contains(to_string(msg), 'downloaded'))",
+    "title": "FortiGate Suspicious SSO or Config Download",
+    "expression": "cybersift.parser.vendor == 'Fortigate' && type == 'event' && subtype == 'system' && (contains(to_string(msg), 'sso') || contains(to_string(msg), 'downloaded'))",
     "severity": "high",
     "type": "syslog"
   }
