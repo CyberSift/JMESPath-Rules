@@ -127,7 +127,7 @@
   },
   {
     "title": "C$ Share Access by Administrator Account",
-    "expression": "(to_string(event.code) == '5140' || to_string(event.code) == '5145') && ends_with(to_string(winlog.event_data.ShareName), 'C$') && winlog.cybersift.SubjectUserNameNormalized == 'administrator' && to_string(winlog.event_data.IpAddress) != '::1'",
+    "expression": "(to_string(event.code) == '5140' || to_string(event.code) == '5145') && to_string(winlog.event_data.ShareName) == '\\\\*\\C$' && winlog.cybersift.SubjectUserNameNormalized == 'administrator' && to_string(winlog.event_data.IpAddress) != '::1'",
     "severity": "high",
     "type": "windows"
   },
