@@ -58,5 +58,11 @@
     "expression": "event.action == 'UserLoggedIn' && to_string(cybersift.threat_info.knownThreat) == 'true' && (o365.audit.ExtendedProperties.RequestType == 'OAuth2:Token' || o365.audit.ExtendedProperties.RequestType == 'Login:login')",
     "severity": "high",
     "type": "o365"
+  },
+  {
+    "title": "Suspicious login from BAV2ROPC User Agent",
+    "expression": "o365.audit.ExtendedProperties.UserAgent=='BAV2ROPC' && o365.audit.ExtendedProperties.RequestType=='OAuth2:Token' && to_string(o365.audit.ExtendedProperties.UserAuthenticationMethod)=='16' && source.as.organization.name!='MICROSOFT-CORP-MSN-AS-BLOCK' && o365.audit.ResultStatus!='Failed'",
+    "severity": "high",
+    "type": "o365"
   }
 ]
