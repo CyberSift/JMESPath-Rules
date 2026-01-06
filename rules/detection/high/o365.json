@@ -67,7 +67,7 @@
   },
   {
     "title": "O365 Activity from Tor IP Address",
-    "expression": "o365.audit.Operation!='UserLoginFailed' && contains(to_string("cybersift.threat_info".threats), 'Tor')",
+    "expression": "o365.audit.Operation!='UserLoginFailed' && contains(to_string(\"cybersift.threat_info\".threats), 'Tor')",
     "severity": "high",
     "type": "o365"
   }
