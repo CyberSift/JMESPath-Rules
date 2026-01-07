@@ -160,5 +160,11 @@
     "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), 'AutoIt3.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), 'AutoIt3.exe') || contains(to_string(winlog.event_data.CommandLine), '.au3') || contains(to_string(winlog.event_data.CommandLine), 'autoit'))",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "Windows Security Audit Policy Tampering",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'auditpol.exe') && winlog.event_data.SubjectUserSid != 'S-1-5-18'",
+    "severity": "high",
+    "type": "windows"
   }
 ]
