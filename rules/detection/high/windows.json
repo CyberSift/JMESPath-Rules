@@ -172,5 +172,11 @@
     "expression": "to_string(event.code) == '4697' && contains(to_string(winlog.event_data.ServiceFileName), 'Public')",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "Suspicious Screenshots captures via PowerShell script",
+    "expression": "to_string(event.code) == '4104' && (contains(to_string(winlog.event_data.ScriptBlockText), 'CopyFromScreen') && ((contains(to_string(winlog.event_data.ScriptBlockText), 'System.Drawing.Bitmap') || (contains(to_string(winlog.event_data.ScriptBlockText), 'Drawing.Bitmap'))",
+    "severity": "high",
+    "type": "windows"
   }
 ]
