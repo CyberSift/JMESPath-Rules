@@ -2,7 +2,7 @@
   {
     "title": "NTLM V1 Detected",
     "expression": "to_string(event.code) == 'to_string(event.code) == '4624' && winlog.event_data.LmPackageName == 'NTLM V1'",
-    "severity": "high",
+    "severity": "low",
     "type": "windows"
   }
 ]
