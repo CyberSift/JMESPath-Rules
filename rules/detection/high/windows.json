@@ -178,5 +178,11 @@
     "expression": "to_string(event.code) == '4104' && (contains(to_string(winlog.event_data.ScriptBlockText), 'CopyFromScreen') && (contains(to_string(winlog.event_data.ScriptBlockText), 'System.Drawing.Bitmap') || contains(to_string(winlog.event_data.ScriptBlockText), 'Drawing.Bitmap')))",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "Suspicious Access to Confidential AD Attributes",
+    "expression": "to_string(event.code) == '4662' && winlog.cybersift.SubjectUserType == 'user' && contains(to_string(winlog.cybersift.KerberosRequestedAccessList), 'a-unixuserpassword') && contains(to_string(winlog.cybersift.KerberosRequestedAccessList), 'c-user') && !contains(to_string(winlog.cybersift.KerberosRequestedAccessList), 'a-mspkiroamiangtimestamp') && (to_string(winlog.event_data.AccessMask) == '0x100' || to_string(winlog.event_data.AccessMask) == '0x40000')",
+    "severity": "high",
+    "type": "windows"
   }
 ]
