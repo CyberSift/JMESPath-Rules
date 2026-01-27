@@ -187,7 +187,7 @@
   },
   {
     "title": "Persistence via Startup folder",
-    "expression": "to_string(event.code) == '4663' && contains(to_string(winlog.event_data.ObjectName), '\\Programs\\Startup\\') && (contains(to_string(winlog.cybersift.AccessList), 'WriteData') || contains(to_string(winlog.cybersift.AccessList), 'AppendData'))",
+    "expression": "to_string(event.code) == '4663' && contains(to_string(winlog.event_data.ObjectName), '\\\\Programs\\\\Startup\\\\') && (contains(to_string(winlog.cybersift.AccessList), 'WriteData') || contains(to_string(winlog.cybersift.AccessList), 'AppendData'))",
     "severity": "high",
     "type": "windows"
   }
