@@ -28,5 +28,11 @@
     "expression": "cybersift.parser.vendor == 'Fortigate' && type == 'event' && subtype == 'system' && (contains(to_string(msg), 'sso') || contains(to_string(msg), 'downloaded'))",
     "severity": "high",
     "type": "syslog"
+  },
+  {
+    "title": "FortiGate Admin Account Creation",
+    "expression": "cybersift.parser.vendor == 'Fortigate' && type == 'event' && subtype == 'system' && contains(to_string(msg), 'Add system.admin')",
+    "severity": "high",
+    "type": "syslog"
   }
 ]
