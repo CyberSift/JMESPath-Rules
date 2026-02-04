@@ -181,13 +181,25 @@
   },
   {
     "title": "Suspicious Access to Confidential AD Attributes",
-    "expression": "to_string(event.code) == '4662' && winlog.cybersift.SubjectUserType == 'user' && contains(to_string(winlog.cybersift.KerberosRequestedAccessList), 'a-unixuserpassword') && contains(to_string(winlog.cybersift.KerberosRequestedAccessList), 'c-user') && !contains(to_string(winlog.cybersift.KerberosRequestedAccessList), 'a-mspkiroamingtimestamp') && (to_string(winlog.event_data.AccessMask) == '0x100' || to_string(winlog.event_data.AccessMask) == '0x40000') && !ends_with(to_string(winlog.event_data.ObjectName), 'desktop.ini')",
+    "expression": "to_string(event.code) == '4662' && winlog.cybersift.SubjectUserType == 'user' && contains(to_string(winlog.cybersift.KerberosRequestedAccessList), 'a-unixuserpassword') && contains(to_string(winlog.cybersift.KerberosRequestedAccessList), 'c-user') && !contains(to_string(winlog.cybersift.KerberosRequestedAccessList), 'a-mspkiroamingtimestamp') && (to_string(winlog.event_data.AccessMask) == '0x100' || to_string(winlog.event_data.AccessMask) == '0x40000')",
     "severity": "high",
     "type": "windows"
   },
   {
     "title": "Persistence via Startup folder",
-    "expression": "to_string(event.code) == '4663' && contains(to_string(winlog.event_data.ObjectName), '\\\\Programs\\\\Startup\\\\') && (contains(to_string(winlog.cybersift.AccessList), 'WriteData') || contains(to_string(winlog.cybersift.AccessList), 'AppendData'))",
+    "expression": "to_string(event.code) == '4663' && contains(to_string(winlog.event_data.ObjectName), '\\\\Programs\\\\Startup\\\\') && (contains(to_string(winlog.cybersift.AccessList), 'WriteData') || contains(to_string(winlog.cybersift.AccessList), 'AppendData')) && !ends_with(to_string(winlog.event_data.ObjectName), 'desktop.ini')",
+    "severity": "high",
+    "type": "windows"
+  },
+  {
+    "title": "PsExec Remote Service Execution",
+    "expression": "(to_string(event.code) == '7045' && winlog.event_data.ServiceName == 'PSEXESVC') || (to_string(event.code) == '4657' && contains(to_string(winlog.event_data.ObjectName), 'PsExec')) || (to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName), 'PSEXESVC.exe')) || (to_string(event.code) == '5145' && ends_with(to_string(winlog.event_data.ShareName), 'IPC$') && (contains(to_string(winlog.event_data.RelativeTargetName), 'stdin') || contains(to_string(winlog.event_data.RelativeTargetName), 'stderr') || contains(to_string(winlog.event_data.RelativeTargetName), 'stdout')))",
+    "severity": "high",
+    "type": "windows"
+  },
+  {
+    "title": "NotepadPP GUP Suspicious ChildProcesses",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName),'GUP.exe') && winlog.event_data.NewProcessName!='C:\\\\Windows\\\\explorer.exe' && winlog.event_data.NewProcessName!='C:\\\\Program Files\\\\Notepad++\\\\updater\\\\GUP.exe'",
     "severity": "high",
     "type": "windows"
   }

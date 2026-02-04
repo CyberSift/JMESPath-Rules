@@ -28,5 +28,17 @@
     "expression": "cybersift.parser.vendor == 'Fortigate' && type == 'event' && subtype == 'system' && (contains(to_string(msg), 'sso') || contains(to_string(msg), 'downloaded'))",
     "severity": "high",
     "type": "syslog"
+  },
+  {
+    "title": "FortiGate Admin Account Creation",
+    "expression": "cybersift.parser.vendor == 'Fortigate' && type == 'event' && subtype == 'system' && contains(to_string(msg), 'Add system.admin')",
+    "severity": "high",
+    "type": "syslog"
+  },
+  {
+    "title": "Suspicious NotepadPP GUP Network Indicators",
+    "expression": "to_string(DestinationAddress) == '61.4.102.97' || to_string(DestinationAddress) == '59.110.7.32' || to_string(DestinationAddress) == '124.222.137.114' || to_string(DestinationAddress) == '95.179.213.0' || (hostname || '') == 'api.skycloudcenter.com' || (hostname || '') == 'api.wiresguard.com'",
+    "severity": "high",
+    "type": "syslog"
   }
 ]
