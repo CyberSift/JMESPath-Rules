@@ -196,5 +196,11 @@
     "expression": "(to_string(event.code) == '7045' && winlog.event_data.ServiceName == 'PSEXESVC') || (to_string(event.code) == '4657' && contains(to_string(winlog.event_data.ObjectName), 'PsExec')) || (to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName), 'PSEXESVC.exe')) || (to_string(event.code) == '5145' && ends_with(to_string(winlog.event_data.ShareName), 'IPC$') && (contains(to_string(winlog.event_data.RelativeTargetName), 'stdin') || contains(to_string(winlog.event_data.RelativeTargetName), 'stderr') || contains(to_string(winlog.event_data.RelativeTargetName), 'stdout')))",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "NotepadPP GUP Suspicious ChildProcesses",
+    "expression": "to_string(event.code) == 4688 && ends_with(to_string(winlog.event_data.ParentProcessName),'GUP.exe') && winlog.event_data.NewProcessName!='C:\\Windows\\explorer.exe' && winlog.event_data.NewProcessName!='C:\\Program Files\\Notepad++\\updater\\GUP.exe'",
+    "severity": "high",
+    "type": "windows"
   }
 ]
