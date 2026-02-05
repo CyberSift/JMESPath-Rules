@@ -70,5 +70,11 @@
     "expression": "o365.audit.Operation!='UserLoginFailed' && contains(to_string(\"cybersift.threat_info\".threats), 'Tor')",
     "severity": "high",
     "type": "o365"
+  },
+  {
+    "title": "Sensitive eDiscovery admin action detected",
+    "expression": "o365.audit.Workload == 'SecurityComplianceCenter' && ends_with(to_string(o365.audit.Operation), 'eDiscoveryCaseAdmin')",
+    "severity": "high",
+    "type": "o365"
   }
 ]
