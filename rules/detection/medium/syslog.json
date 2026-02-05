@@ -19,7 +19,7 @@
   },
   {
     "title": "Connection To Known Threat (Destination IP Known Threat)",
-    "expression": "contains(Abnormal_Notes || '','Known_Threat_Outbound') && denied_flow==`false` && \"cybersift.deduped\"=='false'",
+    "expression": "contains(Abnormal_Notes || '','Known_Threat_Outbound') && denied_flow==`false` && \"cybersift.deduped\"=='false' && !(contains(to_string(\"cybersift.threat_info\".isp), 'Cloudflare') || contains(to_string(\"cybersift.threat_info\".isp), 'CLOUDFLARE') || contains(to_string(\"cybersift.threat_info\".isp), 'Fastly') || contains(to_string(\"cybersift.threat_info\".isp), 'Amazon') || contains(to_string(\"cybersift.threat_info\".isp), 'AMAZON') || contains(to_string(\"cybersift.threat_info\".isp), 'Microsoft'))",
     "severity": "medium",
     "type": "syslog"
   }
