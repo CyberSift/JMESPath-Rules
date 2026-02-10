@@ -202,5 +202,11 @@
     "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName),'GUP.exe') && winlog.event_data.NewProcessName!='C:\\\\Windows\\\\explorer.exe' && winlog.event_data.NewProcessName!='C:\\\\Program Files\\\\Notepad++\\\\updater\\\\GUP.exe'",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "Potential Defense Evasion: Audit Log Cleared",
+    "expression": "to_string(event.code) == '1102' OR messageTitle == 'The audit log was cleared.'",
+    "severity": "high",
+    "type": "windows"
   }
 ]
