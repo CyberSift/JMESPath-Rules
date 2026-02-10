@@ -205,7 +205,7 @@
   },
   {
     "title": "Potential Defense Evasion: Audit Log Cleared",
-    "expression": "to_string(event.code) == '1102' OR messageTitle == 'The audit log was cleared.'",
+    "expression": "to_string(event.code) == '1102' || messageTitle == 'The audit log was cleared.'",
     "severity": "high",
     "type": "windows"
   }
