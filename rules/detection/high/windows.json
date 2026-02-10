@@ -202,5 +202,11 @@
     "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName),'GUP.exe') && winlog.event_data.NewProcessName!='C:\\\\Windows\\\\explorer.exe' && winlog.event_data.NewProcessName!='C:\\\\Program Files\\\\Notepad++\\\\updater\\\\GUP.exe'",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "NewCredentials Logon Using Secondary Logon",
+    "expression": "to_string(event.code) == '4624' && to_string(winlog.event_data.LogonType) == '9' && contains(to_string(winlog.event_data.LogonProcessName), 'seclogo')",
+    "severity": "high",
+    "type": "windows"
   }
 ]
