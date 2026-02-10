@@ -202,5 +202,11 @@
     "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName),'GUP.exe') && winlog.event_data.NewProcessName!='C:\\\\Windows\\\\explorer.exe' && winlog.event_data.NewProcessName!='C:\\\\Program Files\\\\Notepad++\\\\updater\\\\GUP.exe'",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "DPAPI Domain Backup Key Extraction",
+    "expression": "to_string(event.code) == '4662' && winlog.event_data.ObjectType == 'SecretObject' && contains(to_string(winlog.event_data.ObjectName), 'BCKUPKEY') && to_string(winlog.event_data.AccessMask) == '0x2'",
+    "severity": "high",
+    "type": "windows"
   }
 ]
