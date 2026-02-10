@@ -202,5 +202,11 @@
     "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName),'GUP.exe') && winlog.event_data.NewProcessName!='C:\\\\Windows\\\\explorer.exe' && winlog.event_data.NewProcessName!='C:\\\\Program Files\\\\Notepad++\\\\updater\\\\GUP.exe'",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "Windows Process Execution with Double File Extension",
+    "expression": "to_string(event.code) == '4688' && (contains(to_string(winlog.event_data.NewProcessName), '.pdf.') || contains(to_string(winlog.event_data.NewProcessName), '.doc.') || contains(to_string(winlog.event_data.NewProcessName), '.docx.') || contains(to_string(winlog.event_data.NewProcessName), '.xls.') || contains(to_string(winlog.event_data.NewProcessName), '.xlsx.') || contains(to_string(winlog.event_data.NewProcessName), '.ppt.') || contains(to_string(winlog.event_data.NewProcessName), '.pptx.') || contains(to_string(winlog.event_data.NewProcessName), '.jpg.') || contains(to_string(winlog.event_data.NewProcessName), '.txt.')) && (ends_with(to_string(winlog.event_data.NewProcessName), '.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '.scr') || ends_with(to_string(winlog.event_data.NewProcessName), '.hta') || ends_with(to_string(winlog.event_data.NewProcessName), '.js') || ends_with(to_string(winlog.event_data.NewProcessName), '.vbs') || ends_with(to_string(winlog.event_data.NewProcessName), '.ps1') || ends_with(to_string(winlog.event_data.NewProcessName), '.lnk') || ends_with(to_string(winlog.event_data.NewProcessName), '.wsf'))",
+    "severity": "high",
+    "type": "windows"
   }
 ]
