@@ -204,6 +204,12 @@
     "type": "windows"
   },
   {
+    "title": "Potential Defense Evasion: Audit Log Cleared",
+    "expression": "winlog.channel == 'Security' && (to_string(event.code) == '1102' || messageTitle == 'The audit log was cleared.')",
+    "severity": "high",
+    "type": "windows"
+  },
+  {
     "title": "Svchost Masquerading",
     "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'svchost.exe') && winlog.event_data.NewProcessName != 'C:\\\\Windows\\\\System32\\\\svchost.exe' && winlog.event_data.NewProcessName != 'C:\\\\Windows\\\\SysWOW64\\\\svchost.exe'",
     "severity": "high",
