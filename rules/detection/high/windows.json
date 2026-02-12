@@ -202,5 +202,35 @@
     "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName),'GUP.exe') && winlog.event_data.NewProcessName!='C:\\\\Windows\\\\explorer.exe' && winlog.event_data.NewProcessName!='C:\\\\Program Files\\\\Notepad++\\\\updater\\\\GUP.exe'",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "DPAPI Domain Backup Key Extraction",
+    "expression": "to_string(event.code) == '4662' && winlog.event_data.ObjectType == 'SecretObject' && contains(to_string(winlog.event_data.ObjectName), 'BCKUPKEY') && to_string(winlog.event_data.AccessMask) == '0x2'",
+    "severity": "high",
+    "type": "windows"
+  },
+  { 
+    "title": "NewCredentials Logon Using Secondary Logon",
+    "expression": "to_string(event.code) == '4624' && to_string(winlog.event_data.LogonType) == '9' && contains(to_string(winlog.event_data.LogonProcessName), 'seclogo')",
+    "severity": "high",
+    "type": "windows"
+  },
+  {
+    "title": "Windows Process Execution with Double File Extension",
+    "expression": "to_string(event.code) == '4688' && (contains(to_string(winlog.event_data.NewProcessName), '.pdf.') || contains(to_string(winlog.event_data.NewProcessName), '.doc.') || contains(to_string(winlog.event_data.NewProcessName), '.docx.') || contains(to_string(winlog.event_data.NewProcessName), '.xls.') || contains(to_string(winlog.event_data.NewProcessName), '.xlsx.') || contains(to_string(winlog.event_data.NewProcessName), '.ppt.') || contains(to_string(winlog.event_data.NewProcessName), '.pptx.') || contains(to_string(winlog.event_data.NewProcessName), '.jpg.') || contains(to_string(winlog.event_data.NewProcessName), '.txt.')) && (ends_with(to_string(winlog.event_data.NewProcessName), '.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '.scr') || ends_with(to_string(winlog.event_data.NewProcessName), '.hta') || ends_with(to_string(winlog.event_data.NewProcessName), '.js') || ends_with(to_string(winlog.event_data.NewProcessName), '.vbs') || ends_with(to_string(winlog.event_data.NewProcessName), '.ps1') || ends_with(to_string(winlog.event_data.NewProcessName), '.lnk') || ends_with(to_string(winlog.event_data.NewProcessName), '.wsf'))",
+    "severity": "high",
+    "type": "windows"
+  },
+  {
+    "title": "Potential Defense Evasion: Audit Log Cleared",
+    "expression": "winlog.channel == 'Security' && (to_string(event.code) == '1102' || messageTitle == 'The audit log was cleared.')",
+    "severity": "high",
+    "type": "windows"
+  },
+  {
+    "title": "Svchost Masquerading",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'svchost.exe') && winlog.event_data.NewProcessName != 'C:\\\\Windows\\\\System32\\\\svchost.exe' && winlog.event_data.NewProcessName != 'C:\\\\Windows\\\\SysWOW64\\\\svchost.exe'",
+    "severity": "high",
+    "type": "windows"
   }
 ]
