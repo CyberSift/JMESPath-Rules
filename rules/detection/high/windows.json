@@ -61,7 +61,7 @@
   },
   {
     "title": "Suspicious Execution in User Writable Paths",
-    "expression": "to_string(event.code) == '4663' && winlog.event_data.AccessMask == '0x20' && (contains(to_string(winlog.event_data.ObjectName), 'AppData\\Local\\Temp') || contains(to_string(winlog.event_data.ObjectName), 'AppData\\Roaming') || contains(to_string(winlog.event_data.ObjectName), 'Users\\Public')) && !ends_with(to_string(winlog.event_data.ObjectName), 'RunWallpaperSetupInit.cmd')",
+    "expression": "to_string(event.code) == '4663' && winlog.event_data.AccessMask == '0x20' && (contains(to_string(winlog.event_data.ObjectName), 'AppData\\Local\\Temp') || contains(to_string(winlog.event_data.ObjectName), 'AppData\\Roaming') || contains(to_string(winlog.event_data.ObjectName), 'Users\\Public')) && !ends_with(to_string(winlog.event_data.ObjectName), 'RunWallpaperSetupInit.cmd') && !ends_with(to_string(winlog.event_data.ObjectName), 'DismHost.exe')",
     "severity": "high",
     "type": "windows"
   },
