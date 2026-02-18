@@ -58,5 +58,11 @@
     "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.NewProcessName), 'nltest.exe')",
     "severity": "medium",
     "type": "windows"
+  },
+  {
+    "title": "The security log is now full",
+    "expression": "to_string(event.code) == '1104' && to_string(winlog.channel) == 'Security'",
+    "severity": "medium",
+    "type": "windows"
   }
 ]
