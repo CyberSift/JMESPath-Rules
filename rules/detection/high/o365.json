@@ -19,7 +19,7 @@
   },
   {
     "title": "O365 Exchange Transport Rule Creation",
-    "expression": "event.dataset == 'o365.audit' && event.provider == 'Exchange' && event.category == 'web' && (event.action == 'New-TransportRule' || event.action == 'Set-TransportRule') && event.outcome == 'success'",
+    "expression": "event.dataset == 'o365.audit' && event.provider == 'Exchange' && event.category == 'web' && event.action == 'New-TransportRule' && event.outcome == 'success'",
     "severity": "high",
     "type": "o365"
   },
