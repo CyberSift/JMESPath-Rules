@@ -235,7 +235,7 @@
   },
   {
     "title": "Directory Services Restore Mode (DSRM) - Password Update Attempt",
-    "expression": "to_string(event.code) == '4794'"
+    "expression": "to_string(event.code) == '4794'",
     "severity": "high",
     "type": "windows"
   }
