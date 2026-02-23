@@ -232,5 +232,11 @@
     "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'svchost.exe') && winlog.event_data.NewProcessName != 'C:\\\\Windows\\\\System32\\\\svchost.exe' && winlog.event_data.NewProcessName != 'C:\\\\Windows\\\\SysWOW64\\\\svchost.exe'",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "Directory Services Restore Mode (DSRM) - Password Update Attempt",
+    "expression": "to_string(event.code) == '4794'"
+    "severity": "high",
+    "type": "windows"
   }
 ]
