@@ -1,0 +1,8 @@
+[
+  {
+    "title": "Example TITLE",
+    "expression": "example expression",
+    "severity": "high",
+    "type": "auditbeat"
+  }
+]
