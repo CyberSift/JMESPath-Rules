@@ -1,0 +1,8 @@
+[
+  {
+    "title": "Execution of SELinux Status Check Command",
+    "expression": "to_string(event.action) == 'executed' && (to_string(process.name) == 'sestatus' || contains(to_string(process.title), 'sestatus'))",
+    "severity": "low",
+    "type": "auditbeat"
+  }
+]
