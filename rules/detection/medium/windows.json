@@ -1,11 +1,5 @@
 [
   {
-    "title": "Local Administrator Activity",
-    "expression": "contains([`4624`, `4625`, `4648`, `4776`, `4688`], winlog.cybersift.\"event.code\") && winlog.event_data.TargetUserName=='Administrator'",
-    "severity": "medium",
-    "type": "windows"
-  },
-  {
     "title": "Non-existent user login",
     "expression": "to_string(event.code)=='4625' && winlog.event_data.SubStatus=='0xc0000064' && winlog.cybersift.TargetUserType=='user'",
     "severity": "medium",
