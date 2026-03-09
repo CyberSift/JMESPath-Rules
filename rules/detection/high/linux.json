@@ -1,7 +1,7 @@
 [
   {
     "title": "Boot/Kernel Configuration Modified",
-    "expression": "event.category == 'file' && event.type == 'change' && (contains(file.path || '', '/etc/sysctl') || contains(file.path || '', '/etc/modules-load.d/') || contains(file.path || '', '/etc/modprobe.d/') || contains(file.path || '', '/etc/default/grub') || contains(file.path || '', '/lib/modules/'))",
+    "expression": "(contains(event.category, 'file') && contains(event.type, 'change')) && (contains(file.path || '', '/etc/sysctl') || contains(file.path || '', '/etc/modules-load.d/') || contains(file.path || '', '/etc/modprobe.d/') || contains(file.path || '', '/etc/default/grub') || contains(file.path || '', '/lib/modules/'))",
     "severity": "high",
     "type": "auditbeat"
   }
