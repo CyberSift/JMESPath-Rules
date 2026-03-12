@@ -234,6 +234,8 @@
     "type": "windows"
   },
   {
+    "title": "Remote Execution via WinRM",
+    "expression": "(to_string(event.code) == '4624' && to_string(winlog.event_data.LogonType) == '3' && ends_with(to_string(winlog.event_data.ProcessName), 'powershell.exe')) || (to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName), 'WSMProvHost.exe') && (ends_with(to_string(winlog.event_data.NewProcessName), 'powershell.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'cmd.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'rundll32.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'wscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'cscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'mshta.exe')))",
     "title": "Directory Services Restore Mode (DSRM) - Password Update Attempt",
     "expression": "to_string(event.code) == '4794'",
     "severity": "high",
