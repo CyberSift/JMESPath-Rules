@@ -1,0 +1,8 @@
+[
+  {
+    "title": "Boot/Kernel Configuration Modified",
+    "expression": "contains(to_string(event.category), 'file') && contains(to_string(event.type), 'change') && (contains(to_string(file.path), '/etc/sysctl') || contains(to_string(file.path), '/etc/modules-load.d/') || contains(to_string(file.path), '/etc/modprobe.d/') || contains(to_string(file.path), '/etc/default/grub') || contains(to_string(file.path), '/lib/modules/'))",
+    "severity": "high",
+    "type": "auditbeat"
+  }
+]
