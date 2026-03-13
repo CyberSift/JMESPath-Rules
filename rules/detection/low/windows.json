@@ -1,8 +1,0 @@
-[
-  {
-    "title": "NTLM V1 Detected",
-    "expression": "to_string(event.code) == '4624' && winlog.event_data.LmPackageName == 'NTLM V1' && original.winlog.event_data.TargetUserNameNormalized != 'anonymous logon'",
-    "severity": "low",
-    "type": "windows"
-  }
-]
