@@ -244,5 +244,11 @@
     "expression": "to_string(event.code) == '4794'",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "Suspicious Run Dialog Execution",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\explorer.exe') && (ends_with(to_string(winlog.event_data.NewProcessName), '\\\\wscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\cscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\net.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\net1.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\schtasks.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\mshta.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\forfiles.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\wmic.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\msbuild.exe'))",
+    "severity": "high",
+    "type": "windows"
   }
 ]
