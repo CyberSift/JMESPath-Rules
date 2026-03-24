@@ -10,5 +10,12 @@
     "expression": "DestinationPort=='445' && isSourceInternal=='true' && isDestinationInternal=='false' && denied_flow==`false` && DestinationAddress!='0.0.0.0'",
     "severity": "medium",
     "type": "syslog"
+  },
+  {
+    "title": "Threat Intel: Filtered MISP Feed Hit",
+    "expression": "(contains(to_string(\"cybersift.threat_info\".threats), 'MITA MISP')) && !((contains(to_string(\"cybersift.threat_info\".threats), '1319')) || (contains(to_string(\"cybersift.threat_info\".threats), '1320')))",
+    "severity": "medium",
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/threat-intel-filtered-misp-feed-hit-rBbp9X7j2x"
   }
 ]
