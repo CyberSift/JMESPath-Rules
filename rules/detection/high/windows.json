@@ -244,5 +244,17 @@
     "expression": "to_string(event.code) == '4794'",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "Suspicious Run Dialog Execution",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\explorer.exe') && (ends_with(to_string(winlog.event_data.NewProcessName), '\\\\wscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\cscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\net.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\net1.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\schtasks.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\mshta.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\forfiles.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\wmic.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\msbuild.exe'))",
+    "severity": "high",
+    "type": "windows"
+  },
+  {
+    "title": "Suspicious RMM Execution",
+    "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), '\\\\QuickAssist.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\AnyDesk.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\TeamViewer.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\ScreenConnect.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\LogMeIn.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\Client32.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\RmmService.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\Atera.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\AteraAgent.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\PDQConnectAgent.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\Remote Access.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\RemCmdStub.exe')) && !starts_with(to_string(winlog.event_data.NewProcessName), 'C:\\\\Program Files')",
+    "severity": "high",
+    "type": "windows"
   }
 ]
