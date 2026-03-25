@@ -19,7 +19,7 @@
   },
   {
     "title": "O365 Copilot Jailbreak Attempt Detected",
-    "expression": "contains(o365.audit.CopilotEventData.Messages[].JailbreakDetected, `true`)",
+    "expression": "contains(to_string(o365.audit.CopilotEventData.Messages[].JailbreakDetected), `true`)",
     "severity": "medium",
     "type": "o365",
     "reference": "https://outline.cybersift.io/s/engineering/doc/o365-copilot-jailbreak-attempt-detected-ov5sunR6fe"
