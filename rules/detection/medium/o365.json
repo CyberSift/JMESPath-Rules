@@ -23,5 +23,12 @@
     "severity": "medium",
     "type": "o365",
     "reference": "https://outline.cybersift.io/s/engineering/doc/o365-copilot-jailbreak-attempt-detected-ov5sunR6fe"
+  },
+  {
+    "title": "O365 Sharepoint Operation from a threat IP",
+    "expression": "to_string(event.code) == 'SharePointFileOperation' && to_string(\"cybersift.threat_info\".knownThreat) == 'true'",
+    "severity": "medium",
+    "type": "o365",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/o365-sharepoint-operation-from-a-threat-ip-OkS0as2LKU"
   }
 ]
