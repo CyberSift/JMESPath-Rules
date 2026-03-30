@@ -262,5 +262,11 @@
     "expression": "(to_string(event.code) == '4728' || to_string(event.code) == '4756') && (winlog.cybersift.AddedToGroup == 'Enterprise Admins' || winlog.cybersift.AddedToGroup == 'Domain Admins' || winlog.cybersift.AddedToGroup == 'Administrators')",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "Admin Group Membership Removal - Possible Evasion",
+    "expression": "to_string(event.code) == '4729' && (winlog.cybersift.AddedToGroup == 'Enterprise Admins' || winlog.cybersift.AddedToGroup == 'Domain Admins' || winlog.cybersift.AddedToGroup == 'Administrators')",
+    "severity": "high",
+    "type": "windows"
   }
 ]
