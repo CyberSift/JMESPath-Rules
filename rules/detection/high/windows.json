@@ -273,7 +273,7 @@
     "title": "Suspicious VBS wscript",
     "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), '.vbs') && ends_with(to_string(winlog.event_data.NewProcessName), 'wscript.exe') && !contains(to_string(winlog.event_data.CommandLine), '\\\\system32\\\\slmgr.vbs') && winlog.event_data.ParentProcessName != 'C:\\\\Windows\\\\System32\\\\gpscript.exe'",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
     "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-vbs-wscript-xWe7mIIXqr"
   }
 ]
