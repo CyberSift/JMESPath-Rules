@@ -274,6 +274,6 @@
     "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), 'curl') && (contains(to_string(winlog.event_data.CommandLine), '>') || contains(to_string(winlog.event_data.CommandLine), '-o'))",
     "severity": "high",
     "type": "windows",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-curl-file-drop-nwLumjTy7a",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-curl-file-drop-nwLumjTy7a"
   }
 ]
