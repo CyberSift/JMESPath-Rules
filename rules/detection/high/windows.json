@@ -268,5 +268,12 @@
     "expression": "to_string(event.code) == '4729' && (winlog.cybersift.AddedToGroup == 'Enterprise Admins' || winlog.cybersift.AddedToGroup == 'Domain Admins' || winlog.cybersift.AddedToGroup == 'Administrators')",
     "severity": "high",
     "type": "windows"
+  },
+  {
+    "title": "Suspicious curl File Drop",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), 'curl') && (contains(to_string(winlog.event_data.CommandLine), '>') || contains(to_string(winlog.event_data.CommandLine), '-o'))",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-curl-file-drop-nwLumjTy7a"
   }
 ]
