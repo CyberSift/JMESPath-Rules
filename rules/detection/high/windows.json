@@ -282,5 +282,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-curl-file-drop-nwLumjTy7a"
+  },
+  {
+    "title": "Credential File and AppPath Access – Potential Amadey Cred Stealer",
+    "expression": "(to_string(event.code) == '4656' || to_string(event.code) == '4663') && (ends_with(to_string(winlog.event_data.ObjectName), 'SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\App Paths\\\\firefox.exe') || ends_with(to_string(winlog.event_data.ObjectName), 'SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\App Paths\\\\Thunderbird.exe') || ends_with(to_string(winlog.event_data.ObjectName), '\\\\logins.json') || ends_with(to_string(winlog.event_data.ObjectName), '\\\\key4.db') || ends_with(to_string(winlog.event_data.ObjectName), '\\\\FileZilla\\\\sitemanager.xml')) && !(to_string(winlog.event_data.ProcessName) == 'C:\\\\Program Files\\\\Auditbeat\\\\auditbeat.exe')",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/credential-file-and-apppath-access-potential-amadey-cred-stealer-xAbTYdLyhG"
   }
 ]
