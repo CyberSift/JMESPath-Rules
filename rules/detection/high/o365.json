@@ -83,6 +83,6 @@
     "expression": "event.action == 'UserLoggedIn' && contains(to_string(o365.audit.ExtendedProperties.UserAgent), 'python')",
     "severity": "high",
     "type": "o365",
-    "reference": "https://outline.cybersift.io/doc/potential-automated-login-via-python-user-agent-Qd6DhP43T4"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/potential-automated-login-via-python-user-agent-Qd6DhP43T4"
   }
 ]
