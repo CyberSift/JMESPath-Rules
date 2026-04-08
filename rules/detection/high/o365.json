@@ -77,5 +77,12 @@
     "expression": "o365.audit.Workload == 'SecurityComplianceCenter' && ends_with(to_string(o365.audit.Operation), 'eDiscoveryCaseAdmin')",
     "severity": "high",
     "type": "o365"
+  },
+  {
+    "title": "Potential Automated Login via Python User-Agent",
+    "expression": "event.action == 'UserLoggedIn' && contains(to_string(o365.audit.ExtendedProperties.UserAgent), 'python')",
+    "severity": "high",
+    "type": "o365",
+    "reference": "https://outline.cybersift.io/doc/potential-automated-login-via-python-user-agent-Qd6DhP43T4"
   }
 ]
