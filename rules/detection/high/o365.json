@@ -77,5 +77,13 @@
     "expression": "o365.audit.Workload == 'SecurityComplianceCenter' && ends_with(to_string(o365.audit.Operation), 'eDiscoveryCaseAdmin')",
     "severity": "high",
     "type": "o365"
+  },
+  {
+    "title": "Suspicious Outlook Mobile Silent Authentication (CMSI)",
+    "expression": "event.action == 'UserLoggedIn' && o365.audit.ExtendedProperties.RequestType == 'Cmsi:Cmsi' && o365.cybersift.application == 'Outlook Mobile'",
+    "severity": "high",
+    "type": "o365",
+    "reference" : "https://outline.cybersift.io/s/engineering/doc/suspicious-outlook-mobile-silent-authentication-cmsi-MutnSbauyx"
   }
+  
 ]
