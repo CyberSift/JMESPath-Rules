@@ -7,7 +7,7 @@
   },
   {
     "title": "O365 Suspicious Inbox Rule Created or Modified (Suspicious Folder)",
-    "expression": "contains(['New-InboxRule', 'Set-InboxRule'], o365.audit.Operation) && (contains(to_string(o365.audit.Parameters.MoveToFolder), 'RSS') || contains(to_string(o365.audit.Parameters.MoveToFolder), 'Archive'))",
+    "expression": "contains(['New-InboxRule', 'Set-InboxRule'], o365.audit.Operation) && (contains(to_string(o365.audit.Parameters.MoveToFolder), 'RSS') || contains(to_string(o365.audit.Parameters.MoveToFolder), 'Archive') || contains(to_string(o365.audit.Parameters.MoveToFolder), 'Junk Email'))",
     "severity": "high",
     "type": "o365"
   },
