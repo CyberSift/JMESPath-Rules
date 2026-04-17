@@ -289,5 +289,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/engineering/doc/credential-file-and-apppath-access-potential-amadey-cred-stealer-xAbTYdLyhG"
+  },
+  {
+    "title": "Suspicious Defender Configuration Change via System Settings UI Flow",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'SystemSettingsAdminFlows.exe') && contains(to_string(winlog.event_data.CommandLine), 'Defender') && contains(to_string(winlog.event_data.CommandLine), 'DisableEnhancedNotifications')",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-defender-configuration-change-via-system-settings-ui-flow-hhm3x7q3v8"
   }
 ]
