@@ -85,5 +85,10 @@
     "type": "o365",
     "reference" : "https://outline.cybersift.io/s/engineering/doc/suspicious-outlook-mobile-silent-authentication-cmsi-MutnSbauyx"
   }
-  
+  {
+    "title": "Suspicious Outlook Office Authentication  Interupt (CMSI)",
+    "expression": "event.action == 'UserLoginFailed' && o365.audit.LogonError == 'CmsiInterrupt'",
+    "severity": "high",
+    "type": "o365"
+  }
 ]
