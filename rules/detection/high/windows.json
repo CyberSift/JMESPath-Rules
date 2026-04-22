@@ -296,5 +296,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-defender-configuration-change-via-system-settings-ui-flow-hhm3x7q3v8"
+  },
+  {
+    "title": "Potential DCSync Attack - Non-DC Account Using Replication Rights",
+    "expression": "to_string(event.code) == '4662' && contains(to_string(winlog.event_data.Properties), '1131f6ad-9c07-11d1-f79f-00c04fc2dcd2')",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/potential-dcsync-attack-non-dc-account-using-replication-rights-eS9w3ozSOB"
   }
 ]
