@@ -299,7 +299,7 @@
   },
   {
     "title": "Potential DCSync Attack - Non-DC Account Using Replication Rights",
-    "expression": "to_string(event.code) == '4662' && contains(to_string(winlog.event_data.Properties), '1131f6ad-9c07-11d1-f79f-00c04fc2dcd2')",
+    "expression": "(to_string(event.code) == '4662' && contains(to_string(winlog.event_data.Properties), '1131f6ad-9c07-11d1-f79f-00c04fc2dcd2')) && !starts_with(to_string(winlog.event_data.SubjectUserNameNormalized),'msol_')",
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/engineering/doc/potential-dcsync-attack-non-dc-account-using-replication-rights-eS9w3ozSOB"
