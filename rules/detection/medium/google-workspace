@@ -1,0 +1,9 @@
+[
+  {
+    "title": "Google Workspace Suspicious Login (Success)",
+    "expression": "to_string(event.action)=='login_success' && to_string(google_workspace.login.is_suspicious)=='true'",
+    "severity": "medium",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-successful-login-from-a-suspicious-source-sBss15CUuz"
+  }
+]
