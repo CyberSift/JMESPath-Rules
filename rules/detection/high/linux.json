@@ -5,5 +5,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/engineering/doc/bootkernel-configuration-modified-f1ESQrLKv8"
+  },
+  {
+    "title": "UID Anomaly",
+    "expression": "(to_string(user.id) == '0' || to_string(user.id) == '0000') && to_string(user.name) != 'root'",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/uid-anomaly-iDz43j4P0U"
   }
 ]
