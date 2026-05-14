@@ -47,5 +47,12 @@
     "severity": "medium",
     "type": "google_workspace",
     "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-bitlocker-setting-disabled-toGd0L3CEB"
+  },
+  {
+    "title": "Google Workspace Custom Admin Role Created",
+    "expression": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' && event.action == 'CREATE_ROLE'",
+    "severity": "medium",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-custom-admin-role-created-fhSKzIDrp7"
   }
 ]
