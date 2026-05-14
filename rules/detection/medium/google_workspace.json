@@ -40,5 +40,19 @@
     "severity": "medium",
     "type": "google_workspace",
     "reference": "https://outline.cybersift.io/s/engineering/doc/application-added-to-google-workspace-domain-cUtCTeAPjA"
+  },
+  {
+    "title": "Google Workspace Bitlocker Setting Disabled",
+    "expression": "event.dataset == 'google_workspace.admin' && event.action == 'CHANGE_APPLICATION_SETTING' && (event.category == 'iam' || event.category == 'configuration') && google_workspace.admin.new_value == 'Disabled' && starts_with(to_string(google_workspace.admin.setting.name), 'BitLocker')",
+    "severity": "medium",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-bitlocker-setting-disabled-toGd0L3CEB"
+  },
+  {
+    "title": "Google Workspace Custom Admin Role Created",
+    "expression": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' && event.action == 'CREATE_ROLE'",
+    "severity": "medium",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-custom-admin-role-created-fhSKzIDrp7"
   }
 ]
