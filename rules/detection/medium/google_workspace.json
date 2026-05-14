@@ -61,5 +61,12 @@
     "severity": "medium",
     "type": "google_workspace",
     "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-mfa-enforcement-disabled-sAivve4Cno"
+  },
+  {
+    "title": "Domain Added to Google Workspace Trusted Domains",
+    "expression": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' && event.action == 'ADD_TRUSTED_DOMAINS'",
+    "severity": "medium",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/domain-added-to-google-workspace-trusted-domains-50ZJ3Jetf3"
   }
 ]
