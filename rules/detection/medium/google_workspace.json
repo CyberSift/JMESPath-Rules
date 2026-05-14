@@ -12,5 +12,26 @@
     "severity": "medium",
     "type": "google_workspace",
     "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-2sv-policy-disabled-vNtnDoB8zt"
+  },
+  {
+    "title": "Application Added to Google Workspace Domain",
+    "expression": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' && event.action == 'ADD_APPLICATION'",
+    "severity": "medium",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/application-added-to-google-workspace-domain-cUtCTeAPjA"
+  },
+  {
+    "title": "Application Removed from Blocklist in Google Workspace",
+    "expression": "event.dataset == 'google_workspace.admin' && event.category == 'iam' && event.type == 'change' && event.action == 'CHANGE_APPLICATION_SETTING' && event.google_workspace.admin.application.name == 'Google Workspace Marketplace' && contains(to_string(google_workspace.admin.old_value), 'allowed') && contains(to_string(google_workspace.admin.old_value), 'false') && contains(to_string(google_workspace.admin.new_value), 'allowed') && contains(to_string(google_workspace.admin.new_value), 'true')",
+    "severity": "medium",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/application-removed-from-blocklist-in-google-workspace-qC95cQpJ5f"
+  },
+  {
+    "title": "Domain Added to Google Workspace Trusted Domains",
+    "expression": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' && event.action == 'ADD_TRUSTED_DOMAINS'",
+    "severity": "high",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/domain-added-to-google-workspace-trusted-domains-50ZJ3Jetf3"
   }
 ]
