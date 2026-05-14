@@ -1,0 +1,9 @@
+[
+  {
+    "title": "Potentially Unauthorized Gmail Route / Message Security Rule Change",
+    "expression": "event.dataset == 'google_workspace.admin' && (event.action == 'CREATE_GMAIL_SETTING' || event.action == 'CHANGE_GMAIL_SETTING') && google_workspace.event.type == 'EMAIL_SETTINGS' && (google_workspace.admin.setting.name == 'EMAIL_ROUTE' || google_workspace.admin.setting.name == 'MESSAGE_SECURITY_RULE')",
+    "severity": "high",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/potentially-unauthorized-gmail-route-message-security-rule-change-5bWrY9ikGH"
+  }
+]
