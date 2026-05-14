@@ -33,6 +33,8 @@
     "severity": "high",
     "type": "google_workspace",
     "reference": "https://outline.cybersift.io/s/engineering/doc/domain-added-to-google-workspace-trusted-domains-50ZJ3Jetf3"
+  },
+  {
     "title": "External User Added to Google Workspace Group",
     "expression": "event.dataset=='google_workspace.admin' && event.action=='ADD_GROUP_MEMBER' && !ends_with(to_string(user.target.email), to_string(user.target.group.domain))",
     "severity": "medium",
