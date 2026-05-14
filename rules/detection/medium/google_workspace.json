@@ -5,5 +5,12 @@
     "severity": "medium",
     "type": "google_workspace",
     "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-successful-login-from-a-suspicious-source-sBss15CUuz"
+  },
+  {
+    "title": "Google Workspace 2SV Policy Disabled",
+    "expression": "event.dataset == 'google_workspace.login' && event.action == '2sv_disable'",
+    "severity": "medium",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-2sv-policy-disabled-vNtnDoB8zt"
   }
 ]
