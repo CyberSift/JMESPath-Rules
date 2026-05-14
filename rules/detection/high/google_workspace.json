@@ -12,5 +12,12 @@
     "severity": "high",
     "type": "google_workspace",
     "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-admin-role-assigned-to-a-user-e31qJZSj5D"
+  },
+  {
+    "title": "Google Workspace API Access Granted via Domain-Wide Delegation",
+    "expression": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' && event.action == 'AUTHORIZE_API_CLIENT_ACCESS' && event.outcome == 'success'",
+    "severity": "high",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-api-access-granted-via-domain-wide-delegation-PUuVHLNgbU"
   }
 ]
