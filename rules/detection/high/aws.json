@@ -1,0 +1,9 @@
+[
+  {
+    "title": "AWS - KMS Key Scheduled for Deletion",
+    "expression": "to_string(event.dataset)=='aws.cloudtrail' && to_string(cybersift.aws.eventName)=='ScheduleKeyDeletion'",
+    "severity": "high",
+    "type": "filebeat",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/aws-kms-key-scheduled-for-deletion-Drcmvwk0T0"
+  }
+]
