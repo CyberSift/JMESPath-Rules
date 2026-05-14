@@ -5,5 +5,12 @@
     "severity": "high",
     "type": "google_workspace",
     "reference": "https://outline.cybersift.io/s/engineering/doc/potentially-unauthorized-gmail-route-message-security-rule-change-5bWrY9ikGH"
+  },
+  {
+    "title": "Google Workspace Admin Role Assigned to a User",
+    "expression": "event.dataset == 'google_workspace.admin' && event.category == 'iam' && event.action == 'ASSIGN_ROLE' && google_workspace.event.type == 'DELEGATED_ADMIN_SETTINGS' && ends_with(to_string(google_workspace.admin.role.name), '_ADMIN_ROLE')",
+    "severity": "high",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-admin-role-assigned-to-a-user-e31qJZSj5D"
   }
 ]
