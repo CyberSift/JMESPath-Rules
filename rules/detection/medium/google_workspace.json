@@ -26,5 +26,12 @@
     "severity": "medium",
     "type": "google_workspace",
     "reference": "https://outline.cybersift.io/s/engineering/doc/external-user-added-to-google-workspace-group-1snAabH4ZK"
+  },
+  {
+    "title": "Application Removed from Blocklist in Google Workspace",
+    "expression": "event.dataset == 'google_workspace.admin' && event.category == 'iam' && event.type == 'change' && event.action == 'CHANGE_APPLICATION_SETTING' && event.google_workspace.admin.application.name == 'Google Workspace Marketplace' && contains(to_string(google_workspace.admin.old_value), 'allowed') && contains(to_string(google_workspace.admin.old_value), 'false') && contains(to_string(google_workspace.admin.new_value), 'allowed') && contains(to_string(google_workspace.admin.new_value), 'true')",
+    "severity": "medium",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/application-removed-from-blocklist-in-google-workspace-qC95cQpJ5f"
   }
 ]
