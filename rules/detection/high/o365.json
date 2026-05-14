@@ -84,6 +84,12 @@
     "severity": "high",
     "type": "o365",
     "reference" : "https://outline.cybersift.io/s/engineering/doc/suspicious-outlook-mobile-silent-authentication-cmsi-MutnSbauyx"
+  },
+  {
+    "title": "O365 External Partner Added/Modified to Tenant",
+    "expression": "to_string(event.action)=='Add partner to company.' || to_string(event.action)=='Update a partner cross-tenant access setting.' || to_string(event.action)=='Add a partner to cross-tenant access setting.'",
+    "severity": "high",
+    "type": "o365",
+    "reference" : "https://outline.cybersift.io/s/engineering/doc/o365-external-partner-addedmodified-to-tenant-s10Df2EvQp"
   }
-  
 ]
