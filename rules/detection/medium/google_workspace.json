@@ -14,7 +14,7 @@
     "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-2sv-policy-disabled-vNtnDoB8zt"
   },
   {
-    "title": "First Time Seen Google Workspace OAuth Login from Third-Party Application",
+    "title": "Google Workspace OAuth Login from Third-Party Application",
     "expression": "event.dataset == 'google_workspace.token' && event.action == 'authorize' && ends_with(to_string(google_workspace.token.scope.data), 'Login') && ends_with(to_string(google_workspace.token.client.id), 'apps.googleusercontent.com')",
     "severity": "medium",
     "type": "google_workspace",
