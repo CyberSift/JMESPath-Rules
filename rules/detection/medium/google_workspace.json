@@ -52,5 +52,12 @@
     "severity": "medium",
     "type": "google_workspace",
     "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-custom-admin-role-created-fhSKzIDrp7"
+  },
+  {
+    "title": "Google Workspace MFA Enforcement Disabled",
+    "expression": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' && event.action == 'ENFORCE_STRONG_AUTHENTICATION' && google_workspace.admin.new_value == false",
+    "severity": "medium",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-mfa-enforcement-disabled-sAivve4Cno"
   }
 ]
