@@ -14,13 +14,6 @@
     "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-admin-role-assigned-to-a-user-e31qJZSj5D"
   },
   {
-    "title": "Domain Added to Google Workspace Trusted Domains",
-    "expression": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' && event.action == 'ADD_TRUSTED_DOMAINS'",
-    "severity": "high",
-    "type": "google_workspace",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/domain-added-to-google-workspace-trusted-domains-50ZJ3Jetf3"
-  },
-  {
     "title": "Google Workspace Drive Encryption Key(s) Accessed from Anonymous User",
     "expression": "event.dataset == 'google_workspace.drive' && contains(['copy','view','download'], to_string(event.action)) && google_workspace.drive.visibility == 'people_with_link' && source.user.email == '' && contains(['token','assig','pssc','keystore','pub','pgp.asc','ps1xml','pem','gpg.sig','der','key','p7r','p12','asc','jks','p7b','signature','gpg','pgp.sig','sst','pgp','gpgz','pfx','crt','p8','sig','pkcs7','jceks','pkcs8','psc1','p7c','csr','cer','spc','ps2xml'], to_string(file.extension))",
     "severity": "high",
