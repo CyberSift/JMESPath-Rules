@@ -1,0 +1,9 @@
+[
+  {
+    "title": "Google Drive Internet-Accessible File Shared",
+    "expression": "to_string(event.dataset)=='google_workspace.drive' && to_string(google_workspace.drive.visibility)=='people_with_link'",
+    "severity": "low",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-drive-internet-accessible-file-created-rr1oJ0ekPd"
+  }
+]
