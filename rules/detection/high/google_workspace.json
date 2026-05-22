@@ -19,5 +19,12 @@
     "severity": "high",
     "type": "google_workspace",
     "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-drive-encryption-keys-accessed-from-anonymous-user-gcWN07eCbx"
+  },
+  {
+    "title": "Google Workspace Activity from Tor IP Address",
+    "expression": "to_string(event.action)!='login_failure') && contains(to_string(\"cybersift.threat_info\".threats), 'Tor')",
+    "severity": "high",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-activity-from-tor-ip-address-zwuztmug0q"
   }
 ]
