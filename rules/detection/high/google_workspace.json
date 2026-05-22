@@ -19,5 +19,12 @@
     "severity": "high",
     "type": "google_workspace",
     "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-drive-encryption-keys-accessed-from-anonymous-user-gcWN07eCbx"
+  },
+  {
+    "title": "Google Workspace: Known Threat User Login Attempt",
+    "expression": "(to_string(event.dataset)== 'google_workspace.login' && to_string(event.action)=='login_success') && to_string(\"cybersift.threat_info\".knownThreat) == 'true'",
+    "severity": "high",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-known-threat-user-login-attempt-rCNJTQ5M9z"
   }
 ]
