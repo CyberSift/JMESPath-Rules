@@ -1,0 +1,72 @@
+[
+  {
+    "title": "Google Workspace Suspicious Login (Success)",
+    "expression": "to_string(event.action)=='login_success' && to_string(google_workspace.login.is_suspicious)=='true'",
+    "severity": "medium",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-successful-login-from-a-suspicious-source-sBss15CUuz"
+  },
+  {
+    "title": "Google Workspace 2SV Policy Disabled",
+    "expression": "event.dataset == 'google_workspace.login' && event.action == '2sv_disable'",
+    "severity": "medium",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-2sv-policy-disabled-vNtnDoB8zt"
+  },
+  {
+    "title": "Application Added to Google Workspace Domain",
+    "expression": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' && event.action == 'ADD_APPLICATION'",
+    "severity": "medium",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/application-added-to-google-workspace-domain-cUtCTeAPjA"
+  },
+  {
+    "title": "Application Removed from Blocklist in Google Workspace",
+    "expression": "event.dataset == 'google_workspace.admin' && event.category == 'iam' && event.type == 'change' && event.action == 'CHANGE_APPLICATION_SETTING' && event.google_workspace.admin.application.name == 'Google Workspace Marketplace' && contains(to_string(google_workspace.admin.old_value), 'allowed') && contains(to_string(google_workspace.admin.old_value), 'false') && contains(to_string(google_workspace.admin.new_value), 'allowed') && contains(to_string(google_workspace.admin.new_value), 'true')",
+    "severity": "medium",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/application-removed-from-blocklist-in-google-workspace-qC95cQpJ5f"
+  },
+  {
+    "title": "Domain Added to Google Workspace Trusted Domains",
+    "expression": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' && event.action == 'ADD_TRUSTED_DOMAINS'",
+    "severity": "high",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/domain-added-to-google-workspace-trusted-domains-50ZJ3Jetf3"
+  },
+  {
+    "title": "External User Added to Google Workspace Group",
+    "expression": "event.dataset=='google_workspace.admin' && event.action=='ADD_GROUP_MEMBER' && !ends_with(to_string(user.target.email), to_string(user.target.group.domain))",
+    "severity": "medium",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/external-user-added-to-google-workspace-group-1snAabH4ZK"
+  },
+  {
+    "title": "Google Workspace Bitlocker Setting Disabled",
+    "expression": "event.dataset == 'google_workspace.admin' && event.action == 'CHANGE_APPLICATION_SETTING' && (event.category == 'iam' || event.category == 'configuration') && google_workspace.admin.new_value == 'Disabled' && starts_with(to_string(google_workspace.admin.setting.name), 'BitLocker')",
+    "severity": "medium",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-bitlocker-setting-disabled-toGd0L3CEB"
+  },
+  {
+    "title": "Google Workspace Custom Admin Role Created",
+    "expression": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' && event.action == 'CREATE_ROLE'",
+    "severity": "medium",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-custom-admin-role-created-fhSKzIDrp7"
+  },
+  {
+    "title": "Google Workspace MFA Enforcement Disabled",
+    "expression": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' && event.action == 'ENFORCE_STRONG_AUTHENTICATION' && google_workspace.admin.new_value == false",
+    "severity": "medium",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-mfa-enforcement-disabled-sAivve4Cno"
+  },
+  {
+    "title": "Google Workspace API Access Granted via Domain-Wide Delegation",
+    "expression": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' && event.action == 'AUTHORIZE_API_CLIENT_ACCESS' && event.outcome == 'success'",
+    "severity": "medium",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-api-access-granted-via-domain-wide-delegation-qlfQHE7LxI"
+  }
+]

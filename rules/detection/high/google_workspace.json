@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Potentially Unauthorized Gmail Route / Message Security Rule Change",
+    "expression": "event.dataset == 'google_workspace.admin' && (event.action == 'CREATE_GMAIL_SETTING' || event.action == 'CHANGE_GMAIL_SETTING') && google_workspace.event.type == 'EMAIL_SETTINGS' && (google_workspace.admin.setting.name == 'EMAIL_ROUTE' || google_workspace.admin.setting.name == 'MESSAGE_SECURITY_RULE')",
+    "severity": "high",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/potentially-unauthorized-gmail-route-message-security-rule-change-5bWrY9ikGH"
+  },
+  {
+    "title": "Google Workspace Admin Role Assigned to a User",
+    "expression": "event.dataset == 'google_workspace.admin' && event.category == 'iam' && event.action == 'ASSIGN_ROLE' && google_workspace.event.type == 'DELEGATED_ADMIN_SETTINGS' && ends_with(to_string(google_workspace.admin.role.name), '_ADMIN_ROLE')",
+    "severity": "high",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-admin-role-assigned-to-a-user-e31qJZSj5D"
+  },
+  {
+    "title": "Google Workspace Drive Encryption Key(s) Accessed from Anonymous User",
+    "expression": "event.dataset == 'google_workspace.drive' && contains(['copy','view','download'], to_string(event.action)) && google_workspace.drive.visibility == 'people_with_link' && source.user.email == '' && contains(['token','assig','pssc','keystore','pub','pgp.asc','ps1xml','pem','gpg.sig','der','key','p7r','p12','asc','jks','p7b','signature','gpg','pgp.sig','sst','pgp','gpgz','pfx','crt','p8','sig','pkcs7','jceks','pkcs8','psc1','p7c','csr','cer','spc','ps2xml'], to_string(file.extension))",
+    "severity": "high",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-drive-encryption-keys-accessed-from-anonymous-user-gcWN07eCbx"
+  },
+  {
+    "title": "Google Workspace: Known Threat User Login Attempt",
+    "expression": "(to_string(event.dataset)== 'google_workspace.login' && to_string(event.action)=='login_success') && to_string(\"cybersift.threat_info\".knownThreat) == 'true'",
+    "severity": "high",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-known-threat-user-login-attempt-rCNJTQ5M9z"
+  }
+]

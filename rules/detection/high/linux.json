@@ -5,5 +5,19 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/engineering/doc/bootkernel-configuration-modified-f1ESQrLKv8"
+  },
+  {
+    "title": "Unprivileged AF_ALG Socket Creation",
+    "expression": "auditd.message_type=='syscall' && auditd.data.syscall=='socket' && to_string(auditd.data.a0)=='38' && to_string(user.id)!='0'",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/af_alg-socket-creation-by-unprivileged-login-users-VYlxHxQwMi"
+  },
+  {
+    "title": "Splice Syscall",
+    "expression": "auditd.message_type=='syscall' && auditd.data.syscall=='splice' && to_string(user.id)!='0'",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/splice-syscall-sDAKxmqFbX"
   }
 ]
