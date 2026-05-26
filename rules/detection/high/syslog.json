@@ -36,9 +36,10 @@
     "type": "syslog"
   },
   {
-    "title": "Suspicious NotepadPP GUP Network Indicators",
-    "expression": "to_string(DestinationAddress) == '61.4.102.97' || to_string(DestinationAddress) == '59.110.7.32' || to_string(DestinationAddress) == '124.222.137.114' || to_string(DestinationAddress) == '95.179.213.0' || (hostname || '') == 'api.skycloudcenter.com' || (hostname || '') == 'api.wiresguard.com'",
+    "title": "Successful SonicWall VPN Authentication",
+    "expression": "cybersift.parser.vendor == 'SONICWALL' && to_string(m) == '1080' && to_string(fw_action) != 'denied_or_failed'",
     "severity": "high",
-    "type": "syslog"
+    "type": "syslog",
+    "reference": "Successful SonicWall VPN Authentication"
   }
 ]
