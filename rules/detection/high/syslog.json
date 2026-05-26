@@ -41,5 +41,12 @@
     "severity": "high",
     "type": "syslog",
     "reference": "https://outline.cybersift.io/s/4b9edcea-231d-4089-a029-a7c306ba8f0e"
+  },
+  {
+    "title": "SonicWall VPN Authentication Attempt From Known Threat IP",
+    "expression": "cybersift.parser.vendor == 'SONICWALL' && to_string(m) == '1080' && to_string(\"cybersift.threat_info\".knownThreat) == 'true'",
+    "severity": "high",
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/8c08410d-975a-4e87-93da-d96acdcbf7ef"
   }
 ]
