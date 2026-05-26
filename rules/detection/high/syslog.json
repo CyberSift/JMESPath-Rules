@@ -40,6 +40,6 @@
     "expression": "cybersift.parser.vendor == 'SONICWALL' && to_string(m) == '1080' && to_string(fw_action) != 'denied_or_failed'",
     "severity": "high",
     "type": "syslog",
-    "reference": "Successful SonicWall VPN Authentication"
+    "reference": "https://outline.cybersift.io/s/4b9edcea-231d-4089-a029-a7c306ba8f0e"
   }
 ]
