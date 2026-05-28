@@ -48,5 +48,12 @@
     "severity": "high",
     "type": "syslog",
     "reference": "https://outline.cybersift.io/s/8c08410d-975a-4e87-93da-d96acdcbf7ef"
+  },
+  {
+    "title": "FortiGate SSL VPN login from Known Threat",
+    "expression": "cybersift.parser.vendor=='Fortigate' && action=='tunnel-up' && (to_string(\"cybersift.threat_info\".knownThreat)=='true')",
+    "severity": "high",
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/63228031-66a5-441a-8809-3c79cabfb103"
   }
 ]
