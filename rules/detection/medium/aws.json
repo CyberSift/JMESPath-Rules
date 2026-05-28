@@ -1,0 +1,9 @@
+[
+  {
+    "title": "AWS - Local User Created Outside Identity Provider",
+    "expression": "to_string(event.dataset)=='aws.cloudtrail' && (to_string(cybersift.aws.eventName)=='CreateUser' && to_string(cybersift.aws.eventSource)=='iam.amazonaws.com')",
+    "severity": "medium",
+    "type": "aws",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/aws-local-user-created-outside-identity-provider-GKvYW8F9aN"
+  }
+]
