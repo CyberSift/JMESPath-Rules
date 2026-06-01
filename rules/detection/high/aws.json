@@ -5,5 +5,12 @@
     "severity": "high",
     "type": "aws",
     "reference": "https://outline.cybersift.io/s/engineering/doc/aws-kms-key-scheduled-for-deletion-Drcmvwk0T0"
+  },
+  {
+    "title": "AWS - Logging Disabled or Modified",
+    "expression": "to_string(event.dataset)=='aws.cloudtrail' && (to_string(cybersift.aws.eventName)=='StopLogging' || to_string(cybersift.aws.eventName)=='DeleteTrail' || to_string(cybersift.aws.eventName)=='UpdateTrail')",
+    "severity": "high",
+    "type": "aws",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/aws-logging-disabled-or-modified-lfl5Er9UDl"
   }
 ]
