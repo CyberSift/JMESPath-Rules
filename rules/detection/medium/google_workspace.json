@@ -68,5 +68,12 @@
     "severity": "medium",
     "type": "google_workspace",
     "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-api-access-granted-via-domain-wide-delegation-qlfQHE7LxI"
+  },
+  {
+    "title": "Google Drive Internet-Accessible Sensitive File Shared",
+    "expression": "(to_string(event.dataset) == 'google_workspace.drive' && to_string(google_workspace.drive.visibility) == 'people_with_link' && to_string(google_workspace.drive.visibility_change) == 'external') && (contains(to_string(file.name_normalized), 'password') || contains(to_string(file.name_normalized), 'secret') || contains(to_string(file.name_normalized), 'payroll') || contains(to_string(file.name_normalized), 'pii') || contains(to_string(file.name_normalized), 'confidential') || contains(to_string(file.name_normalized), 'backup') || contains(to_string(file.name_normalized), 'internal') || contains(to_string(file.name_normalized), 'private') || contains(to_string(file.name_normalized), 'restricted') || contains(to_string(file.name_normalized), 'sensitive'))",
+    "severity": "medium",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-drive-internet-accessible-sensitive-file-shared-lyfTM6WfpU"
   }
 ]
