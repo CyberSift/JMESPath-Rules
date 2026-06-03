@@ -5,5 +5,12 @@
     "severity": "medium",
     "type": "aws",
     "reference": "https://outline.cybersift.io/s/engineering/doc/aws-local-user-created-outside-identity-provider-GKvYW8F9aN"
+  },
+  {
+    "title": "AWS API Activity from Uncommon S3 Client",
+    "expression": "event.dataset == 'aws.cloudtrail' && (contains(to_string(cybersift.aws.userAgent), 'S3 Browser') || contains(to_string(cybersift.aws.userAgent), 'Cyberduck'))",
+    "severity": "medium",
+    "type": "aws",
+    "reference": "https://outline.cybersift.io/s/8cb26b93-72a6-4f16-a753-310af2c5284e"
   }
 ]
