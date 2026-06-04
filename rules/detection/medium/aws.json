@@ -19,5 +19,12 @@
     "severity": "medium",
     "type": "aws",
     "reference": "https://outline.cybersift.io/s/8cb26b93-72a6-4f16-a753-310af2c5284e"
+  },
+  {
+    "title": "AWS Account Discovery By Rare User",
+    "expression": "event.dataset == 'aws.cloudtrail' && to_string(cybersift.aws.userIdentity.type) != 'AWSService' && ((to_string(cybersift.aws.eventSource) == 'organizations.amazonaws.com' && contains(['DescribeOrganization','DescribeOrgnanizationalUnit','ListAccounts','ListRoots','ListOrganizationalUnitsForParent','ListAccountsForParent','ListPolicies','ListAWSServiceAccessForOrganization','ListDelegatedAdministrators','ListDelegatedServicesForAccount','DescribeResourcePolicy'], to_string(cybersift.aws.eventName))) || (to_string(cybersift.aws.eventSource) == 'iam.amazonaws.com' && contains(['ListAccountAliases','GetAccountSummary'], to_string(cybersift.aws.eventName))))",
+    "severity": "medium",
+    "type": "aws",
+    "reference": "https://outline.cybersift.io/s/2a7cbf90-3596-4c6a-9714-8fb12a92e91d"
   }
 ]
