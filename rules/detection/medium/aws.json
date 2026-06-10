@@ -29,7 +29,7 @@
   },
   {
     "title": "AWS Suspicious User Agent Fingerprint",
-    "expression": "event.dataset == 'aws.cloudtrail' && (contains(to_string(cybersift.aws.userAgent), 'kali') || contains(to_string(cybersift.aws.userAgent), 'TruffleHog') || to_string(cybersift.aws.userAgent), 'trufflehog'))",
+    "expression": "event.dataset == 'aws.cloudtrail' && (contains(to_string(cybersift.aws.userAgent), 'kali') || contains(to_string(cybersift.aws.userAgent), 'Kali') || contains(to_string(cybersift.aws.userAgent), 'TruffleHog') || contains(to_string(cybersift.aws.userAgent), 'trufflehog'))",
     "severity": "medium",
     "type": "aws",
     "reference": "https://outline.cybersift.io/s/9733a16c-5571-4a79-96d1-9c7c9329bb18"
