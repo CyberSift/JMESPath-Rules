@@ -5,5 +5,12 @@
     "severity": "low",
     "type": "google_workspace",
     "reference": "https://outline.cybersift.io/s/engineering/doc/google-drive-internet-accessible-file-created-rr1oJ0ekPd"
+  },
+  {
+    "title": "Google Workspace - Security Investigation Initiated by Admin",
+    "expression": "to_string(event.dataset)=='google_workspace.admin' && to_string(event.action)=='SECURITY_INVESTIGATION_QUERY'",
+    "severity": "low",
+    "type": "google_workspace",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-security-investigation-query-initiated-by-admin-k9PSg8VuhL"
   }
 ]
