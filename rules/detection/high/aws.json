@@ -12,5 +12,12 @@
     "severity": "high",
     "type": "aws",
     "reference": "https://outline.cybersift.io/s/engineering/doc/aws-logging-disabled-or-modified-lfl5Er9UDl"
+  },
+  {
+    "title": "AWS - Sensitive Management Port Exposed to Internet in Security Group",
+    "expression": "event.dataset == 'aws.cloudtrail' && cybersift.aws.eventSource == 'ec2.amazonaws.com' && (contains(to_string(cybersift.aws.requestParameters.ipPermissions.items[].fromPort), '21') || contains(to_string(cybersift.aws.requestParameters.ipPermissions.items[].fromPort), '22') || contains(to_string(cybersift.aws.requestParameters.ipPermissions.items[].fromPort), '23') || contains(to_string(cybersift.aws.requestParameters.ipPermissions.items[].fromPort), '445') || contains(to_string(cybersift.aws.requestParameters.ipPermissions.items[].fromPort), '3389') || contains(to_string(cybersift.aws.requestParameters.ipPermissions.items[].fromPort), '5985') || contains(to_string(cybersift.aws.requestParameters.ipPermissions.items[].fromPort), '5986')) && (contains(to_string(cybersift.aws.requestParameters.ipPermissions.items[].ipRanges[].items[].cidrIp), '0.0.0.0/0') || contains(to_string(cybersift.aws.requestParameters.ipPermissions.items[].ipv6Ranges[].items[].cidrIpv6), '::/0'))",
+    "severity": "high",
+    "type": "aws",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/aws-sensitive-management-port-exposed-to-internet-in-security-group-6VSgOcgVdR"
   }
 ]
