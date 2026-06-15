@@ -91,5 +91,12 @@
     "severity": "high",
     "type": "o365",
     "reference" : "https://outline.cybersift.io/s/engineering/doc/o365-external-partner-addedmodified-to-tenant-s10Df2EvQp"
+  },
+  {
+    "title": "O365 Suspicious Email Sending Pattern",
+    "expression": "to_string(o365.audit.Operation)=='AlertEntityGenerated' && to_string(o365.audit.Name)=='Suspicious email sending patterns detected'",
+    "severity": "high",
+    "type": "o365",
+    "reference" : "https://outline.cybersift.io/s/engineering/doc/o365-suspicious-email-sending-pattern-pFfm4oezxB"
   }
 ]
