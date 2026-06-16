@@ -19,5 +19,12 @@
     "severity": "high",
     "type": "aws",
     "reference": "https://outline.cybersift.io/s/engineering/doc/aws-sensitive-management-port-exposed-to-internet-in-security-group-6VSgOcgVdR"
+  },
+  {
+    "title": "AWS - Root Password Recovery Requested",
+    "expression": "event.dataset == 'aws.cloudtrail' && cybersift.aws.eventSource == 'signin.amazonaws.com' && cybersift.aws.eventName == 'PasswordRecoveryRequested'",
+    "severity": "high",
+    "type": "aws",
+    "reference": "https://outline.cybersift.io/s/0806e335-9c2a-47ac-8098-0e8c9895e396"
   }
 ]
