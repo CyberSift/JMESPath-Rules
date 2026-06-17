@@ -26,5 +26,12 @@
     "severity": "high",
     "type": "aws",
     "reference": "https://outline.cybersift.io/s/0806e335-9c2a-47ac-8098-0e8c9895e396"
+  },
+  {
+    "title": "AWS - EC2 Instance Connect SSH Public Key Uploaded",
+    "expression": "event.datastream == 'aws.cloudtrail' && (cybersift.aws.eventName == 'SendSSHPublicKey' || cybersift.aws.eventName == 'SendSerialConsoleSSHPublicKey')",
+    "severity": "high",
+    "type": "aws",
+    "reference": "https://outline.cybersift.io/s/0c187e5f-135b-48a6-a51b-c52939b692d2"
   }
 ]
