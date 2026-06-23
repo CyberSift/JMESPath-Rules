@@ -40,5 +40,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-grep-of-sensitive-linux-configuration-files-eKWes89Bcm"
+  },
+  {
+    "title": "Sensitive Pattern Enumeration in Bash History File",
+    "expression": "(event.action == 'executed') && (contains(['grep', 'egrep', 'fgrep', 'awk', 'sed'], to_string(process.name))) && (contains(to_string(process.args), 'bash_history') || contains(to_string(process.args), '.sh_history') || contains(to_string(process.args), '.zsh_history')) && (contains(to_string(process.args), 'password') || contains(to_string(process.args), 'passwd') || contains(to_string(process.args), 'token') || contains(to_string(process.args), 'linpeas') || contains(to_string(process.args), 'secret') || contains(to_string(process.args), 'shadow') || contains(to_string(process.args), 'az login'))",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/sensitive-pattern-enumeration-in-bash-history-file-qx2U6yZ81t"
   }
 ]
