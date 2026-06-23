@@ -25,6 +25,13 @@
     "expression": "contains(to_string(process.title), 'BatchMode=yes') && (contains(to_string(process.title), 'localhost') || contains(to_string(process.title), '127.0.0.1') || contains(to_string(process.title), '::1'))",
     "severity": "high",
     "type": "auditbeat",
-    "reference": "https://outline.cybersift.io/s/2b873580-55fc-4a13-89d5-4450c4b9e36a"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/ssh-batchmode-localhost-authentication-check-4zoZbaICUi"
+  },
+  {
+    "title": "Suspicious Grep of Sensitive Linux Configuration Files",
+    "expression": "(contains(process.title, 'grep')) && ( (contains(process.title, '/etc/passwd')) || (contains(process.title, '/etc/shadw') )",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-grep-of-sensitive-linux-configuration-files-eKWes89Bcm"
   }
 ]
