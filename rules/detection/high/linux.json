@@ -33,5 +33,13 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/e690b6c8-06fe-4a40-9134-652815152349"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/ssh-batchmode-localhost-authentication-check-4zoZbaICUi"
+  },
+  {
+    "title": "Suspicious Grep of Sensitive Linux Configuration Files",
+    "expression": "(contains(to_string(process.title), 'grep')) && ((contains(to_string(process.title), '/etc/passwd')) || (contains(to_string(process.title), '/etc/shadw')))",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-grep-of-sensitive-linux-configuration-files-eKWes89Bcm"
   }
 ]
