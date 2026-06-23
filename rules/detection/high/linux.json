@@ -26,5 +26,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/2b873580-55fc-4a13-89d5-4450c4b9e36a"
+  },
+  {
+    "title": "AF_ALG Socket Abuse – Kernel Exploitation Indicator",
+    "expression": "to_string(auditd.data.syscall) == 'socket' && to_string(auditd.data.a0) == '26'",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/e690b6c8-06fe-4a40-9134-652815152349"
   }
 ]
