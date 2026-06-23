@@ -8,7 +8,7 @@
   },
   {
     "title": "Executable Shell Script Creation",
-    "expression": "(contains(process.title, 'chmod +x')) && (contains(process.title, '.sh'))",
+    "expression": "(contains(to_string(process.title), 'chmod +x')) && (contains(to_string(process.title), '.sh'))",
     "severity": "medium",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/engineering/doc/executable-shell-script-creation-bsGilaywCK"
