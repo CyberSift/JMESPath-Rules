@@ -29,7 +29,7 @@
   },
   {
     "title": "Suspicious Grep of Sensitive Linux Configuration Files",
-    "expression": "(contains(process.title, 'grep')) && ( (contains(process.title, '/etc/passwd')) || (contains(process.title, '/etc/shadw') )",
+    "expression": "(contains(to_string(process.title), 'grep')) && ( (contains(to_string(process.title), '/etc/passwd')) || (contains(to_string(process.title), '/etc/shadw') )",
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-grep-of-sensitive-linux-configuration-files-eKWes89Bcm"
