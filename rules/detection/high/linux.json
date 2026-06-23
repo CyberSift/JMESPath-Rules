@@ -28,6 +28,13 @@
     "reference": "https://outline.cybersift.io/s/engineering/doc/ssh-batchmode-localhost-authentication-check-4zoZbaICUi"
   },
   {
+    "title": "AF_ALG Socket Abuse – Kernel Exploitation Indicator",
+    "expression": "to_string(auditd.data.syscall) == 'socket' && to_string(auditd.data.a0) == '26'",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/af_alg-socket-abuse-kernel-exploitation-indicator-EIGgeiDgMV"
+  },
+  {
     "title": "Suspicious Grep of Sensitive Linux Configuration Files",
     "expression": "(contains(to_string(process.title), 'grep')) && ((contains(to_string(process.title), '/etc/passwd')) || (contains(to_string(process.title), '/etc/shadw')))",
     "severity": "high",
