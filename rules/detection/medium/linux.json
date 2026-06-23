@@ -1,0 +1,9 @@
+[
+  {
+    "title": "Sudo Execution of Account and Credential Utilities",
+    "expression": "(contains(to_string(event.category), 'process') && to_string(event.action)=='ran-command' && to_string(process.executable)=='/usr/bin/sudo') && (contains(to_string(auditd.data.cmd), 'passwd') || contains(to_string(auditd.data.cmd), 'shadow') || contains(to_string(auditd.data.cmd), 'gshadow') || contains(to_string(auditd.data.cmd), 'group') || contains(to_string(auditd.data.cmd), 'visudo'))",
+    "severity": "medium",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/sudo-execution-of-account-and-credential-utilities-xKYyH8eglI"
+  }
+]
