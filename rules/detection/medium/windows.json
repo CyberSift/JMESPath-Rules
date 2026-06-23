@@ -64,5 +64,12 @@
     "expression": "to_string(event.code) == '4688' && winlog.event_data.TokenElevationType == '%%1937' && (ends_with(to_string(winlog.event_data.NewProcessName), '\\\\mshta.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\wmic.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\at.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\psexec.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\winrm.cmd') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\winrs.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\bcdedit.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\takeown.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\installutil.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\odbcconf.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\cmstp.exe'))",
     "severity": "medium",
     "type": "windows"
+  },
+  {
+    "title": "Windows Account Set to Never Expires",
+    "expression": "(to_string(event.code)=='4738' && to_string(event.action)=='Process Creation') && contains(to_string(winlog.event_data.UserAccountControl), '%%2089')",
+    "severity": "medium",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/windows-account-set-to-never-expires-h79JXS0EtB"
   }
 ]
