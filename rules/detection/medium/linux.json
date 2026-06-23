@@ -5,5 +5,12 @@
     "severity": "medium",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/engineering/doc/sudo-execution-of-account-and-credential-utilities-xKYyH8eglI"
+  },
+  {
+    "title": "Executable Shell Script Creation",
+    "expression": "(contains(to_string(process.title), 'chmod +x')) && (contains(to_string(process.title), '.sh'))",
+    "severity": "medium",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/executable-shell-script-creation-bsGilaywCK"
   }
 ]
