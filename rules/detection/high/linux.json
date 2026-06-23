@@ -19,5 +19,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/engineering/doc/splice-syscall-sDAKxmqFbX"
+  },
+  {
+    "title": "SSH BatchMode Localhost Authentication Check",
+    "expression": "contains(to_string(process.title), 'BatchMode=yes') && (contains(to_string(process.title), 'localhost') || contains(to_string(process.title), '127.0.0.1') || contains(to_string(process.title), '::1'))",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/2b873580-55fc-4a13-89d5-4450c4b9e36a"
   }
 ]
