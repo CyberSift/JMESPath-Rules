@@ -1,0 +1,141 @@
+{
+  "@timestamp": "2026-06-24T03:58:25.302Z",
+  "@metadata": {
+    "beat": "filebeat",
+    "type": "_doc",
+    "version": "8.19.14",
+    "pipeline": "filebeat-8.19.14-google_workspace-login-common",
+    "_id": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "google_workspace": {
+    "login": {
+      "is_suspicious": false,
+      "type": "reauth",
+      "challenge_method": [
+        "none"
+      ]
+    },
+    "kind": "admin#reports#activity",
+    "event": {
+      "type": "login"
+    }
+  },
+  "organization": {
+    "id": "C00000xxx"
+  },
+  "fileset": {
+    "name": "login"
+  },
+  "ecs": {
+    "version": "1.12.0"
+  },
+  "user": {
+    "id": "000000000000000000000",
+    "name": "anon.user",
+    "domain": "company.local"
+  },
+  "related": {
+    "ip": [
+      "10.0.0.50"
+    ],
+    "user": [
+      "anon.user"
+    ]
+  },
+  "agent": {
+    "id": "8a5d7402-9855-46b7-b353-f2e1ce542ae6",
+    "name": "google-gcp",
+    "type": "filebeat",
+    "version": "8.19.14",
+    "ephemeral_id": "51720776-3546-433e-9fc0-f6f26a7e2502"
+  },
+  "fields": {
+    "csIndex": "google-workspace"
+  },
+  "event": {
+    "created": "2026-06-24T04:06:00.672Z",
+    "module": "google_workspace",
+    "id": "-0000000000000000000",
+    "category": [
+      "authentication",
+      "session"
+    ],
+    "dataset": "google_workspace.login",
+    "original": "{\"actor\":{\"email\":\"anon.user@company.local\",\"profileId\":\"000000000000000000000\"},\"etag\":\"\\\"3Uy7N2fsLO-UJLJooEizV70OrVTg5GdiS5meIFM6OVQ/JKuhHx89tjjDsQnnB5nZTomjDaE\\\"\",\"events\":{\"name\":\"login_success\",\"parameters\":[{\"name\":\"login_type\",\"value\":\"reauth\"},{\"multiValue\":[\"none\"],\"name\":\"login_challenge_method\"},{\"boolValue\":false,\"name\":\"is_suspicious\"}],\"resourceIds\":[\"0xxx000xxxxxxx\"],\"type\":\"login\"},\"id\":{\"applicationName\":\"login\",\"customerId\":\"C00000xxx\",\"time\":\"2026-06-24T03:58:25.302Z\",\"uniqueQualifier\":\"-0000000000000000000\"},\"ipAddress\":\"10.0.0.50\",\"kind\":\"admin#reports#activity\",\"networkInfo\":{\"ipAsn\":[0],\"regionCode\":\"XX\",\"subdivisionCode\":\"\"},\"resourceDetails\":[{\"id\":\"0xxx000xxxxxxx\",\"ownerDetails\":{\"ownerIdentity\":[{\"customerIdentity\":{\"id\":\"00000xxx\"}}],\"ownerType\":\"CUSTOMER\"},\"title\":\"anon.user@company.local\",\"type\":\"USER\"}]}",
+    "action": "login_success",
+    "provider": "login",
+    "type": [
+      "start"
+    ],
+    "outcome": "success"
+  },
+  "source": {
+    "ip": "10.0.0.50",
+    "user": {
+      "email": "anon.user@company.local",
+      "id": "000000000000000000000",
+      "name": "anon.user",
+      "domain": "company.local"
+    }
+  },
+  "tags": [
+    "forwarded"
+  ],
+  "service": {
+    "type": "google_workspace"
+  },
+  "input": {
+    "type": "httpjson"
+  },
+  "json": {
+    "id": {
+      "time": "2026-06-24T03:58:25.302Z"
+    },
+    "networkInfo": {
+      "ipAsn": [
+        0
+      ],
+      "regionCode": "XX",
+      "subdivisionCode": ""
+    },
+    "resourceDetails": [
+      {
+        "id": "0xxx000xxxxxxx",
+        "ownerDetails": {
+          "ownerIdentity": [
+            {
+              "customerIdentity": {
+                "id": "00000xxx"
+              }
+            }
+          ],
+          "ownerType": "CUSTOMER"
+        },
+        "title": "anon.user@company.local",
+        "type": "USER"
+      }
+    ],
+    "actor": {},
+    "etag": "\"3Uy7N2fsLO-UJLJooEizV70OrVTg5GdiS5meIFM6OVQ/JKuhHx89tjjDsQnnB5nZTomjDaE\"",
+    "events": {
+      "resourceIds": [
+        "0xxx000xxxxxxx"
+      ]
+    }
+  },
+  "csRedisList": "google-workspace",
+  "cybersift": {
+    "clientIP": "10.0.0.50",
+    "threat_info": {
+      "knownThreat": false,
+      "severity": 0,
+      "threats": [],
+      "countryCode": "XX",
+      "usageType": "internal",
+      "isp": "Internal Network",
+      "organization": "Internal Architecture",
+      "timestamp": 1782158772325
+    }
+  },
+  "time": "04:06:12"
+}
