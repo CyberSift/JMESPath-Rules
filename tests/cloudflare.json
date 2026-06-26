@@ -1,0 +1,65 @@
+{
+  "account": {
+    "id": "00000000000000000000000000000000",
+    "name": "anonymous.user@example.com's Account"
+  },
+  "action": {
+    "description": "Update DNS Record",
+    "result": "success",
+    "time": "2026-06-26T14:55:45.709Z",
+    "type": "update"
+  },
+  "actor": {
+    "context": "api_token",
+    "id": "00000000000000000000000000000000",
+    "ip_address": "192.0.2.1",
+    "token": {
+      "id": "00000000000000000000000000000000",
+      "name": "Edit zone DNS"
+    },
+    "type": "account"
+  },
+  "id": "00000000-0000-0000-0000-000000000000",
+  "raw": {
+    "cf_ray_id": "0000000000000000",
+    "method": "PATCH",
+    "status_code": 200,
+    "uri": "/zones/00000000000000000000000000000000/dns_records/00000000000000000000000000000000",
+    "user_agent": "ddclient/3.10.0"
+  },
+  "resource": {
+    "id": "00000000000000000000000000000000",
+    "product": "dns_records",
+    "request": {
+      "content": "192.0.2.1"
+    },
+    "response": {
+      "content": "192.0.2.1",
+      "id": "00000000000000000000000000000000",
+      "name": "subdomain.example.com",
+      "proxied": false,
+      "tags": [],
+      "type": "NS"
+    },
+    "scope": "zones"
+  },
+  "zone": {
+    "id": "00000000000000000000000000000000",
+    "name": "example.com"
+  },
+  "@timestamp": "2026-06-26T14:55:45.709Z",
+  "cybersift": {
+    "clientIP": "192.0.2.1",
+    "threat_info": {
+      "knownThreat": false,
+      "severity": 0,
+      "threats": [],
+      "countryCode": "MT",
+      "usageType": "consumer",
+      "isp": "Generic ISP",
+      "organization": "",
+      "timestamp": 1782286086939
+    }
+  },
+  "time": "15:02:00"
+}
