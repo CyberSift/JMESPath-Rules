@@ -47,5 +47,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/engineering/doc/sensitive-pattern-enumeration-in-bash-history-file-qx2U6yZ81t"
-  }
+  },
+  {
+    "title": "Unauthorized Cron or Systemd Service Persistence Modification",
+    "expression": "contains(to_string(event.category), 'file') && contains(to_string(event.type), 'change') && (contains(to_string(file.path), '/etc/cron') || contains(to_string(file.path), '/var/spool/cron/') || contains(to_string(file.path), '/etc/systemd/system/'))",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/doc/unauthorized-cron-or-systemd-service-persistence-modification-LB4GoIFjbu"
+}
 ]
