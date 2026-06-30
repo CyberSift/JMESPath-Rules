@@ -3,11 +3,6 @@
       "title": "COM Server application events 10016",
       "expression": "event.code=='10016'",
       "type": "windows"
-    },
-    {
-      "title": "Windows Filtering Platform (WFP) Events 5449 and 5447",
-      "expression": "event.code=='5449' && event.code=='5447'",
-      "type": "windows"
     }
   ]
   
