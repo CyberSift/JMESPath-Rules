@@ -1,9 +1,16 @@
 [
   {
-    "title": "Cloudflare Login from Known Threat",
+    "title": "Cloudflare - Login from Known Threat",
     "expression": "to_string(action.description)=='LOGIN' && to_string(\"cybersift.threat_info\".knownThreat)=='true'",
     "severity": "high",
     "type": "cloudflare",
     "reference": "https://outline.cybersift.io/s/engineering/doc/cloudflare-login-from-known-threat-se9e4IQFw3"
+  },
+  {
+    "title": "Cloudflare - Sensitive MX or NS DNS Record Modification",
+    "expression": "to_string(resource.product)=='dns_records' && (to_string(resource.response.type)=='MX' || to_string(resource.response.type)=='NS')",
+    "severity": "high",
+    "type": "cloudflare",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/cloudflare-sensitive-mx-or-ns-dns-record-modification-Kaw2baGAr4"
   }
 ]
