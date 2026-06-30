@@ -1,7 +1,7 @@
 [
   {
     "title": "Cloudflare Login from Known Threat",
-    "expression": "to_string(action.description)=='LOGIN' && to_string(\"cybersift.threat_info\".knownThreat)=='true'",
+    "expression": "to_string(action.description)=='LOGIN' && to_string(cybersift.threat_info.knownThreat)=='true'",
     "severity": "high",
     "type": "cloudflare",
     "reference": "https://outline.cybersift.io/s/engineering/doc/cloudflare-login-from-known-threat-se9e4IQFw3"
