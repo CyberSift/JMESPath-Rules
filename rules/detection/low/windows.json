@@ -1,0 +1,9 @@
+[
+  {
+    "title": "Failure Interactive Logon from Public IP",
+    "expression": "to_string(event.code)=='4625' && winlog.cybersift.LoginInfo.PrivateLoginSourceAddress==`false` && starts_with(to_string(winlog.event_data.LogonProcessName), 'User32')",
+    "severity": "low",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/failure-interactive-logon-from-public-ip-NVzpN0ewZD"
+  }
+]
