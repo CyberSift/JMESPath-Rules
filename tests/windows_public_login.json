@@ -1,0 +1,125 @@
+{
+  "cybersift": {
+    "ingest_time": "2026-06-30T14:23:25.890930863Z"
+  },
+  "agent": {
+    "hostname": "windowshost01",
+    "name": "windowshost01",
+    "id": "00000000-1111-2222-3333-444444444444",
+    "type": "winlogbeat",
+    "ephemeral_id": "00000000-aaaa-bbbb-cccc-dddddddddddd",
+    "version": "7.17.21"
+  },
+  "winlog": {
+    "cybersift": {
+      "TargetUserNameNormalized": "localadmin",
+      "SubjectUserNameNormalized": "windowshost01",
+      "LogonTypeText": "Unlock",
+      "SubjectUserType": "computer",
+      "event.code": 4624,
+      "LoginInfo": {
+        "PrivateLoginSourceAddress": false,
+        "SourceAddress": "192.0.2.1",
+        "DestinationName": "windowshost01"
+      },
+      "TargetUserType": "user",
+      "messageTitle": "An account was successfully logged on.",
+      "mitre": [
+        {
+          "name": "SID-History Injection",
+          "id": "T1178",
+          "tactic": "Privilege Escalation"
+        }
+      ],
+      "ComputerNameNormalized": "windowshost01",
+      "citrix": {}
+    },
+    "computer_name": "windowshost01.company.example.com",
+    "process": {
+      "pid": 720,
+      "thread": {
+        "id": 832
+      }
+    },
+    "keywords": [
+      "Audit Success"
+    ],
+    "channel": "Security",
+    "event_data": {
+      "SubjectUserNameNormalized": "windowshost01",
+      "ProcessName": "C:\\Windows\\System32\\svchost.exe",
+      "SubjectUserType": "computer",
+      "LogonGuid": "{00000000-0000-0000-0000-000000000000}",
+      "TargetOutboundDomainName": "-",
+      "VirtualAccount": "%%1843",
+      "TargetUserType": "user",
+      "IpPort": "0",
+      "TransmittedServices": "-",
+      "LmPackageName": "-",
+      "RestrictedAdminMode": "-",
+      "TargetUserNameNormalized": "localadmin",
+      "LogonTypeText": "Unlock",
+      "ElevatedToken": "%%1842",
+      "WorkstationName": "WINDOWSHOST01",
+      "SubjectDomainName": "COMPANY",
+      "LogonProcessName": "User32 ",
+      "TargetDomainName": "WINDOWSHOST01",
+      "LogonType": "7",
+      "SubjectLogonId": "0x3e7",
+      "TargetOutboundUserName": "-",
+      "KeyLength": "0",
+      "TargetLogonId": "0x91de3164",
+      "TargetLinkedLogonId": "0x91de3211",
+      "SubjectUserName": "WINDOWSHOST01$",
+      "IpAddress": "192.0.2.1",
+      "ProcessId": "0xae8",
+      "TargetUserName": "LocalAdmin",
+      "ImpersonationLevel": "%%1833",
+      "SubjectUserSid": "S-1-5-18",
+      "AuthenticationPackageName": "Negotiate",
+      "TargetUserSid": "S-1-5-21-0000000000-0000000000-0000000000-1001"
+    },
+    "opcode": "Info",
+    "version": 2,
+    "record_id": 8385153,
+    "task": "Logon",
+    "event_id": "4624",
+    "provider_guid": "{54849625-5478-4994-a5ba-3e3b0328c30d}",
+    "activity_id": "{00000000-0000-0000-0000-000000000000}",
+    "api": "wineventlog",
+    "provider_name": "Microsoft-Windows-Security-Auditing"
+  },
+  "log": {
+    "level": "information"
+  },
+  "@metadata": {
+    "beat": "winlogbeat",
+    "type": "_doc",
+    "version": "7.17.21"
+  },
+  "messageTitle": "An account was successfully logged on.",
+  "message": "An account was successfully logged on.\n\nSubject:\n\tSecurity ID:\t\tS-1-5-18\n\tAccount Name:\t\tWINDOWSHOST01$\n\tAccount Domain:\t\tCOMPANY\n\tLogon ID:\t\t0x3E7\n\nLogon Information:\n\tLogon Type:\t\t7\n\tRestricted Admin Mode:\t-\n\tVirtual Account:\t\tNo\n\tElevated Token:\t\tYes\n\nImpersonation Level:\t\tImpersonation\n\nNew Logon:\n\tSecurity ID:\t\tS-1-5-21-0000000000-0000000000-0000000000-1001\n\tAccount Name:\t\tLocalAdmin\n\tAccount Domain:\t\tWINDOWSHOST01\n\tLogon ID:\t\t0x91DE3164\n\tLinked Logon ID:\t\t0x91DE3211\n\tNetwork Account Name:\t-\n\tNetwork Account Domain:\t-\n\tLogon GUID:\t\t{00000000-0000-0000-0000-000000000000}\n\nProcess Information:\n\tProcess ID:\t\t0xae8\n\tProcess Name:\t\tC:\\Windows\\System32\\svchost.exe\n\nNetwork Information:\n\tWorkstation Name:\tWINDOWSHOST01\n\tSource Network Address:\t192.0.2.1\n\tSource Port:\t\t0\n\nDetailed Authentication Information:\n\tLogon Process:\t\tUser32 \n\tAuthentication Package:\tNegotiate\n\tTransited Services:\t-\n\tPackage Name (NTLM only):\t-\n\tKey Length:\t\t0\n\nThis event is generated when a logon session is created. It is generated on the computer that was accessed.\n\nThe subject fields indicate the account on the local system which requested the logon. This is most commonly a service such as the Server service, or a local process such as Winlogon.exe or Services.exe.\n\nThe logon type field indicates the kind of logon that occurred. The most common types are 2 (interactive) and 3 (network).\n\nThe New Logon fields indicate the account for whom the new logon was created, i.e. the account that was logged on.\n\nThe network fields indicate where a remote logon request originated. Workstation name is not always available and may be left blank in some cases.\n\nThe impersonation level field indicates the extent to which a process in the logon session can impersonate.\n\nThe authentication information fields provide detailed information about this specific logon request.\n\t- Logon GUID is a unique identifier that can be used to correlate this event with a KDC event.\n\t- Transited services indicate which intermediate services have participated in this logon request.\n\t- Package name indicates which sub-protocol was used among the NTLM protocols.\n\t- Key length indicates the length of the generated session key. This will be 0 if no session key was requested.",
+  "csRedisList": "winlogbeat",
+  "@timestamp": "2026-06-30T14:23:20.816Z",
+  "ecs": {
+    "version": "1.12.0"
+  },
+  "host": {
+    "name": "windowshost01.company.example.com"
+  },
+  "jmespath.matched": "prefix anon enterprise tenant",
+  "cs_tenant": "Enterprise Tenant",
+  "time": "14:23:25",
+  "fields": {
+    "csIndex": "winlogbeat"
+  },
+  "event": {
+    "code": "4624",
+    "provider": "Microsoft-Windows-Security-Auditing",
+    "kind": "event",
+    "created": "2026-06-30T14:23:22.822Z",
+    "action": "Logon",
+    "outcome": "success"
+  },
+  "context_addition": "true"
+}
