@@ -71,5 +71,12 @@
     "severity": "medium",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/engineering/doc/windows-account-set-to-never-expires-h79JXS0EtB"
+  },
+  {
+    "title": "Successful Interactive Logon from Public IP",
+    "expression": "to_string(event.code)=='4624' && winlog.cybersift.LoginInfo.PrivateLoginSourceAddress==`false` && starts_with(to_string(winlog.event_data.LogonProcessName), 'User32')",
+    "severity": "medium",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/successful-interactive-logon-from-public-ip-e2uptELtgV"
   }
 ]
