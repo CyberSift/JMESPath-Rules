@@ -303,5 +303,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/engineering/doc/potential-dcsync-attack-non-dc-account-using-replication-rights-eS9w3ozSOB"
+  },
+  {
+    "title": "Windows MSHTA Remote HTTP Execution",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), 'mshta') && contains(to_string(winlog.event_data.CommandLine), 'http')",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/d033ce86-913a-40ae-a4f6-260dcd78bfc0"
   }
 ]
