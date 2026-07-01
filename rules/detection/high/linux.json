@@ -47,5 +47,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/engineering/doc/sensitive-pattern-enumeration-in-bash-history-file-qx2U6yZ81t"
+  },
+  {
+    "title": "Linux Privilege Escalation Enumeration Tool Execution",
+    "expression": "(to_string(event.action) == 'executed') && (contains(to_string(process.name), 'linpeas') || contains(to_string(process.args), 'linpeas.sh') || contains(to_string(process.title), 'les.sh') || contains(to_string(process.title), 'linux-exploit-suggester'))",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/linux-privilege-escalation-enumeration-tool-execution-lTcaAQhuMC"
   }
 ]
