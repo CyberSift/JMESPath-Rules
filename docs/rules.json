@@ -750,7 +750,7 @@
     "name": "Potential Defense Evasion: Audit Log Cleared",
     "type": "detection",
     "severity": "high",
-    "description": "winlog.channel == 'Security' && (to_string(event.code) == '1102' || messageTitle == 'The audit log w",
+    "description": "winlog.channel == 'Security' && event.provider == 'Microsoft-Windows-Eventlog' && (to_string(event.c",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
     "reference": ""
