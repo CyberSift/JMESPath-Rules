@@ -1,0 +1,8 @@
+[
+  {
+    "title": "Failed command",
+    "expression": "auditd.message_type == 'user_cmd' && event.outcome == 'failure'",
+    "severity": "info",
+    "type": "auditbeat"
+  }
+]
