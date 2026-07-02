@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JMESPath Rules Catalog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Roboto+Slab:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Colours */
+            --cs-red:        #E82A37;
+            --cs-dark-red:   #C4232E;
+            --cs-deep-red:   #9C1C25;
+            --cs-charcoal:   #1C1F23;
+            --cs-near-black: #231F20;
+            --cs-mid-grey:   #A9B2B9;
+            --cs-gold:       #ECB227;
+            --cs-teal:       #0F9D9A;
+            --cs-blue:       #0178B3;
+            --cs-white:      #FFFFFF;
+            --cs-surface:    #F5F6F7;
+
+            /* Typography */
+            --font-display: 'Outfit', Arial, sans-serif;
+            --font-serif:   'Roboto Slab', Georgia, serif;
+
+            /* Spacing */
+            --section-pad: 3rem 4rem;
+            --card-radius: 4px;
+
+            /* Type scale */
+            --type-eyebrow: 0.75rem;
+            --type-h1: 2.5rem;
+            --type-h2: 1.5rem;
+            --type-h3: 1rem;
+            --type-body: 0.9375rem;
+            --type-small: 0.8125rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-display);
+            background: var(--cs-surface);
+            color: var(--cs-charcoal);
+            min-height: 100vh;
+            font-size: var(--type-body);
+            line-height: calc(var(--type-body) + 2pt);
+        }
+
+        /* ── Cover Band ── */
+        .cover {
+            background: var(--cs-charcoal);
+            color: var(--cs-white);
+            padding: 3rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-bottom: 4px solid var(--cs-red);
+        }
+
+        .cover__top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .cover__brand {
+            font-family: var(--font-serif);
+            font-size: var(--type-eyebrow);
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--cs-red);
+        }
+
+        .cover__date {
+            font-family: var(--font-display);
+            font-size: var(--type-small);
+            color: var(--cs-mid-grey);
+        }
+
+        .cover__content {
+            margin-top: 1rem;
+        }
+
+        .cover h1 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: var(--type-h1);
+            color: var(--cs-white);
+            margin: 0.5rem 0;
+            line-height: 1.15;
+        }
+
+        .cover__sub {
+            font-family: var(--font-display);
+            font-size: var(--type-body);
+            color: var(--cs-mid-grey);
+        }
+
+        .cover__footer {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            color: var(--cs-mid-grey);
+            margin-top: 2rem;
+        }
+
+        /* ── Container ── */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 4rem;
+        }
+
+        /* ── Eyebrow ── */
+        .eyebrow {
+            font-family: var(--font-serif);
+            font-size: var(--type-eyebrow);
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--cs-red);
+            margin-bottom: 0.5rem;
+        }
+
+        /* ── Controls Section ── */
+        .controls {
+            padding: 2rem 0;
+        }
+
+        .controls h2 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: var(--type-h2);
+            color: var(--cs-charcoal);
+            border-bottom: 2px solid var(--cs-red);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .control-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            font-family: var(--font-serif);
+            font-size: var(--type-eyebrow);
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--cs-charcoal);
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 0.625rem 0.75rem;
+            border: 1px solid var(--cs-mid-grey);
+            border-radius: var(--card-radius);
+            font-family: var(--font-display);
+            font-size: var(--type-body);
+            color: var(--cs-charcoal);
+            background: var(--cs-white);
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--cs-red);
+        }
+
+        .filter-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stats {
+            font-family: var(--font-display);
+            font-size: var(--type-small);
+            color: var(--cs-mid-grey);
+            margin-top: 1rem;
+        }
+
+        /* ── Rules Grid ── */
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 3rem;
+        }
+
+        /* ── Rule Card ── */
+        .rule-card {
+            background: var(--cs-white);
+            border-radius: var(--card-radius);
+            padding: 1.5rem;
+            border-left: 4px solid var(--cs-red);
+            transition: background 0.2s;
+        }
+
+        .rule-card:hover {
+            background: rgba(232, 42, 55, 0.06);
+        }
+
+        .rule-title {
+            font-family: var(--font-display);
+            font-size: var(--type-h2);
+            font-weight: 700;
+            color: var(--cs-charcoal);
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .rule-meta {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        /* ── Severity Badges ── */
+        .badge {
+            font-family: var(--font-display);
+            font-size: 0.65rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 3px 8px;
+            border-radius: 2px;
+            color: var(--cs-white);
+        }
+
+        .badge--critical {
+            background: var(--cs-red);
+        }
+
+        .badge--warning {
+            background: var(--cs-gold);
+            color: var(--cs-charcoal);
+        }
+
+        .badge--active {
+            background: var(--cs-teal);
+        }
+
+        .badge--info {
+            background: var(--cs-blue);
+        }
+
+        .badge-type {
+            background: var(--cs-charcoal);
+        }
+
+        .rule-description {
+            font-family: var(--font-display);
+            font-size: var(--type-body);
+            color: #4A4A4A;
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+        }
+
+        .rule-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-display);
+            font-size: var(--type-small);
+            color: var(--cs-mid-grey);
+            border-top: 1px solid rgba(168, 178, 185, 0.25);
+            padding-top: 0.75rem;
+        }
+
+        /* ── Empty State ── */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            background: var(--cs-white);
+            border-radius: var(--card-radius);
+            border-left: 4px solid var(--cs-mid-grey);
+            color: var(--cs-mid-grey);
+            font-family: var(--font-display);
+            font-size: var(--type-body);
+        }
+
+        /* ── Footer ── */
+        footer {
+            background: var(--cs-charcoal);
+            color: var(--cs-mid-grey);
+            padding: 1.5rem 4rem;
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            text-align: center;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .cover {
+                padding: 2rem 1.5rem;
+            }
+            .cover h1 {
+                font-size: 1.75rem;
+            }
+            .container {
+                padding: 0 1.5rem;
+            }
+            .rules-grid {
+                grid-template-columns: 1fr;
+            }
+            .filter-row {
+                grid-template-columns: 1fr;
+            }
+            footer {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="cover">
+        <div class="cover__top">
+            <span class="cover__brand">CyberSift</span>
+            <span class="cover__date">JMESPath Rules Catalog</span>
+        </div>
+        <div class="cover__content">
+            <h1>JMESPath Rules Catalog</h1>
+            <p class="cover__sub">Filterable detection and filtering rules</p>
+        </div>
+        <div class="cover__footer">Part of <strong>GO plc.</strong> Group</div>
+    </header>
+
+    <div class="container">
+        <div class="controls">
+            <p class="eyebrow">Filters</p>
+            <h2>Search &amp; Filter</h2>
+            <div class="filter-row">
+                <div class="control-group">
+                    <label for="search">Search Rules</label>
+                    <input type="text" id="search" placeholder="Search by name, description...">
+                </div>
+                <div class="control-group">
+                    <label for="severity">Severity</label>
+                    <select id="severity">
+                        <option value="">All Severities</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                        <option value="info">Info</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="type">Rule Type</label>
+                    <select id="type">
+                        <option value="">All Types</option>
+                        <option value="detection">Detection</option>
+                        <option value="filtering">Filtering</option>
+                    </select>
+                </div>
+            </div>
+            <div class="stats">
+                Showing <strong id="rule-count">0</strong> rules
+            </div>
+        </div>
+
+        <div class="rules-grid" id="rules-container"></div>
+    </div>
+
+    <footer>
+        &copy; 2026 CyberSift — Part of GO plc. Group
+    </footer>
+
+    <script>
+        let allRules = [];
+        let filteredRules = [];
+
+        async function loadRules() {
+            try {
+                const response = await fetch('./rules.json');
+                allRules = await response.json();
+                filteredRules = [...allRules];
+                renderRules();
+                setupFilters();
+            } catch (error) {
+                console.error('Error loading rules:', error);
+                document.getElementById('rules-container').innerHTML = '<div class="empty-state"><p>Error loading rules</p></div>';
+            }
+        }
+
+        function setupFilters() {
+            document.getElementById('search').addEventListener('input', filterRules);
+            document.getElementById('severity').addEventListener('change', filterRules);
+            document.getElementById('type').addEventListener('change', filterRules);
+        }
+
+        function filterRules() {
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            const severity = document.getElementById('severity').value;
+            const type = document.getElementById('type').value;
+
+            filteredRules = allRules.filter(rule => {
+                const matchesSearch = !searchTerm || rule.name.toLowerCase().includes(searchTerm) || (rule.description && rule.description.toLowerCase().includes(searchTerm));
+                const matchesSeverity = !severity || rule.severity === severity;
+                const matchesType = !type || rule.type === type;
+                return matchesSearch && matchesSeverity && matchesType;
+            });
+
+            renderRules();
+        }
+
+        function renderRules() {
+            const container = document.getElementById('rules-container');
+            document.getElementById('rule-count').textContent = filteredRules.length;
+
+            if (filteredRules.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>No rules match your filters</p></div>';
+                return;
+            }
+
+            container.innerHTML = filteredRules.map(rule => {
+                let badgeClass = 'badge--info';
+                if (rule.severity === 'high') badgeClass = 'badge--critical';
+                else if (rule.severity === 'medium') badgeClass = 'badge--warning';
+                else if (rule.severity === 'low') badgeClass = 'badge--active';
+
+                return `
+                <div class="rule-card">
+                    <div class="rule-title">${escapeHtml(rule.name)}</div>
+                    <div class="rule-meta">
+                        <span class="badge ${badgeClass}">${rule.severity.toUpperCase()}</span>
+                        <span class="badge badge-type">${rule.type.toUpperCase()}</span>
+                    </div>
+                    <div class="rule-description">${escapeHtml(rule.description || 'No description')}</div>
+                    <div class="rule-footer">
+                        <span>v${escapeHtml(rule.version || '1.0')}</span>
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        document.addEventListener('DOMContentLoaded', loadRules);
+    </script>
+</body>
+</html>
