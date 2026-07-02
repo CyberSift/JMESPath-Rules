@@ -534,21 +534,28 @@
             }
 
             const html = rulesToDisplay.map(rule => {
+                const severity = rule.severity || 'unknown';
+                const type = rule.type || 'unknown';
+                const logSource = rule.log_source || '';
+
                 let badgeClass = 'badge--info';
-                if (rule.severity === 'high') badgeClass = 'badge--critical';
-                else if (rule.severity === 'medium') badgeClass = 'badge--warning';
-                else if (rule.severity === 'low') badgeClass = 'badge--active';
+                if (severity === 'high') badgeClass = 'badge--critical';
+                else if (severity === 'medium') badgeClass = 'badge--warning';
+                else if (severity === 'low') badgeClass = 'badge--active';
 
                 const expression = rule.expression || '';
                 const expressionDisplay = expression ? `<div class="rule-expression">${escapeHtml(expression)}</div>` : '';
+                const logSourceBadge = logSource
+                    ? `<span class="badge badge-type">${escapeHtml(logSource.toUpperCase())}</span>`
+                    : '';
 
                 return `
                 <div class="rule-card">
-                    <div class="rule-title">${escapeHtml(rule.name)}</div>
+                    <div class="rule-title">${escapeHtml(rule.name || 'Unnamed rule')}</div>
                     <div class="rule-meta">
-                        <span class="badge ${badgeClass}">${rule.severity.toUpperCase()}</span>
-                        <span class="badge badge-type">${rule.type.toUpperCase()}</span>
-                        <span class="badge badge-type">${escapeHtml(rule.log_source.toUpperCase())}</span>
+                        <span class="badge ${badgeClass}">${escapeHtml(severity.toUpperCase())}</span>
+                        <span class="badge badge-type">${escapeHtml(type.toUpperCase())}</span>
+                        ${logSourceBadge}
                     </div>
                     <div class="rule-description">${escapeHtml(rule.description || 'No description')}</div>
                     ${expressionDisplay}
