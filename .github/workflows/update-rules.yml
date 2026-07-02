@@ -1,0 +1,29 @@
+name: Update Rules Catalog
+
+on:
+  push:
+    paths:
+      - 'rules/**'
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  generate-catalog:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate rules.json
+        run: |
+          python3 .github/scripts/generate_rules.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add docs/rules.json
+          git diff --cached --quiet || git commit -m "Auto-update rules catalog from detection rules"
+          git push
