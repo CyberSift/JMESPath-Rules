@@ -288,6 +288,10 @@
             overflow-y: auto;
         }
 
+        .rule-expression code {
+            font-family: inherit;
+        }
+
         .rule-footer {
             display: flex;
             justify-content: space-between;
@@ -298,6 +302,17 @@
             border-top: 1px solid rgba(168, 178, 185, 0.25);
             padding-top: 0.75rem;
             margin-top: auto;
+        }
+
+        .reference-link {
+            color: var(--cs-red);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .reference-link:hover {
+            color: var(--cs-dark-red);
+            text-decoration: underline;
         }
 
         /* ── Pagination ── */
@@ -450,8 +465,9 @@
                 
                 // Collect all unique log sources
                 allRules.forEach(rule => {
-                    if (rule.log_source) {
-                        logSources.add(rule.log_source);
+                    const logSource = getRuleLogSource(rule);
+                    if (logSource) {
+                        logSources.add(logSource);
                     }
                 });
                 
@@ -510,7 +526,7 @@
                 const matchesSearch = !searchTerm || rule.name.toLowerCase().includes(searchTerm) || (rule.description && rule.description.toLowerCase().includes(searchTerm));
                 const matchesSeverity = !severity || rule.severity === severity;
                 const matchesType = !type || rule.type === type;
-                const matchesLogSource = !logsource || rule.log_source === logsource;
+                const matchesLogSource = !logsource || getRuleLogSource(rule) === logsource;
                 return matchesSearch && matchesSeverity && matchesType && matchesLogSource;
             });
 
@@ -536,17 +552,23 @@
             const html = rulesToDisplay.map(rule => {
                 const severity = rule.severity || 'unknown';
                 const type = rule.type || 'unknown';
-                const logSource = rule.log_source || '';
+                const logSource = getRuleLogSource(rule);
+                const reference = rule.reference || '';
 
                 let badgeClass = 'badge--info';
                 if (severity === 'high') badgeClass = 'badge--critical';
                 else if (severity === 'medium') badgeClass = 'badge--warning';
                 else if (severity === 'low') badgeClass = 'badge--active';
 
-                const expression = rule.expression || '';
-                const expressionDisplay = expression ? `<div class="rule-expression">${escapeHtml(expression)}</div>` : '';
+                const expression = rule.expression || rule.description || '';
+                const description = rule.expression ? rule.description : '';
+                const descriptionDisplay = description ? `<div class="rule-description">${escapeHtml(description)}</div>` : '';
+                const expressionDisplay = expression ? `<pre class="rule-expression"><code>${escapeHtml(expression)}</code></pre>` : '';
                 const logSourceBadge = logSource
                     ? `<span class="badge badge-type">${escapeHtml(logSource.toUpperCase())}</span>`
+                    : '';
+                const referenceLink = reference
+                    ? `<a class="reference-link" href="${escapeHtml(reference)}" target="_blank" rel="noopener noreferrer">Reference</a>`
                     : '';
 
                 return `
@@ -557,10 +579,11 @@
                         <span class="badge badge-type">${escapeHtml(type.toUpperCase())}</span>
                         ${logSourceBadge}
                     </div>
-                    <div class="rule-description">${escapeHtml(rule.description || 'No description')}</div>
+                    ${descriptionDisplay}
                     ${expressionDisplay}
                     <div class="rule-footer">
                         <span>${escapeHtml(rule.path || '')}</span>
+                        ${referenceLink}
                     </div>
                 </div>
             `}).join('');
@@ -568,7 +591,7 @@
             if (currentPage === 0) {
                 container.innerHTML = html;
             } else {
-                container.innerHTML += html;
+                container.insertAdjacentHTML('beforeend', html);
             }
 
             // Show/hide load more button
@@ -582,8 +605,14 @@
         function loadMoreRules() {
             currentPage++;
             renderRules();
-            // Scroll to top of rules
-            document.getElementById('rules-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function getRuleLogSource(rule) {
+            if (rule.log_source) return rule.log_source;
+            if (!rule.path) return '';
+
+            const filename = rule.path.split('/').pop() || '';
+            return filename.replace(/\.json$/i, '');
         }
 
         function escapeHtml(text) {
