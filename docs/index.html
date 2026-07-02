@@ -449,7 +449,7 @@
                 allRules = await response.json();
                 
                 // Collect all unique log sources
-                allRources.forEach(rule => {
+                allRules.forEach(rule => {
                     if (rule.log_source) {
                         logSources.add(rule.log_source);
                     }
