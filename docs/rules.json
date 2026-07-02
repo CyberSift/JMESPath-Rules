@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Suspicious Process Execution",
+    "type": "detection",
+    "severity": "high",
+    "description": "Detects suspicious process execution patterns",
+    "version": "1.0",
+    "path": "rules/detection/high"
+  },
+  {
+    "name": "Syslog Filtering",
+    "type": "filtering",
+    "severity": "info",
+    "description": "Filters standard syslog messages",
+    "version": "1.0",
+    "path": "rules/filtering"
+  },
+  {
+    "name": "Windows Filtering",
+    "type": "filtering",
+    "severity": "info",
+    "description": "Filters Windows event logs",
+    "version": "1.0",
+    "path": "rules/filtering"
+  }
+]
