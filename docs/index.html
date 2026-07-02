@@ -113,26 +113,107 @@
         }
 
         /* ── Container ── */
-        .container {
-            max-width: 1200px;
+        .main-content {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 4rem;
+            padding: 2rem 4rem;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
         }
 
-        /* ── Eyebrow ── */
-        .eyebrow {
+        /* ── Sidebar ── */
+        .sidebar {
+            background: var(--cs-white);
+            border-radius: var(--card-radius);
+            padding: 1.5rem;
+            height: fit-content;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border-left: 4px solid var(--cs-red);
+        }
+
+        .sidebar h3 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: var(--type-h3);
+            color: var(--cs-charcoal);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--cs-red);
+            padding-bottom: 0.5rem;
+        }
+
+        .filter-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .filter-label {
             font-family: var(--font-serif);
             font-size: var(--type-eyebrow);
             font-weight: 400;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--cs-red);
+            letter-spacing: 0.1em;
+            color: var(--cs-charcoal);
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 0.625rem 0.75rem;
+            border: 1px solid var(--cs-mid-grey);
+            border-radius: var(--card-radius);
+            font-family: var(--font-display);
+            font-size: var(--type-small);
+            color: var(--cs-charcoal);
+            background: var(--cs-white);
             margin-bottom: 0.5rem;
         }
 
-        /* ── Controls Section ── */
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--cs-red);
+        }
+
+        .filter-options {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .filter-checkbox {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+
+        .filter-checkbox input[type="checkbox"] {
+            width: auto;
+            margin-right: 0.5rem;
+            cursor: pointer;
+        }
+
+        .filter-checkbox label {
+            font-size: var(--type-small);
+            margin: 0;
+            cursor: pointer;
+            font-family: var(--font-display);
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        /* ── Main Content ── */
+        .content {
+            flex: 1;
+        }
+
         .controls {
-            padding: 2rem 0;
+            padding-bottom: 1.5rem;
         }
 
         .controls h2 {
@@ -160,27 +241,9 @@
             margin-bottom: 0.5rem;
         }
 
-        input[type="text"],
-        select {
-            width: 100%;
-            padding: 0.625rem 0.75rem;
-            border: 1px solid var(--cs-mid-grey);
-            border-radius: var(--card-radius);
-            font-family: var(--font-display);
-            font-size: var(--type-body);
-            color: var(--cs-charcoal);
-            background: var(--cs-white);
-        }
-
-        input[type="text"]:focus,
-        select:focus {
-            outline: none;
-            border-color: var(--cs-red);
-        }
-
         .filter-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
         }
 
@@ -194,7 +257,7 @@
         /* ── Rules Grid ── */
         .rules-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: 1fr;
             gap: 1.25rem;
             margin-bottom: 3rem;
         }
@@ -206,10 +269,19 @@
             padding: 1.5rem;
             border-left: 4px solid var(--cs-red);
             transition: background 0.2s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         }
 
         .rule-card:hover {
             background: rgba(232, 42, 55, 0.06);
+        }
+
+        .rule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
         }
 
         .rule-title {
@@ -217,8 +289,8 @@
             font-size: var(--type-h2);
             font-weight: 700;
             color: var(--cs-charcoal);
-            margin-bottom: 0.75rem;
             line-height: 1.3;
+            flex: 1;
         }
 
         .rule-meta {
@@ -238,6 +310,7 @@
             padding: 3px 8px;
             border-radius: 2px;
             color: var(--cs-white);
+            white-space: nowrap;
         }
 
         .badge--critical {
@@ -266,7 +339,21 @@
             font-size: var(--type-body);
             color: #4A4A4A;
             line-height: 1.6;
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .rule-expression {
+            background: #F0F0F0;
+            border-left: 3px solid var(--cs-blue);
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border-radius: 2px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: #333;
+            overflow-x: auto;
+            word-break: break-all;
+            white-space: pre-wrap;
         }
 
         .rule-footer {
@@ -278,6 +365,23 @@
             color: var(--cs-mid-grey);
             border-top: 1px solid rgba(168, 178, 185, 0.25);
             padding-top: 0.75rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .rule-reference {
+            display: inline-block;
+        }
+
+        .rule-reference a {
+            color: var(--cs-blue);
+            text-decoration: none;
+            font-weight: 600;
+            word-break: break-all;
+        }
+
+        .rule-reference a:hover {
+            text-decoration: underline;
         }
 
         /* ── Empty State ── */
@@ -292,6 +396,35 @@
             font-size: var(--type-body);
         }
 
+        /* ── Load More Button ── */
+        .load-more-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .load-more-btn {
+            background: var(--cs-red);
+            color: var(--cs-white);
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: var(--card-radius);
+            font-family: var(--font-display);
+            font-size: var(--type-body);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .load-more-btn:hover {
+            background: var(--cs-dark-red);
+        }
+
+        .load-more-btn:disabled {
+            background: var(--cs-mid-grey);
+            cursor: not-allowed;
+        }
+
         /* ── Footer ── */
         footer {
             background: var(--cs-charcoal);
@@ -303,6 +436,16 @@
         }
 
         /* ── Responsive ── */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                grid-column: 1;
+            }
+        }
+
         @media (max-width: 768px) {
             .cover {
                 padding: 2rem 1.5rem;
@@ -310,11 +453,8 @@
             .cover h1 {
                 font-size: 1.75rem;
             }
-            .container {
-                padding: 0 1.5rem;
-            }
-            .rules-grid {
-                grid-template-columns: 1fr;
+            .main-content {
+                padding: 1.5rem;
             }
             .filter-row {
                 grid-template-columns: 1fr;
@@ -338,56 +478,83 @@
         <div class="cover__footer">Part of <strong>GO plc.</strong> Group</div>
     </header>
 
-    <div class="container">
-        <div class="controls">
-            <p class="eyebrow">Filters</p>
-            <h2>Search &amp; Filter</h2>
-            <div class="filter-row">
-                <div class="control-group">
-                    <label for="search">Search Rules</label>
-                    <input type="text" id="search" placeholder="Search by name, description...">
+    <div class="main-content">
+        <!-- Sidebar Filters -->
+        <aside class="sidebar">
+            <h3>Filters</h3>
+
+            <div class="filter-group">
+                <label class="filter-label">Log Source</label>
+                <div class="filter-options" id="source-filters"></div>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Severity</label>
+                <select id="severity">
+                    <option value="">All Severities</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                    <option value="info">Info</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Rule Type</label>
+                <select id="type">
+                    <option value="">All Types</option>
+                    <option value="detection">Detection</option>
+                    <option value="filtering">Filtering</option>
+                </select>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="content">
+            <div class="controls">
+                <h2>Search &amp; Filter</h2>
+                <div class="filter-row">
+                    <div class="control-group">
+                        <label for="search">Search Rules</label>
+                        <input type="text" id="search" placeholder="Search by name, description...">
+                    </div>
                 </div>
-                <div class="control-group">
-                    <label for="severity">Severity</label>
-                    <select id="severity">
-                        <option value="">All Severities</option>
-                        <option value="high">High</option>
-                        <option value="medium">Medium</option>
-                        <option value="low">Low</option>
-                        <option value="info">Info</option>
-                    </select>
-                </div>
-                <div class="control-group">
-                    <label for="type">Rule Type</label>
-                    <select id="type">
-                        <option value="">All Types</option>
-                        <option value="detection">Detection</option>
-                        <option value="filtering">Filtering</option>
-                    </select>
+                <div class="stats">
+                    Showing <strong id="displayed-count">0</strong> of <strong id="total-count">0</strong> rules
                 </div>
             </div>
-            <div class="stats">
-                Showing <strong id="rule-count">0</strong> rules
+
+            <div class="rules-grid" id="rules-container"></div>
+
+            <div class="load-more-container" id="load-more-container" style="display: none;">
+                <button class="load-more-btn" id="load-more-btn">Load More Rules</button>
             </div>
         </div>
-
-        <div class="rules-grid" id="rules-container"></div>
     </div>
 
-    <footer>
-        &copy; 2026 CyberSift — Part of GO plc. Group
-    </footer>
-
     <script>
+        const RULES_PER_PAGE = 100;
         let allRules = [];
         let filteredRules = [];
+        let displayedRules = [];
+        let currentPage = 0;
+        let availableSources = new Set();
 
         async function loadRules() {
             try {
                 const response = await fetch('./rules.json');
                 allRules = await response.json();
-                filteredRules = [...allRules];
-                renderRules();
+                
+                // Extract unique log sources from rule type
+                allRules.forEach(rule => {
+                    if (rule.type && rule.type !== 'detection' && rule.type !== 'filtering') {
+                        availableSources.add(rule.type);
+                    }
+                });
+
+                buildSourceFilters();
+                currentPage = 0;
+                filterRules();
                 setupFilters();
             } catch (error) {
                 console.error('Error loading rules:', error);
@@ -395,55 +562,135 @@
             }
         }
 
+        function buildSourceFilters() {
+            const container = document.getElementById('source-filters');
+            const sources = Array.from(availableSources).sort();
+
+            container.innerHTML = sources.map(source => `
+                <div class="filter-checkbox">
+                    <input type="checkbox" id="source-${source}" value="${source}" class="source-filter">
+                    <label for="source-${source}">${escapeHtml(source.charAt(0).toUpperCase() + source.slice(1))}</label>
+                </div>
+            `).join('');
+
+            // Add event listeners to all source checkboxes
+            document.querySelectorAll('.source-filter').forEach(checkbox => {
+                checkbox.addEventListener('change', () => {
+                    currentPage = 0;
+                    filterRules();
+                });
+            });
+        }
+
         function setupFilters() {
-            document.getElementById('search').addEventListener('input', filterRules);
-            document.getElementById('severity').addEventListener('change', filterRules);
-            document.getElementById('type').addEventListener('change', filterRules);
+            document.getElementById('search').addEventListener('input', () => {
+                currentPage = 0;
+                filterRules();
+            });
+            document.getElementById('severity').addEventListener('change', () => {
+                currentPage = 0;
+                filterRules();
+            });
+            document.getElementById('type').addEventListener('change', () => {
+                currentPage = 0;
+                filterRules();
+            });
+            document.getElementById('load-more-btn').addEventListener('click', loadMore);
         }
 
         function filterRules() {
             const searchTerm = document.getElementById('search').value.toLowerCase();
             const severity = document.getElementById('severity').value;
-            const type = document.getElementById('type').value;
+            const ruleType = document.getElementById('type').value;
+            
+            // Get selected sources
+            const selectedSources = Array.from(document.querySelectorAll('.source-filter:checked'))
+                .map(checkbox => checkbox.value);
 
             filteredRules = allRules.filter(rule => {
-                const matchesSearch = !searchTerm || rule.name.toLowerCase().includes(searchTerm) || (rule.description && rule.description.toLowerCase().includes(searchTerm));
+                const matchesSearch = !searchTerm || 
+                    rule.name.toLowerCase().includes(searchTerm) || 
+                    (rule.description && rule.description.toLowerCase().includes(searchTerm)) ||
+                    (rule.type && rule.type.toLowerCase().includes(searchTerm));
+                
                 const matchesSeverity = !severity || rule.severity === severity;
-                const matchesType = !type || rule.type === type;
-                return matchesSearch && matchesSeverity && matchesType;
+                const matchesType = !ruleType || rule.type === ruleType || (ruleType === 'detection' && rule.type !== 'filtering') || (ruleType === 'filtering' && rule.type === 'filtering');
+                
+                // If no sources selected, include all; otherwise only include selected sources
+                const matchesSource = selectedSources.length === 0 || selectedSources.includes(rule.type);
+
+                return matchesSearch && matchesSeverity && matchesType && matchesSource;
             });
 
+            // Reset to first page
+            displayedRules = [];
+            loadMore();
+        }
+
+        function loadMore() {
+            const startIdx = currentPage * RULES_PER_PAGE;
+            const endIdx = startIdx + RULES_PER_PAGE;
+            const newRules = filteredRules.slice(startIdx, endIdx);
+            
+            displayedRules.push(...newRules);
+            currentPage++;
+            
             renderRules();
+            updateLoadMoreButton();
         }
 
         function renderRules() {
             const container = document.getElementById('rules-container');
-            document.getElementById('rule-count').textContent = filteredRules.length;
+            document.getElementById('displayed-count').textContent = displayedRules.length;
+            document.getElementById('total-count').textContent = filteredRules.length;
 
-            if (filteredRules.length === 0) {
+            if (displayedRules.length === 0 && filteredRules.length === 0) {
                 container.innerHTML = '<div class="empty-state"><p>No rules match your filters</p></div>';
                 return;
             }
 
-            container.innerHTML = filteredRules.map(rule => {
+            container.innerHTML = displayedRules.map(rule => {
                 let badgeClass = 'badge--info';
                 if (rule.severity === 'high') badgeClass = 'badge--critical';
                 else if (rule.severity === 'medium') badgeClass = 'badge--warning';
                 else if (rule.severity === 'low') badgeClass = 'badge--active';
 
+                const referenceLink = rule.reference ? 
+                    `<span class="rule-reference"><a href="${escapeHtml(rule.reference)}" target="_blank" rel="noopener noreferrer">📖 View Reference</a></span>` : 
+                    '';
+
                 return `
                 <div class="rule-card">
-                    <div class="rule-title">${escapeHtml(rule.name)}</div>
-                    <div class="rule-meta">
-                        <span class="badge ${badgeClass}">${rule.severity.toUpperCase()}</span>
-                        <span class="badge badge-type">${rule.type.toUpperCase()}</span>
+                    <div class="rule-header">
+                        <div>
+                            <div class="rule-title">${escapeHtml(rule.name)}</div>
+                            <div class="rule-meta">
+                                <span class="badge ${badgeClass}">${rule.severity.toUpperCase()}</span>
+                                <span class="badge badge-type">${escapeHtml(rule.type.toUpperCase())}</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="rule-description">${escapeHtml(rule.description || 'No description')}</div>
+                    ${rule.expression ? `<div class="rule-expression">${escapeHtml(rule.expression)}</div>` : ''}
                     <div class="rule-footer">
                         <span>v${escapeHtml(rule.version || '1.0')}</span>
+                        ${referenceLink}
                     </div>
                 </div>
             `}).join('');
+        }
+
+        function updateLoadMoreButton() {
+            const btn = document.getElementById('load-more-btn');
+            const container = document.getElementById('load-more-container');
+            
+            if (displayedRules.length < filteredRules.length) {
+                container.style.display = 'flex';
+                btn.disabled = false;
+                btn.textContent = `Load More Rules (${filteredRules.length - displayedRules.length} remaining)`;
+            } else {
+                container.style.display = 'none';
+            }
         }
 
         function escapeHtml(text) {
