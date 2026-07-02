@@ -396,6 +396,35 @@
             font-size: var(--type-body);
         }
 
+        /* ── Load More Button ── */
+        .load-more-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .load-more-btn {
+            background: var(--cs-red);
+            color: var(--cs-white);
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: var(--card-radius);
+            font-family: var(--font-display);
+            font-size: var(--type-body);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .load-more-btn:hover {
+            background: var(--cs-dark-red);
+        }
+
+        .load-more-btn:disabled {
+            background: var(--cs-mid-grey);
+            cursor: not-allowed;
+        }
+
         /* ── Footer ── */
         footer {
             background: var(--cs-charcoal);
@@ -491,17 +520,24 @@
                     </div>
                 </div>
                 <div class="stats">
-                    Showing <strong id="rule-count">0</strong> rules
+                    Showing <strong id="displayed-count">0</strong> of <strong id="total-count">0</strong> rules
                 </div>
             </div>
 
             <div class="rules-grid" id="rules-container"></div>
+
+            <div class="load-more-container" id="load-more-container" style="display: none;">
+                <button class="load-more-btn" id="load-more-btn">Load More Rules</button>
+            </div>
         </div>
     </div>
 
     <script>
+        const RULES_PER_PAGE = 100;
         let allRules = [];
         let filteredRules = [];
+        let displayedRules = [];
+        let currentPage = 0;
         let availableSources = new Set();
 
         async function loadRules() {
@@ -517,8 +553,8 @@
                 });
 
                 buildSourceFilters();
-                filteredRules = [...allRules];
-                renderRules();
+                currentPage = 0;
+                filterRules();
                 setupFilters();
             } catch (error) {
                 console.error('Error loading rules:', error);
@@ -539,14 +575,27 @@
 
             // Add event listeners to all source checkboxes
             document.querySelectorAll('.source-filter').forEach(checkbox => {
-                checkbox.addEventListener('change', filterRules);
+                checkbox.addEventListener('change', () => {
+                    currentPage = 0;
+                    filterRules();
+                });
             });
         }
 
         function setupFilters() {
-            document.getElementById('search').addEventListener('input', filterRules);
-            document.getElementById('severity').addEventListener('change', filterRules);
-            document.getElementById('type').addEventListener('change', filterRules);
+            document.getElementById('search').addEventListener('input', () => {
+                currentPage = 0;
+                filterRules();
+            });
+            document.getElementById('severity').addEventListener('change', () => {
+                currentPage = 0;
+                filterRules();
+            });
+            document.getElementById('type').addEventListener('change', () => {
+                currentPage = 0;
+                filterRules();
+            });
+            document.getElementById('load-more-btn').addEventListener('click', loadMore);
         }
 
         function filterRules() {
@@ -573,19 +622,34 @@
                 return matchesSearch && matchesSeverity && matchesType && matchesSource;
             });
 
+            // Reset to first page
+            displayedRules = [];
+            loadMore();
+        }
+
+        function loadMore() {
+            const startIdx = currentPage * RULES_PER_PAGE;
+            const endIdx = startIdx + RULES_PER_PAGE;
+            const newRules = filteredRules.slice(startIdx, endIdx);
+            
+            displayedRules.push(...newRules);
+            currentPage++;
+            
             renderRules();
+            updateLoadMoreButton();
         }
 
         function renderRules() {
             const container = document.getElementById('rules-container');
-            document.getElementById('rule-count').textContent = filteredRules.length;
+            document.getElementById('displayed-count').textContent = displayedRules.length;
+            document.getElementById('total-count').textContent = filteredRules.length;
 
-            if (filteredRules.length === 0) {
+            if (displayedRules.length === 0 && filteredRules.length === 0) {
                 container.innerHTML = '<div class="empty-state"><p>No rules match your filters</p></div>';
                 return;
             }
 
-            container.innerHTML = filteredRules.map(rule => {
+            container.innerHTML = displayedRules.map(rule => {
                 let badgeClass = 'badge--info';
                 if (rule.severity === 'high') badgeClass = 'badge--critical';
                 else if (rule.severity === 'medium') badgeClass = 'badge--warning';
@@ -614,6 +678,19 @@
                     </div>
                 </div>
             `}).join('');
+        }
+
+        function updateLoadMoreButton() {
+            const btn = document.getElementById('load-more-btn');
+            const container = document.getElementById('load-more-container');
+            
+            if (displayedRules.length < filteredRules.length) {
+                container.style.display = 'flex';
+                btn.disabled = false;
+                btn.textContent = `Load More Rules (${filteredRules.length - displayedRules.length} remaining)`;
+            } else {
+                container.style.display = 'none';
+            }
         }
 
         function escapeHtml(text) {
