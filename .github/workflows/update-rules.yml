@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
 
@@ -20,10 +21,11 @@ jobs:
         run: |
           python3 .github/scripts/generate_rules.py
 
-      - name: Commit changes
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add docs/rules.json
-          git diff --cached --quiet || git commit -m "Auto-update rules catalog from detection rules"
-          git push
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: 'Auto-update rules catalog from detection rules'
+          title: 'chore: update rules catalog'
+          body: 'Automatically generated rules catalog from rule files'
+          branch: 'auto-update-rules'
+          delete-branch: true
