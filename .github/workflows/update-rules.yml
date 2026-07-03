@@ -4,10 +4,12 @@ on:
   push:
     paths:
       - 'rules/**'
+      - '.github/scripts/generate_rules.py'
+      - '.github/workflows/update-rules.yml'
     branches:
       - main
   workflow_dispatch:
-
+  
 jobs:
   generate-catalog:
     runs-on: ubuntu-latest
