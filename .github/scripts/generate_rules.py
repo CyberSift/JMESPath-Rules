@@ -47,15 +47,18 @@ def extract_rule_metadata(file_path):
             # For filtering rules, default to info if not specified
             if rule_type == "filtering" and severity not in ["high", "medium", "low", "info"]:
                 severity = "info"
-            
+                
+            expression = rule.get("expression", "")
             metadata = {
                 "name": rule.get("title") or rule.get("name") or Path(file_path).stem,
                 "type": rule_type,
                 "severity": severity,
-                "description": rule.get("description") or rule.get("expression", "")[:100],
+                "description": rule.get("description") or "",
+                "expression": expression,
                 "version": rule.get("version") or "1.0",
                 "path": file_path.replace(os.sep, "/"),
-                "reference": rule.get("reference") or ""
+                "reference": rule.get("reference") or "",
+                "log_source": rule.get("type") or Path(file_path).stem
             }
             extracted_rules.append(metadata)
         
