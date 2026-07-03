@@ -3,1341 +3,1639 @@
     "name": "AWS - KMS Key Scheduled for Deletion",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.dataset)=='aws.cloudtrail' && to_string(cybersift.aws.eventName)=='ScheduleKeyDeleti",
+    "description": "",
+    "expression": "to_string(event.dataset)=='aws.cloudtrail' && to_string(cybersift.aws.eventName)=='ScheduleKeyDeletion'",
     "version": "1.0",
     "path": "rules/detection/high/aws.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/aws-kms-key-scheduled-for-deletion-Drcmvwk0T0"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/aws-kms-key-scheduled-for-deletion-Drcmvwk0T0",
+    "log_source": "aws"
   },
   {
     "name": "AWS - Logging Disabled or Modified",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.dataset)=='aws.cloudtrail' && (to_string(cybersift.aws.eventName)=='StopLogging' || ",
+    "description": "",
+    "expression": "to_string(event.dataset)=='aws.cloudtrail' && (to_string(cybersift.aws.eventName)=='StopLogging' || to_string(cybersift.aws.eventName)=='DeleteTrail' || to_string(cybersift.aws.eventName)=='UpdateTrail')",
     "version": "1.0",
     "path": "rules/detection/high/aws.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/aws-logging-disabled-or-modified-lfl5Er9UDl"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/aws-logging-disabled-or-modified-lfl5Er9UDl",
+    "log_source": "aws"
   },
   {
     "name": "AWS - Sensitive Management Port Exposed to Internet in Security Group",
     "type": "detection",
     "severity": "high",
-    "description": "event.dataset == 'aws.cloudtrail' && cybersift.aws.eventSource == 'ec2.amazonaws.com' && (contains(t",
+    "description": "",
+    "expression": "event.dataset == 'aws.cloudtrail' && cybersift.aws.eventSource == 'ec2.amazonaws.com' && (contains(to_string(cybersift.aws.requestParameters.ipPermissions.items[].fromPort), '21') || contains(to_string(cybersift.aws.requestParameters.ipPermissions.items[].fromPort), '22') || contains(to_string(cybersift.aws.requestParameters.ipPermissions.items[].fromPort), '23') || contains(to_string(cybersift.aws.requestParameters.ipPermissions.items[].fromPort), '445') || contains(to_string(cybersift.aws.requestParameters.ipPermissions.items[].fromPort), '3389') || contains(to_string(cybersift.aws.requestParameters.ipPermissions.items[].fromPort), '5985') || contains(to_string(cybersift.aws.requestParameters.ipPermissions.items[].fromPort), '5986')) && (contains(to_string(cybersift.aws.requestParameters.ipPermissions.items[].ipRanges[].items[].cidrIp), '0.0.0.0/0') || contains(to_string(cybersift.aws.requestParameters.ipPermissions.items[].ipv6Ranges[].items[].cidrIpv6), '::/0'))",
     "version": "1.0",
     "path": "rules/detection/high/aws.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/aws-sensitive-management-port-exposed-to-internet-in-security-group-6VSgOcgVdR"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/aws-sensitive-management-port-exposed-to-internet-in-security-group-6VSgOcgVdR",
+    "log_source": "aws"
   },
   {
     "name": "AWS - Root Password Recovery Requested",
     "type": "detection",
     "severity": "high",
-    "description": "event.dataset == 'aws.cloudtrail' && cybersift.aws.eventSource == 'signin.amazonaws.com' && cybersif",
+    "description": "",
+    "expression": "event.dataset == 'aws.cloudtrail' && cybersift.aws.eventSource == 'signin.amazonaws.com' && cybersift.aws.eventName == 'PasswordRecoveryRequested'",
     "version": "1.0",
     "path": "rules/detection/high/aws.json",
-    "reference": "https://outline.cybersift.io/s/0806e335-9c2a-47ac-8098-0e8c9895e396"
+    "reference": "https://outline.cybersift.io/s/0806e335-9c2a-47ac-8098-0e8c9895e396",
+    "log_source": "aws"
   },
   {
     "name": "AWS - EC2 Instance Connect SSH Public Key Uploaded",
     "type": "detection",
     "severity": "high",
-    "description": "event.datastream == 'aws.cloudtrail' && (cybersift.aws.eventName == 'SendSSHPublicKey' || cybersift.",
+    "description": "",
+    "expression": "event.datastream == 'aws.cloudtrail' && (cybersift.aws.eventName == 'SendSSHPublicKey' || cybersift.aws.eventName == 'SendSerialConsoleSSHPublicKey')",
     "version": "1.0",
     "path": "rules/detection/high/aws.json",
-    "reference": "https://outline.cybersift.io/s/0c187e5f-135b-48a6-a51b-c52939b692d2"
+    "reference": "https://outline.cybersift.io/s/0c187e5f-135b-48a6-a51b-c52939b692d2",
+    "log_source": "aws"
   },
   {
     "name": "Cloudflare Login from Known Threat",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(action.description)=='LOGIN' && to_string(cybersift.threat_info.knownThreat)=='true'",
+    "description": "",
+    "expression": "to_string(action.description)=='LOGIN' && to_string(cybersift.threat_info.knownThreat)=='true'",
     "version": "1.0",
     "path": "rules/detection/high/cloudflare.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/cloudflare-login-from-known-threat-se9e4IQFw3"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/cloudflare-login-from-known-threat-se9e4IQFw3",
+    "log_source": "cloudflare"
   },
   {
     "name": "Cloudflare - Sensitive MX or NS DNS Record Modification",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(resource.product)=='dns_records' && (to_string(resource.response.type)=='MX' || to_string(",
+    "description": "",
+    "expression": "to_string(resource.product)=='dns_records' && (to_string(resource.response.type)=='MX' || to_string(resource.response.type)=='NS')",
     "version": "1.0",
     "path": "rules/detection/high/cloudflare.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/cloudflare-sensitive-mx-or-ns-dns-record-modification-Kaw2baGAr4"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/cloudflare-sensitive-mx-or-ns-dns-record-modification-Kaw2baGAr4",
+    "log_source": "cloudflare"
   },
   {
     "name": "Potentially Unauthorized Gmail Route / Message Security Rule Change",
     "type": "detection",
     "severity": "high",
-    "description": "event.dataset == 'google_workspace.admin' && (event.action == 'CREATE_GMAIL_SETTING' || event.action",
+    "description": "",
+    "expression": "event.dataset == 'google_workspace.admin' && (event.action == 'CREATE_GMAIL_SETTING' || event.action == 'CHANGE_GMAIL_SETTING') && google_workspace.event.type == 'EMAIL_SETTINGS' && (google_workspace.admin.setting.name == 'EMAIL_ROUTE' || google_workspace.admin.setting.name == 'MESSAGE_SECURITY_RULE')",
     "version": "1.0",
     "path": "rules/detection/high/google_workspace.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/potentially-unauthorized-gmail-route-message-security-rule-change-5bWrY9ikGH"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/potentially-unauthorized-gmail-route-message-security-rule-change-5bWrY9ikGH",
+    "log_source": "google_workspace"
   },
   {
     "name": "Google Workspace Admin Role Assigned to a User",
     "type": "detection",
     "severity": "high",
-    "description": "event.dataset == 'google_workspace.admin' && event.category == 'iam' && event.action == 'ASSIGN_ROLE",
+    "description": "",
+    "expression": "event.dataset == 'google_workspace.admin' && event.category == 'iam' && event.action == 'ASSIGN_ROLE' && google_workspace.event.type == 'DELEGATED_ADMIN_SETTINGS' && ends_with(to_string(google_workspace.admin.role.name), '_ADMIN_ROLE')",
     "version": "1.0",
     "path": "rules/detection/high/google_workspace.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-admin-role-assigned-to-a-user-e31qJZSj5D"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-admin-role-assigned-to-a-user-e31qJZSj5D",
+    "log_source": "google_workspace"
   },
   {
     "name": "Google Workspace Drive Encryption Key(s) Accessed from Anonymous User",
     "type": "detection",
     "severity": "high",
-    "description": "event.dataset == 'google_workspace.drive' && contains(['copy','view','download'], to_string(event.ac",
+    "description": "",
+    "expression": "event.dataset == 'google_workspace.drive' && contains(['copy','view','download'], to_string(event.action)) && google_workspace.drive.visibility == 'people_with_link' && source.user.email == '' && contains(['token','assig','pssc','keystore','pub','pgp.asc','ps1xml','pem','gpg.sig','der','key','p7r','p12','asc','jks','p7b','signature','gpg','pgp.sig','sst','pgp','gpgz','pfx','crt','p8','sig','pkcs7','jceks','pkcs8','psc1','p7c','csr','cer','spc','ps2xml'], to_string(file.extension))",
     "version": "1.0",
     "path": "rules/detection/high/google_workspace.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-drive-encryption-keys-accessed-from-anonymous-user-gcWN07eCbx"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-drive-encryption-keys-accessed-from-anonymous-user-gcWN07eCbx",
+    "log_source": "google_workspace"
   },
   {
     "name": "Google Workspace Activity from Tor IP Address",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.action)!='login_failure' && contains(to_string(cybersift.threat_info.threats), 'Tor'",
+    "description": "",
+    "expression": "to_string(event.action)!='login_failure' && contains(to_string(cybersift.threat_info.threats), 'Tor')",
     "version": "1.0",
     "path": "rules/detection/high/google_workspace.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-activity-from-tor-ip-address-zwuztmug0q"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-activity-from-tor-ip-address-zwuztmug0q",
+    "log_source": "google_workspace"
   },
   {
     "name": "Google Workspace Known Threat User Login Attempt",
     "type": "detection",
     "severity": "high",
-    "description": "(to_string(event.dataset)== 'google_workspace.login' && to_string(event.action)=='login_success') &&",
+    "description": "",
+    "expression": "(to_string(event.dataset)== 'google_workspace.login' && to_string(event.action)=='login_success') && to_string(cybersift.threat_info.knownThreat) == 'true'",
     "version": "1.0",
     "path": "rules/detection/high/google_workspace.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-known-threat-user-login-attempt-rCNJTQ5M9z"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-known-threat-user-login-attempt-rCNJTQ5M9z",
+    "log_source": "google_workspace"
   },
   {
     "name": "Boot/Kernel Configuration Modified",
     "type": "detection",
     "severity": "high",
-    "description": "contains(to_string(event.category), 'file') && contains(to_string(event.type), 'change') && (contain",
+    "description": "",
+    "expression": "contains(to_string(event.category), 'file') && contains(to_string(event.type), 'change') && (contains(to_string(file.path), '/etc/sysctl') || contains(to_string(file.path), '/etc/modules-load.d/') || contains(to_string(file.path), '/etc/modprobe.d/') || contains(to_string(file.path), '/etc/default/grub') || contains(to_string(file.path), '/lib/modules/'))",
     "version": "1.0",
     "path": "rules/detection/high/linux.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/bootkernel-configuration-modified-f1ESQrLKv8"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/bootkernel-configuration-modified-f1ESQrLKv8",
+    "log_source": "auditbeat"
   },
   {
     "name": "Unprivileged AF_ALG Socket Creation",
     "type": "detection",
     "severity": "high",
-    "description": "auditd.message_type=='syscall' && auditd.data.syscall=='socket' && to_string(auditd.data.a0)=='38' &",
+    "description": "",
+    "expression": "auditd.message_type=='syscall' && auditd.data.syscall=='socket' && to_string(auditd.data.a0)=='38' && to_string(user.id)!='0'",
     "version": "1.0",
     "path": "rules/detection/high/linux.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/af_alg-socket-creation-by-unprivileged-login-users-VYlxHxQwMi"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/af_alg-socket-creation-by-unprivileged-login-users-VYlxHxQwMi",
+    "log_source": "auditbeat"
   },
   {
     "name": "Splice Syscall",
     "type": "detection",
     "severity": "high",
-    "description": "auditd.message_type=='syscall' && auditd.data.syscall=='splice' && to_string(user.id)!='0'",
+    "description": "",
+    "expression": "auditd.message_type=='syscall' && auditd.data.syscall=='splice' && to_string(user.id)!='0'",
     "version": "1.0",
     "path": "rules/detection/high/linux.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/splice-syscall-sDAKxmqFbX"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/splice-syscall-sDAKxmqFbX",
+    "log_source": "auditbeat"
   },
   {
     "name": "SSH BatchMode Localhost Authentication Check",
     "type": "detection",
     "severity": "high",
-    "description": "contains(to_string(process.title), 'BatchMode=yes') && (contains(to_string(process.title), 'localhos",
+    "description": "",
+    "expression": "contains(to_string(process.title), 'BatchMode=yes') && (contains(to_string(process.title), 'localhost') || contains(to_string(process.title), '127.0.0.1') || contains(to_string(process.title), '::1'))",
     "version": "1.0",
     "path": "rules/detection/high/linux.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/ssh-batchmode-localhost-authentication-check-4zoZbaICUi"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/ssh-batchmode-localhost-authentication-check-4zoZbaICUi",
+    "log_source": "auditbeat"
   },
   {
     "name": "AF_ALG Socket Abuse \u2013 Kernel Exploitation Indicator",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(auditd.data.syscall) == 'socket' && to_string(auditd.data.a0) == '26'",
+    "description": "",
+    "expression": "to_string(auditd.data.syscall) == 'socket' && to_string(auditd.data.a0) == '26'",
     "version": "1.0",
     "path": "rules/detection/high/linux.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/af_alg-socket-abuse-kernel-exploitation-indicator-EIGgeiDgMV"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/af_alg-socket-abuse-kernel-exploitation-indicator-EIGgeiDgMV",
+    "log_source": "auditbeat"
   },
   {
     "name": "Suspicious Grep of Sensitive Linux Configuration Files",
     "type": "detection",
     "severity": "high",
-    "description": "(contains(to_string(process.title), 'grep')) && ((contains(to_string(process.title), '/etc/passwd'))",
+    "description": "",
+    "expression": "(contains(to_string(process.title), 'grep')) && ((contains(to_string(process.title), '/etc/passwd')) || (contains(to_string(process.title), '/etc/shadw')))",
     "version": "1.0",
     "path": "rules/detection/high/linux.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-grep-of-sensitive-linux-configuration-files-eKWes89Bcm"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-grep-of-sensitive-linux-configuration-files-eKWes89Bcm",
+    "log_source": "auditbeat"
   },
   {
     "name": "Sensitive Pattern Enumeration in Bash History File",
     "type": "detection",
     "severity": "high",
-    "description": "(to_string(event.action) == 'executed') && (contains(['grep', 'egrep', 'fgrep', 'awk', 'sed'], to_st",
+    "description": "",
+    "expression": "(to_string(event.action) == 'executed') && (contains(['grep', 'egrep', 'fgrep', 'awk', 'sed'], to_string(process.name))) && (contains(to_string(process.args), 'bash_history') || contains(to_string(process.args), '.sh_history') || contains(to_string(process.args), '.zsh_history')) && (contains(to_string(process.args), 'password') || contains(to_string(process.args), 'passwd') || contains(to_string(process.args), 'token') || contains(to_string(process.args), 'linpeas') || contains(to_string(process.args), 'secret') || contains(to_string(process.args), 'shadow') || contains(to_string(process.args), 'az login'))",
     "version": "1.0",
     "path": "rules/detection/high/linux.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/sensitive-pattern-enumeration-in-bash-history-file-qx2U6yZ81t"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/sensitive-pattern-enumeration-in-bash-history-file-qx2U6yZ81t",
+    "log_source": "auditbeat"
   },
   {
     "name": "Linux Privilege Escalation Enumeration Tool Execution",
     "type": "detection",
     "severity": "high",
-    "description": "(to_string(event.action) == 'executed') && (contains(to_string(process.name), 'linpeas') || contains",
+    "description": "",
+    "expression": "(to_string(event.action) == 'executed') && (contains(to_string(process.name), 'linpeas') || contains(to_string(process.args), 'linpeas.sh') || contains(to_string(process.title), 'les.sh') || contains(to_string(process.title), 'linux-exploit-suggester'))",
     "version": "1.0",
     "path": "rules/detection/high/linux.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/linux-privilege-escalation-enumeration-tool-execution-lTcaAQhuMC"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/linux-privilege-escalation-enumeration-tool-execution-lTcaAQhuMC",
+    "log_source": "auditbeat"
   },
   {
     "name": "O365 Suspicious Inbox Rule Created or Modified (MarkAsRead)",
     "type": "detection",
     "severity": "high",
-    "description": "contains(['New-InboxRule', 'Set-InboxRule'], o365.audit.Operation) && to_string(o365.audit.Parameter",
+    "description": "",
+    "expression": "contains(['New-InboxRule', 'Set-InboxRule'], o365.audit.Operation) && to_string(o365.audit.Parameters.MarkAsRead)=='True'",
     "version": "1.0",
     "path": "rules/detection/high/o365.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "o365"
   },
   {
     "name": "O365 Suspicious Inbox Rule Created or Modified (Suspicious Folder)",
     "type": "detection",
     "severity": "high",
-    "description": "contains(['New-InboxRule', 'Set-InboxRule'], o365.audit.Operation) && (contains(to_string(o365.audit",
+    "description": "",
+    "expression": "contains(['New-InboxRule', 'Set-InboxRule'], o365.audit.Operation) && (contains(to_string(o365.audit.Parameters.MoveToFolder), 'RSS') || contains(to_string(o365.audit.Parameters.MoveToFolder), 'Archive') || contains(to_string(o365.audit.Parameters.MoveToFolder), 'Junk Email') || contains(to_string(o365.audit.Parameters.MoveToFolder), 'Conversation History'))",
     "version": "1.0",
     "path": "rules/detection/high/o365.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "o365"
   },
   {
     "name": "O365 Mailbox Audit Logging Bypass",
     "type": "detection",
     "severity": "high",
-    "description": "event.dataset == 'o365.audit' && event.provider == 'Exchange' && event.action == 'Set-MailboxAuditBy",
+    "description": "",
+    "expression": "event.dataset == 'o365.audit' && event.provider == 'Exchange' && event.action == 'Set-MailboxAuditBypassAssociation' && event.outcome == 'success'",
     "version": "1.0",
     "path": "rules/detection/high/o365.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "o365"
   },
   {
     "name": "O365 Exchange Transport Rule Creation",
     "type": "detection",
     "severity": "high",
-    "description": "event.dataset == 'o365.audit' && event.provider == 'Exchange' && event.category == 'web' && (event.a",
+    "description": "",
+    "expression": "event.dataset == 'o365.audit' && event.provider == 'Exchange' && event.category == 'web' && (event.action == 'New-TransportRule' || event.action == 'Set-TransportRule') && event.outcome == 'success'",
     "version": "1.0",
     "path": "rules/detection/high/o365.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "o365"
   },
   {
     "name": "O365 User Login with Suspicious User Agent",
     "type": "detection",
     "severity": "high",
-    "description": "o365.audit.Operation == 'UserLoggedIn' && o365.audit.ExtendedProperties.UserAgent != null && (!start",
+    "description": "",
+    "expression": "o365.audit.Operation == 'UserLoggedIn' && o365.audit.ExtendedProperties.UserAgent != null && (!starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Mozilla') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Windows-AzureAD-Authentication-Provider') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'BAV2ROPC') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'AppSSOAgent'))",
     "version": "1.0",
     "path": "rules/detection/high/o365.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "o365"
   },
   {
     "name": "Excessive O365 Mailbox Items Accessed",
     "type": "detection",
     "severity": "high",
-    "description": "event.dataset == 'o365.audit' && event.provider == 'Exchange' && event.action == 'MailItemsAccessed'",
+    "description": "",
+    "expression": "event.dataset == 'o365.audit' && event.provider == 'Exchange' && event.action == 'MailItemsAccessed' && event.code == 'ExchangeItemAggregated' && ((contains(to_string(o365.audit.OperationProperties[].Name), 'IsThrottled') && contains(to_string(o365.audit.OperationProperties[].Value), 'True')) || o365.audit.OperationCount >= `100`)",
     "version": "1.0",
     "path": "rules/detection/high/o365.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "o365"
   },
   {
     "name": "O365 Sharing Abuse from VPS",
     "type": "detection",
     "severity": "high",
-    "description": "(o365.audit.Operation == 'SharingSet' || o365.audit.Operation == 'AddToSecureLink' || o365.audit.Ope",
+    "description": "",
+    "expression": "(o365.audit.Operation == 'SharingSet' || o365.audit.Operation == 'AddToSecureLink' || o365.audit.Operation == 'SecureLinkCreated') && (\"cybersift.threat_info\".usageType == 'hosting') && !(o365.audit.UserId == 'app@sharepoint' || source.as.organization.name == 'MICROSOFT-CORP-MSN-AS-BLOCK') && o365.audit.AuthenticationType=='FormsCookieAuth'",
     "version": "1.0",
     "path": "rules/detection/high/o365.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "o365"
   },
   {
     "name": "O365 Login to High-Risk Admin Application from VPS",
     "type": "detection",
     "severity": "high",
-    "description": "((o365.audit.Operation == 'UserLoggedIn' || o365.audit.LogonError == 'UserStrongAuthClientAuthNRequi",
+    "description": "",
+    "expression": "((o365.audit.Operation == 'UserLoggedIn' || o365.audit.LogonError == 'UserStrongAuthClientAuthNRequiredInterrupt') && \"cybersift.threat_info\".usageType == 'hosting') && ((contains(to_string(o365.cybersift.application), 'Azure') || contains(to_string(o365.cybersift.application), 'Admin')) && (source.as.organization.name != 'MICROSOFT-CORP-MSN-AS-BLOCK'))",
     "version": "1.0",
     "path": "rules/detection/high/o365.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "o365"
   },
   {
     "name": "Possible Password Leak \u2013 Failed MFA from Non-Standard Browser",
     "type": "detection",
     "severity": "high",
-    "description": "event.action == 'UserLoginFailed' && o365.audit.LogonError == 'UserStrongAuthClientAuthNRequiredInte",
+    "description": "",
+    "expression": "event.action == 'UserLoginFailed' && o365.audit.LogonError == 'UserStrongAuthClientAuthNRequiredInterrupt' && \"cybersift.DeviceProperties\".BrowserType == 'Other'",
     "version": "1.0",
     "path": "rules/detection/high/o365.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "o365"
   },
   {
     "name": "Known Threat O365 User Login Attempt",
     "type": "detection",
     "severity": "high",
-    "description": "event.action == 'UserLoggedIn' && to_string(\"cybersift.threat_info\".knownThreat) == 'true'",
+    "description": "",
+    "expression": "event.action == 'UserLoggedIn' && to_string(\"cybersift.threat_info\".knownThreat) == 'true'",
     "version": "1.0",
     "path": "rules/detection/high/o365.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/known-threat-o365-user-login-attempt-N3yaZfNyMi"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/known-threat-o365-user-login-attempt-N3yaZfNyMi",
+    "log_source": "o365"
   },
   {
     "name": "Suspicious login from BAV2ROPC User Agent",
     "type": "detection",
     "severity": "high",
-    "description": "o365.audit.ExtendedProperties.UserAgent=='BAV2ROPC' && o365.audit.ExtendedProperties.RequestType=='O",
+    "description": "",
+    "expression": "o365.audit.ExtendedProperties.UserAgent=='BAV2ROPC' && o365.audit.ExtendedProperties.RequestType=='OAuth2:Token' && to_string(o365.audit.ExtendedProperties.UserAuthenticationMethod)=='16' && source.as.organization.name!='MICROSOFT-CORP-MSN-AS-BLOCK' && o365.audit.ResultStatus!='Failed'",
     "version": "1.0",
     "path": "rules/detection/high/o365.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "o365"
   },
   {
     "name": "O365 Activity from Tor IP Address",
     "type": "detection",
     "severity": "high",
-    "description": "o365.audit.Operation!='UserLoginFailed' && contains(to_string(\"cybersift.threat_info\".threats), 'Tor",
+    "description": "",
+    "expression": "o365.audit.Operation!='UserLoginFailed' && contains(to_string(\"cybersift.threat_info\".threats), 'Tor')",
     "version": "1.0",
     "path": "rules/detection/high/o365.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "o365"
   },
   {
     "name": "Sensitive eDiscovery admin action detected",
     "type": "detection",
     "severity": "high",
-    "description": "o365.audit.Workload == 'SecurityComplianceCenter' && ends_with(to_string(o365.audit.Operation), 'eDi",
+    "description": "",
+    "expression": "o365.audit.Workload == 'SecurityComplianceCenter' && ends_with(to_string(o365.audit.Operation), 'eDiscoveryCaseAdmin')",
     "version": "1.0",
     "path": "rules/detection/high/o365.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "o365"
   },
   {
     "name": "Suspicious Outlook Mobile Silent Authentication (CMSI)",
     "type": "detection",
     "severity": "high",
-    "description": "event.action == 'UserLoggedIn' && o365.audit.ExtendedProperties.RequestType == 'Cmsi:Cmsi' && o365.c",
+    "description": "",
+    "expression": "event.action == 'UserLoggedIn' && o365.audit.ExtendedProperties.RequestType == 'Cmsi:Cmsi' && o365.cybersift.application == 'Outlook Mobile'",
     "version": "1.0",
     "path": "rules/detection/high/o365.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-outlook-mobile-silent-authentication-cmsi-MutnSbauyx"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-outlook-mobile-silent-authentication-cmsi-MutnSbauyx",
+    "log_source": "o365"
   },
   {
     "name": "O365 External Partner Added/Modified to Tenant",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.action)=='Add partner to company.' || to_string(event.action)=='Update a partner cro",
+    "description": "",
+    "expression": "to_string(event.action)=='Add partner to company.' || to_string(event.action)=='Update a partner cross-tenant access setting.' || to_string(event.action)=='Add a partner to cross-tenant access setting.'",
     "version": "1.0",
     "path": "rules/detection/high/o365.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/o365-external-partner-addedmodified-to-tenant-s10Df2EvQp"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/o365-external-partner-addedmodified-to-tenant-s10Df2EvQp",
+    "log_source": "o365"
   },
   {
     "name": "O365 Suspicious Email Sending Pattern",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(o365.audit.Operation)=='AlertEntityGenerated' && to_string(o365.audit.Name)=='Suspicious e",
+    "description": "",
+    "expression": "to_string(o365.audit.Operation)=='AlertEntityGenerated' && to_string(o365.audit.Name)=='Suspicious email sending patterns detected'",
     "version": "1.0",
     "path": "rules/detection/high/o365.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/o365-suspicious-email-sending-pattern-pFfm4oezxB"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/o365-suspicious-email-sending-pattern-pFfm4oezxB",
+    "log_source": "o365"
   },
   {
     "name": "SSH to or from known threat public IP",
     "type": "detection",
     "severity": "high",
-    "description": "DestinationPort=='22' && denied_flow==`false` && \"cybersift.threat_info\".knownThreat==`true` && Dest",
+    "description": "",
+    "expression": "DestinationPort=='22' && denied_flow==`false` && \"cybersift.threat_info\".knownThreat==`true` && DestinationAddress!='0.0.0.0'",
     "version": "1.0",
     "path": "rules/detection/high/syslog.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "syslog"
   },
   {
     "name": "RDP to or from known threat public IP",
     "type": "detection",
     "severity": "high",
-    "description": "DestinationPort=='3389' && denied_flow==`false` && \"cybersift.threat_info\".knownThreat==`true` && De",
+    "description": "",
+    "expression": "DestinationPort=='3389' && denied_flow==`false` && \"cybersift.threat_info\".knownThreat==`true` && DestinationAddress!='0.0.0.0'",
     "version": "1.0",
     "path": "rules/detection/high/syslog.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "syslog"
   },
   {
     "name": "SMB to or from known threat public IP",
     "type": "detection",
     "severity": "high",
-    "description": "DestinationPort=='445' && denied_flow==`false` && \"cybersift.threat_info\".knownThreat==`true` && Des",
+    "description": "",
+    "expression": "DestinationPort=='445' && denied_flow==`false` && \"cybersift.threat_info\".knownThreat==`true` && DestinationAddress!='0.0.0.0'",
     "version": "1.0",
     "path": "rules/detection/high/syslog.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "syslog"
   },
   {
     "name": "WinRM Connections Detection",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(DestinationPort) == '5985' && denied_flow == 'false'",
+    "description": "",
+    "expression": "to_string(DestinationPort) == '5985' && denied_flow == 'false'",
     "version": "1.0",
     "path": "rules/detection/high/syslog.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "syslog"
   },
   {
     "name": "FortiGate Suspicious SSO or Config Download",
     "type": "detection",
     "severity": "high",
-    "description": "cybersift.parser.vendor == 'Fortigate' && type == 'event' && subtype == 'system' && (contains(to_str",
+    "description": "",
+    "expression": "cybersift.parser.vendor == 'Fortigate' && type == 'event' && subtype == 'system' && (contains(to_string(msg), 'sso') || contains(to_string(msg), 'downloaded'))",
     "version": "1.0",
     "path": "rules/detection/high/syslog.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "syslog"
   },
   {
     "name": "FortiGate Admin Account Creation",
     "type": "detection",
     "severity": "high",
-    "description": "cybersift.parser.vendor == 'Fortigate' && type == 'event' && subtype == 'system' && contains(to_stri",
+    "description": "",
+    "expression": "cybersift.parser.vendor == 'Fortigate' && type == 'event' && subtype == 'system' && contains(to_string(msg), 'Add system.admin')",
     "version": "1.0",
     "path": "rules/detection/high/syslog.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "syslog"
   },
   {
     "name": "Successful SonicWall VPN Authentication",
     "type": "detection",
     "severity": "high",
-    "description": "cybersift.parser.vendor == 'SONICWALL' && to_string(m) == '1080' && to_string(fw_action) != 'denied_",
+    "description": "",
+    "expression": "cybersift.parser.vendor == 'SONICWALL' && to_string(m) == '1080' && to_string(fw_action) != 'denied_or_failed'",
     "version": "1.0",
     "path": "rules/detection/high/syslog.json",
-    "reference": "https://outline.cybersift.io/s/4b9edcea-231d-4089-a029-a7c306ba8f0e"
+    "reference": "https://outline.cybersift.io/s/4b9edcea-231d-4089-a029-a7c306ba8f0e",
+    "log_source": "syslog"
   },
   {
     "name": "SonicWall VPN Authentication Attempt From Known Threat IP",
     "type": "detection",
     "severity": "high",
-    "description": "cybersift.parser.vendor == 'SONICWALL' && to_string(m) == '1080' && to_string(\"cybersift.threat_info",
+    "description": "",
+    "expression": "cybersift.parser.vendor == 'SONICWALL' && to_string(m) == '1080' && to_string(\"cybersift.threat_info\".knownThreat) == 'true'",
     "version": "1.0",
     "path": "rules/detection/high/syslog.json",
-    "reference": "https://outline.cybersift.io/s/8c08410d-975a-4e87-93da-d96acdcbf7ef"
+    "reference": "https://outline.cybersift.io/s/8c08410d-975a-4e87-93da-d96acdcbf7ef",
+    "log_source": "syslog"
   },
   {
     "name": "FortiGate SSL VPN login from Known Threat",
     "type": "detection",
     "severity": "high",
-    "description": "cybersift.parser.vendor=='Fortigate' && action=='tunnel-up' && (to_string(\"cybersift.threat_info\".kn",
+    "description": "",
+    "expression": "cybersift.parser.vendor=='Fortigate' && action=='tunnel-up' && (to_string(\"cybersift.threat_info\".knownThreat)=='true')",
     "version": "1.0",
     "path": "rules/detection/high/syslog.json",
-    "reference": "https://outline.cybersift.io/s/63228031-66a5-441a-8809-3c79cabfb103"
+    "reference": "https://outline.cybersift.io/s/63228031-66a5-441a-8809-3c79cabfb103",
+    "log_source": "syslog"
   },
   {
     "name": "FortiGate SSL VPN Settings Modified",
     "type": "detection",
     "severity": "high",
-    "description": "cybersift.parser.vendor == 'Fortigate' && subtype == 'system' && action == 'Edit' && contains(to_str",
+    "description": "",
+    "expression": "cybersift.parser.vendor == 'Fortigate' && subtype == 'system' && action == 'Edit' && contains(to_string(msg), 'vpn.ssl.settings')",
     "version": "1.0",
     "path": "rules/detection/high/syslog.json",
-    "reference": "https://outline.cybersift.io/s/0d7bdae2-e8f3-44c3-b58a-8b1171afdb1d"
+    "reference": "https://outline.cybersift.io/s/0d7bdae2-e8f3-44c3-b58a-8b1171afdb1d",
+    "log_source": "syslog"
   },
   {
     "name": "Non-existent wordlist user login",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4625' && winlog.event_data.SubStatus=='0xc0000064' && contains(['ftpuser',",
+    "description": "",
+    "expression": "to_string(event.code) == '4625' && winlog.event_data.SubStatus=='0xc0000064' && contains(['ftpuser', 'backup', 'operator', 'superuser'], winlog.cybersift.TargetUserNameNormalized)",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Well known credential dumping tool use",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4697' && (contains(winlog.event_data.ServiceFileName, 'cachedump')|| conta",
+    "description": "",
+    "expression": "to_string(event.code) == '4697' && (contains(winlog.event_data.ServiceFileName, 'cachedump')|| contains(winlog.event_data.ServiceFileName, 'dumpsvc')|| contains(winlog.event_data.ServiceFileName, 'fgexec')|| contains(winlog.event_data.ServiceFileName, 'gsecdump')|| contains(winlog.event_data.ServiceFileName, 'mimidrv')|| contains(winlog.event_data.ServiceFileName, 'pwdump')|| contains(winlog.event_data.ServiceFileName, 'servpw'))",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "NULL SID Login",
     "type": "detection",
     "severity": "high",
-    "description": "contains(Abnormalities || '', 'AbnormalLogin_NULLSID')",
+    "description": "",
+    "expression": "contains(Abnormalities || '', 'AbnormalLogin_NULLSID')",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Abnormal Login Source Workstation by High Privilege User",
     "type": "detection",
     "severity": "high",
-    "description": "contains(Abnormalities || '', 'AbnormalLoginSource_Workstation_High_Privilege_User')",
+    "description": "",
+    "expression": "contains(Abnormalities || '', 'AbnormalLoginSource_Workstation_High_Privilege_User')",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Administrator Login - direct administrator logins should be disabled",
     "type": "detection",
     "severity": "high",
-    "description": "(to_string(event.code) == '4624'|| to_string(event.code) == '4625') && contains(['2', '10'], winlog.",
+    "description": "",
+    "expression": "(to_string(event.code) == '4624'|| to_string(event.code) == '4625') && contains(['2', '10'], winlog.event_data.LogonType) && winlog.event_data.TargetUserNameNormalized=='administrator'",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "PowerShell Remote Code Execution via Web Clients",
     "type": "detection",
     "severity": "high",
-    "description": "(   contains(to_string(winlog.event_data.ParentProcessName), 'powershell.exe') ||   contains(to_stri",
+    "description": "",
+    "expression": "(   contains(to_string(winlog.event_data.ParentProcessName), 'powershell.exe') ||   contains(to_string(winlog.event_data.NewProcessName), 'powershell.exe') ||   contains(to_string(winlog.event_data.ProcessName), 'powershell.exe') ||   contains(to_string(winlog.event_data.CommandLine), 'powershell.exe') ) && (   contains(to_string(winlog.event_data.CommandLine), 'IEX') ||   contains(to_string(winlog.event_data.CommandLine), 'Invoke-WebRequest') ||   contains(to_string(winlog.event_data.CommandLine), 'DownloadString') ||   contains(to_string(winlog.event_data.CommandLine), 'curl') ||   contains(to_string(winlog.event_data.CommandLine), 'wget') ||   contains(to_string(winlog.event_data.CommandLine), 'certutil') ||   contains(to_string(winlog.event_data.CommandLine), 'Net.WebClient') )",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Suspicious Scheduled Task Creation",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4698' && (contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exe",
+    "description": "",
+    "expression": "to_string(event.code) == '4698' && (contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'cmd.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'wscript.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'rundll32.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'regsvr32.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'wmic.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'mshta.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'powershell.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'bitsadmin.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'wget.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'cscript.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'certutil.exe')) && !contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Arguments), '%windir%\\\\system32') && !contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Arguments), '%systemroot%\\\\system32\\\\hpatchmonTask.cmd')",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Persistence via Run Keys",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4657' && (contains(to_string(winlog.event_data.ProcessName), 'powershell.e",
+    "description": "",
+    "expression": "to_string(event.code) == '4657' && (contains(to_string(winlog.event_data.ProcessName), 'powershell.exe') || contains(to_string(winlog.event_data.ProcessName), 'mshta.exe') || contains(to_string(winlog.event_data.ProcessName), 'wscript.exe')) && contains(to_string(winlog.event_data.ObjectName), 'Run')",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Enumeration of Privileged Domain Groups",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), 'net.exe'",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), 'net.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'net1.exe')) && (contains(to_string(winlog.event_data.CommandLine), 'Admins') || contains(to_string(winlog.event_data.CommandLine), 'admins'))",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Windows Defender Bypass via PowerShell",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.NewProcessName), 'powershell",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.NewProcessName), 'powershell.exe') && (contains(to_string(winlog.event_data.CommandLine), 'Add-MpPreference') || contains(to_string(winlog.event_data.CommandLine), 'Set-MpPreference'))",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Suspicious Execution in User Writable Paths",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4663' && winlog.event_data.AccessMask == '0x20' && (contains(to_string(win",
+    "description": "",
+    "expression": "to_string(event.code) == '4663' && winlog.event_data.AccessMask == '0x20' && (contains(to_string(winlog.event_data.ObjectName), 'AppData\\Local\\Temp') || contains(to_string(winlog.event_data.ObjectName), 'AppData\\Roaming') || contains(to_string(winlog.event_data.ObjectName), 'Users\\Public')) && !ends_with(to_string(winlog.event_data.ObjectName), 'RunWallpaperSetupInit.cmd') && !ends_with(to_string(winlog.event_data.ProcessName), 'DismHost.exe') && !ends_with(to_string(winlog.event_data.ObjectName), 'DismHost.exe')",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Resource-Based Constrained Delegation Abuse",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '5136' && winlog.event_data.AttributeLDAPDisplayName == 'msDS-AllowedToActO",
+    "description": "",
+    "expression": "to_string(event.code) == '5136' && winlog.event_data.AttributeLDAPDisplayName == 'msDS-AllowedToActOnBehalfOfOtherIdentity'",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Unusual Kerberos TicketOptions",
     "type": "detection",
     "severity": "high",
-    "description": "(to_string(event.code) == '4771' || to_string(event.code) == '4768' || to_string(event.code) == '476",
+    "description": "",
+    "expression": "(to_string(event.code) == '4771' || to_string(event.code) == '4768' || to_string(event.code) == '4769') && (to_string(winlog.event_data.TicketOptions) == '0x50800000' || to_string(winlog.event_data.TicketOptions) == '0x40830000') && !(to_string(winlog.event_data.TicketEncryptionType)=='0xffffffff' && to_string(winlog.event_data.Status)=='0x20')",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "SAM Privilege Usage",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4673' && winlog.event_data.PrivilegeList == 'SeMachineAccountPrivilege' &&",
+    "description": "",
+    "expression": "to_string(event.code) == '4673' && winlog.event_data.PrivilegeList == 'SeMachineAccountPrivilege' && winlog.event_data.Service == 'Security Account Manager'",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Odbcconf Abuse for DLL or RSP Execution",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.ParentProcessName), 'odbcc",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.ParentProcessName), 'odbcconf.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'odbcconf.exe')) && (contains(to_string(winlog.event_data.CommandLine), '.dll') || contains(to_string(winlog.event_data.CommandLine), '.rsp') || contains(to_string(winlog.event_data.CommandLine), 'REGSVR'))",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "userCertificate Modifications by SYSTEM",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '5136' && winlog.event_data.AttributeLDAPDisplayName=='userCertificate' && ",
+    "description": "",
+    "expression": "to_string(event.code) == '5136' && winlog.event_data.AttributeLDAPDisplayName=='userCertificate' && winlog.cybersift.SubjectUserType=='user' && winlog.cybersift.SubjectUserNameNormalized=='system'",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Kerberos TGS Request RC4 Encryption",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4769' && winlog.event_data.TargetUserType == 'user' && winlog.event_data.S",
+    "description": "",
+    "expression": "to_string(event.code) == '4769' && winlog.event_data.TargetUserType == 'user' && winlog.event_data.SessionKeyEncryptionType == '0x17'",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Potential Kerberos Delegation or Coerced Authentication Detected",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4769' && winlog.event_data.TransmittedServices != null && to_string(winlog",
+    "description": "",
+    "expression": "to_string(event.code) == '4769' && winlog.event_data.TransmittedServices != null && to_string(winlog.event_data.TransmittedServices) != '-'",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "User Account Created with Password Not Required",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4741' && winlog.event_data.NewUacValue == '0x84'",
+    "description": "",
+    "expression": "to_string(event.code) == '4741' && winlog.event_data.NewUacValue == '0x84'",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "WSUS RCE Process Spawn",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.ParentProcessName),'w3wp.e",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.ParentProcessName),'w3wp.exe') || ends_with(to_string(winlog.event_data.ParentProcessName),'wsusservice.exe')) && (ends_with(to_string(winlog.event_data.NewProcessName),'cmd.exe') || ends_with(to_string(winlog.event_data.NewProcessName),'powershell.exe'))",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Kerberos Constrained Delegation Configured",
     "type": "detection",
     "severity": "high",
-    "description": "winlog.event_data.AllowedToDelegateTo != null && to_string(winlog.event_data.AllowedToDelegateTo) !=",
+    "description": "",
+    "expression": "winlog.event_data.AllowedToDelegateTo != null && to_string(winlog.event_data.AllowedToDelegateTo) != '-'",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "C$ Share Access by Administrator Account",
     "type": "detection",
     "severity": "high",
-    "description": "(to_string(event.code) == '5140' || to_string(event.code) == '5145') && to_string(winlog.event_data.",
+    "description": "",
+    "expression": "(to_string(event.code) == '5140' || to_string(event.code) == '5145') && to_string(winlog.event_data.ShareName) == '\\\\*\\C$' && winlog.cybersift.SubjectUserNameNormalized == 'administrator' && to_string(winlog.event_data.IpAddress) != '::1'",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Access to Administrative Script Shares",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '5140' && (ends_with(to_string(winlog.event_data.ShareName), 'env_variables",
+    "description": "",
+    "expression": "to_string(event.code) == '5140' && (ends_with(to_string(winlog.event_data.ShareName), 'env_variables_oracle_permission_script') || ends_with(to_string(winlog.event_data.ShareName), 'Tasks') || ends_with(to_string(winlog.event_data.ShareName), 'GPO Installations') || ends_with(to_string(winlog.event_data.ShareName), 'scripts'))",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Unusual RPC Access to Sensitive Shares via SMB",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '5145' && ends_with(to_string(winlog.event_data.ShareName), 'IPC$') && (to_",
+    "description": "",
+    "expression": "to_string(event.code) == '5145' && ends_with(to_string(winlog.event_data.ShareName), 'IPC$') && (to_string(winlog.event_data.RelativeTargetName) == 'DAV RPC Service' || to_string(winlog.event_data.RelativeTargetName) == 'svcctl' || to_string(winlog.event_data.RelativeTargetName) == 'cert' || to_string(winlog.event_data.RelativeTargetName) == 'lsass')",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "GPO Access by Non-Admin User",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4662' && winlog.cybersift.SubjectUserType == 'user' && winlog.event_data.O",
+    "description": "",
+    "expression": "to_string(event.code) == '4662' && winlog.cybersift.SubjectUserType == 'user' && winlog.event_data.ObjectServer == 'DS' && winlog.cybersift.KerberosObjectType == 'c-grouppolicycontainer'",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "PowerShell Suspicious Download and Extraction",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4104' && (contains(to_string(winlog.event_data.ScriptBlockText), 'certutil",
+    "description": "",
+    "expression": "to_string(event.code) == '4104' && (contains(to_string(winlog.event_data.ScriptBlockText), 'certutil') || contains(to_string(winlog.event_data.ScriptBlockText), 'curl') || contains(to_string(winlog.event_data.ScriptBlockText), 'wget') || contains(to_string(winlog.event_data.ScriptBlockText), 'bitsadmin') || contains(to_string(winlog.event_data.ScriptBlockText), 'Start-BitsTransfer') || contains(to_string(winlog.event_data.ScriptBlockText), 'DownloadFile') || contains(to_string(winlog.event_data.ScriptBlockText), 'Invoke-WebRequest') || contains(to_string(winlog.event_data.ScriptBlockText), 'iwr')) && (contains(to_string(winlog.event_data.ScriptBlockText), 'Expand-Archive') || contains(to_string(winlog.event_data.ScriptBlockText), 'expand-archive'))",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "AutoIt3 Execution",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), 'AutoIt3.",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), 'AutoIt3.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), 'AutoIt3.exe') || contains(to_string(winlog.event_data.CommandLine), '.au3') || contains(to_string(winlog.event_data.CommandLine), 'autoit'))",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Windows Security Audit Policy Tampering",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'auditpol.",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'auditpol.exe') && winlog.event_data.SubjectUserSid != 'S-1-5-18'",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Service Creation In Users Public Directory",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4697' && contains(to_string(winlog.event_data.ServiceFileName), 'Public')",
+    "description": "",
+    "expression": "to_string(event.code) == '4697' && contains(to_string(winlog.event_data.ServiceFileName), 'Public')",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Suspicious Screenshots captures via PowerShell script",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4104' && (contains(to_string(winlog.event_data.ScriptBlockText), 'CopyFrom",
+    "description": "",
+    "expression": "to_string(event.code) == '4104' && (contains(to_string(winlog.event_data.ScriptBlockText), 'CopyFromScreen') && (contains(to_string(winlog.event_data.ScriptBlockText), 'System.Drawing.Bitmap') || contains(to_string(winlog.event_data.ScriptBlockText), 'Drawing.Bitmap')))",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Suspicious Access to Confidential AD Attributes",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4662' && winlog.cybersift.SubjectUserType == 'user' && contains(to_string(",
+    "description": "",
+    "expression": "to_string(event.code) == '4662' && winlog.cybersift.SubjectUserType == 'user' && contains(to_string(winlog.cybersift.KerberosRequestedAccessList), 'a-unixuserpassword') && contains(to_string(winlog.cybersift.KerberosRequestedAccessList), 'c-user') && !contains(to_string(winlog.cybersift.KerberosRequestedAccessList), 'a-mspkiroamingtimestamp') && (to_string(winlog.event_data.AccessMask) == '0x100' || to_string(winlog.event_data.AccessMask) == '0x40000')",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Persistence via Startup folder",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4663' && contains(to_string(winlog.event_data.ObjectName), '\\\\Programs\\\\St",
+    "description": "",
+    "expression": "to_string(event.code) == '4663' && contains(to_string(winlog.event_data.ObjectName), '\\\\Programs\\\\Startup\\\\') && (contains(to_string(winlog.cybersift.AccessList), 'WriteData') || contains(to_string(winlog.cybersift.AccessList), 'AppendData')) && !ends_with(to_string(winlog.event_data.ObjectName), 'desktop.ini') && !ends_with(to_string(winlog.event_data.ObjectName), 'RunWallpaperSetup.cmd') && !ends_with(to_string(winlog.event_data.ObjectName), '}.tmp')",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "PsExec Remote Service Execution",
     "type": "detection",
     "severity": "high",
-    "description": "(to_string(event.code) == '7045' && winlog.event_data.ServiceName == 'PSEXESVC') || (to_string(event",
+    "description": "",
+    "expression": "(to_string(event.code) == '7045' && winlog.event_data.ServiceName == 'PSEXESVC') || (to_string(event.code) == '4657' && contains(to_string(winlog.event_data.ObjectName), 'PsExec')) || (to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName), 'PSEXESVC.exe')) || (to_string(event.code) == '5145' && ends_with(to_string(winlog.event_data.ShareName), 'IPC$') && (contains(to_string(winlog.event_data.RelativeTargetName), 'stdin') || contains(to_string(winlog.event_data.RelativeTargetName), 'stderr') || contains(to_string(winlog.event_data.RelativeTargetName), 'stdout')))",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "NotepadPP GUP Suspicious ChildProcesses",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName),'GUP.exe",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName),'GUP.exe') && winlog.event_data.NewProcessName!='C:\\\\Windows\\\\explorer.exe' && winlog.event_data.NewProcessName!='C:\\\\Program Files\\\\Notepad++\\\\updater\\\\GUP.exe'",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "DPAPI Domain Backup Key Extraction",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4662' && winlog.event_data.ObjectType == 'SecretObject' && contains(to_str",
+    "description": "",
+    "expression": "to_string(event.code) == '4662' && winlog.event_data.ObjectType == 'SecretObject' && contains(to_string(winlog.event_data.ObjectName), 'BCKUPKEY') && to_string(winlog.event_data.AccessMask) == '0x2'",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "NewCredentials Logon Using Secondary Logon",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4624' && to_string(winlog.event_data.LogonType) == '9' && contains(to_stri",
+    "description": "",
+    "expression": "to_string(event.code) == '4624' && to_string(winlog.event_data.LogonType) == '9' && contains(to_string(winlog.event_data.LogonProcessName), 'seclogo')",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Windows Process Execution with Double File Extension",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4688' && (contains(to_string(winlog.event_data.NewProcessName), '.pdf.') |",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && (contains(to_string(winlog.event_data.NewProcessName), '.pdf.') || contains(to_string(winlog.event_data.NewProcessName), '.doc.') || contains(to_string(winlog.event_data.NewProcessName), '.docx.') || contains(to_string(winlog.event_data.NewProcessName), '.xls.') || contains(to_string(winlog.event_data.NewProcessName), '.xlsx.') || contains(to_string(winlog.event_data.NewProcessName), '.ppt.') || contains(to_string(winlog.event_data.NewProcessName), '.pptx.') || contains(to_string(winlog.event_data.NewProcessName), '.jpg.') || contains(to_string(winlog.event_data.NewProcessName), '.txt.')) && (ends_with(to_string(winlog.event_data.NewProcessName), '.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '.scr') || ends_with(to_string(winlog.event_data.NewProcessName), '.hta') || ends_with(to_string(winlog.event_data.NewProcessName), '.js') || ends_with(to_string(winlog.event_data.NewProcessName), '.vbs') || ends_with(to_string(winlog.event_data.NewProcessName), '.ps1') || ends_with(to_string(winlog.event_data.NewProcessName), '.lnk') || ends_with(to_string(winlog.event_data.NewProcessName), '.wsf'))",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Potential Defense Evasion: Audit Log Cleared",
     "type": "detection",
     "severity": "high",
-    "description": "winlog.channel == 'Security' && event.provider == 'Microsoft-Windows-Eventlog' && (to_string(event.c",
+    "description": "",
+    "expression": "winlog.channel == 'Security' && event.provider == 'Microsoft-Windows-Eventlog' && (to_string(event.code) == '1102' || messageTitle == 'The audit log was cleared.')",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Svchost Masquerading",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'svchost.e",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'svchost.exe') && winlog.event_data.NewProcessName != 'C:\\\\Windows\\\\System32\\\\svchost.exe' && winlog.event_data.NewProcessName != 'C:\\\\Windows\\\\SysWOW64\\\\svchost.exe'",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Remote Execution via WinRM",
     "type": "detection",
     "severity": "high",
-    "description": "(to_string(event.code) == '4624' && to_string(winlog.event_data.LogonType) == '3' && ends_with(to_st",
+    "description": "",
+    "expression": "(to_string(event.code) == '4624' && to_string(winlog.event_data.LogonType) == '3' && ends_with(to_string(winlog.event_data.ProcessName), 'powershell.exe')) || (to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName), 'WSMProvHost.exe') && (ends_with(to_string(winlog.event_data.NewProcessName), 'powershell.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'cmd.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'rundll32.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'wscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'cscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'mshta.exe')))",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Directory Services Restore Mode (DSRM) - Password Update Attempt",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4794'",
+    "description": "",
+    "expression": "to_string(event.code) == '4794'",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Suspicious Run Dialog Execution",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\expl",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\explorer.exe') && (ends_with(to_string(winlog.event_data.NewProcessName), '\\\\wscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\cscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\net.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\net1.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\schtasks.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\mshta.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\forfiles.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\wmic.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\msbuild.exe'))",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Suspicious RMM Execution",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), '\\\\QuickA",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), '\\\\QuickAssist.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\AnyDesk.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\TeamViewer.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\ScreenConnect.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\LogMeIn.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\Client32.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\RmmService.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\Atera.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\AteraAgent.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\PDQConnectAgent.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\Remote Access.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\RemCmdStub.exe')) && !starts_with(to_string(winlog.event_data.NewProcessName), 'C:\\\\Program Files')",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Privileged Group Membership Addition",
     "type": "detection",
     "severity": "high",
-    "description": "(to_string(event.code) == '4728' || to_string(event.code) == '4756') && (winlog.cybersift.AddedToGro",
+    "description": "",
+    "expression": "(to_string(event.code) == '4728' || to_string(event.code) == '4756') && (winlog.cybersift.AddedToGroup == 'Enterprise Admins' || winlog.cybersift.AddedToGroup == 'Domain Admins' || winlog.cybersift.AddedToGroup == 'Administrators')",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Admin Group Membership Removal - Possible Evasion",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4729' && (winlog.cybersift.AddedToGroup == 'Enterprise Admins' || winlog.c",
+    "description": "",
+    "expression": "to_string(event.code) == '4729' && (winlog.cybersift.AddedToGroup == 'Enterprise Admins' || winlog.cybersift.AddedToGroup == 'Domain Admins' || winlog.cybersift.AddedToGroup == 'Administrators')",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Suspicious VBS wscript",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), '.vbs') && end",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), '.vbs') && ends_with(to_string(winlog.event_data.NewProcessName), 'wscript.exe') && !contains(to_string(winlog.event_data.CommandLine), '\\\\system32\\\\slmgr.vbs') && winlog.event_data.ParentProcessName != 'C:\\\\Windows\\\\System32\\\\gpscript.exe'",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-vbs-wscript-xWe7mIIXqr"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-vbs-wscript-xWe7mIIXqr",
+    "log_source": "windows"
   },
   {
     "name": "Suspicious curl File Drop",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), 'curl') && (co",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), 'curl') && (contains(to_string(winlog.event_data.CommandLine), '>') || contains(to_string(winlog.event_data.CommandLine), '-o'))",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-curl-file-drop-nwLumjTy7a"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-curl-file-drop-nwLumjTy7a",
+    "log_source": "windows"
   },
   {
     "name": "Credential File and AppPath Access \u2013 Potential Amadey Cred Stealer",
     "type": "detection",
     "severity": "high",
-    "description": "(to_string(event.code) == '4656' || to_string(event.code) == '4663') && (ends_with(to_string(winlog.",
+    "description": "",
+    "expression": "(to_string(event.code) == '4656' || to_string(event.code) == '4663') && (ends_with(to_string(winlog.event_data.ObjectName), 'SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\App Paths\\\\firefox.exe') || ends_with(to_string(winlog.event_data.ObjectName), 'SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\App Paths\\\\Thunderbird.exe') || ends_with(to_string(winlog.event_data.ObjectName), '\\\\logins.json') || ends_with(to_string(winlog.event_data.ObjectName), '\\\\key4.db') || ends_with(to_string(winlog.event_data.ObjectName), '\\\\FileZilla\\\\sitemanager.xml')) && !(to_string(winlog.event_data.ProcessName) == 'C:\\\\Program Files\\\\Auditbeat\\\\auditbeat.exe')",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/credential-file-and-apppath-access-potential-amadey-cred-stealer-xAbTYdLyhG"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/credential-file-and-apppath-access-potential-amadey-cred-stealer-xAbTYdLyhG",
+    "log_source": "windows"
   },
   {
     "name": "Suspicious Defender Configuration Change via System Settings UI Flow",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'SystemSet",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'SystemSettingsAdminFlows.exe') && contains(to_string(winlog.event_data.CommandLine), 'Defender') && contains(to_string(winlog.event_data.CommandLine), 'DisableEnhancedNotifications')",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-defender-configuration-change-via-system-settings-ui-flow-hhm3x7q3v8"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-defender-configuration-change-via-system-settings-ui-flow-hhm3x7q3v8",
+    "log_source": "windows"
   },
   {
     "name": "Potential DCSync Attack - Non-DC Account Using Replication Rights",
     "type": "detection",
     "severity": "high",
-    "description": "(to_string(event.code) == '4662' && contains(to_string(winlog.event_data.Properties), '1131f6ad-9c07",
+    "description": "",
+    "expression": "(to_string(event.code) == '4662' && contains(to_string(winlog.event_data.Properties), '1131f6ad-9c07-11d1-f79f-00c04fc2dcd2')) && !starts_with(to_string(winlog.event_data.SubjectUserNameNormalized),'msol_')",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/potential-dcsync-attack-non-dc-account-using-replication-rights-eS9w3ozSOB"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/potential-dcsync-attack-non-dc-account-using-replication-rights-eS9w3ozSOB",
+    "log_source": "windows"
   },
   {
     "name": "Windows MSHTA Remote HTTP Execution",
     "type": "detection",
     "severity": "high",
-    "description": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), 'mshta') && co",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), 'mshta') && contains(to_string(winlog.event_data.CommandLine), 'http')",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
-    "reference": "https://outline.cybersift.io/s/d033ce86-913a-40ae-a4f6-260dcd78bfc0"
+    "reference": "https://outline.cybersift.io/s/d033ce86-913a-40ae-a4f6-260dcd78bfc0",
+    "log_source": "windows"
   },
   {
     "name": "Failed command",
     "type": "detection",
     "severity": "info",
-    "description": "auditd.message_type == 'user_cmd' && event.outcome == 'failure'",
+    "description": "",
+    "expression": "auditd.message_type == 'user_cmd' && event.outcome == 'failure'",
     "version": "1.0",
     "path": "rules/detection/info/linux.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "auditbeat"
   },
   {
     "name": "Local Administrator Activity",
     "type": "detection",
     "severity": "info",
-    "description": "contains([`4624`, `4625`, `4648`, `4776`, `4688`], winlog.cybersift.\"event.code\") && winlog.event_da",
+    "description": "",
+    "expression": "contains([`4624`, `4625`, `4648`, `4776`, `4688`], winlog.cybersift.\"event.code\") && winlog.event_data.TargetUserName=='Administrator'",
     "version": "1.0",
     "path": "rules/detection/info/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "NTLM V1 Detected",
     "type": "detection",
     "severity": "info",
-    "description": "to_string(event.code) == '4624' && winlog.event_data.LmPackageName == 'NTLM V1' && original.winlog.e",
+    "description": "",
+    "expression": "to_string(event.code) == '4624' && winlog.event_data.LmPackageName == 'NTLM V1' && original.winlog.event_data.TargetUserNameNormalized != 'anonymous logon'",
     "version": "1.0",
     "path": "rules/detection/info/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Google Drive Internet-Accessible File Shared",
     "type": "detection",
     "severity": "low",
-    "description": "to_string(event.dataset)=='google_workspace.drive' && (to_string(google_workspace.drive.visibility)=",
+    "description": "",
+    "expression": "to_string(event.dataset)=='google_workspace.drive' && (to_string(google_workspace.drive.visibility)=='people_with_link' && to_string(google_workspace.drive.old_visibility)=='private' && to_string(google_workspace.drive.visibility_change)=='external')",
     "version": "1.0",
     "path": "rules/detection/low/google_workspace.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/google-drive-internet-accessible-file-created-rr1oJ0ekPd"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-drive-internet-accessible-file-created-rr1oJ0ekPd",
+    "log_source": "google_workspace"
   },
   {
     "name": "Google Workspace - Security Investigation Initiated by Admin",
     "type": "detection",
     "severity": "low",
-    "description": "to_string(event.dataset)=='google_workspace.admin' && to_string(event.action)=='SECURITY_INVESTIGATI",
+    "description": "",
+    "expression": "to_string(event.dataset)=='google_workspace.admin' && to_string(event.action)=='SECURITY_INVESTIGATION_QUERY'",
     "version": "1.0",
     "path": "rules/detection/low/google_workspace.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-security-investigation-query-initiated-by-admin-k9PSg8VuhL"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-security-investigation-query-initiated-by-admin-k9PSg8VuhL",
+    "log_source": "google_workspace"
   },
   {
     "name": "Execution of SELinux Status Check Command",
     "type": "detection",
     "severity": "low",
-    "description": "to_string(event.action) == 'executed' && (to_string(process.name) == 'sestatus' || contains(to_strin",
+    "description": "",
+    "expression": "to_string(event.action) == 'executed' && (to_string(process.name) == 'sestatus' || contains(to_string(process.title), 'sestatus'))",
     "version": "1.0",
     "path": "rules/detection/low/linux.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "auditbeat"
   },
   {
     "name": "SSH to public IP",
     "type": "detection",
     "severity": "low",
-    "description": "DestinationPort=='22' && isSourceInternal=='true' && isDestinationInternal=='false' && denied_flow==",
+    "description": "",
+    "expression": "DestinationPort=='22' && isSourceInternal=='true' && isDestinationInternal=='false' && denied_flow==`false` && DestinationAddress!='0.0.0.0'",
     "version": "1.0",
     "path": "rules/detection/low/syslog.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "syslog"
   },
   {
     "name": "RDP from public IP",
     "type": "detection",
     "severity": "low",
-    "description": "DestinationPort=='3389' && isSourceInternal=='false' && denied_flow==`false` && DestinationAddress!=",
+    "description": "",
+    "expression": "DestinationPort=='3389' && isSourceInternal=='false' && denied_flow==`false` && DestinationAddress!='0.0.0.0'",
     "version": "1.0",
     "path": "rules/detection/low/syslog.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "syslog"
   },
   {
     "name": "SMB from public IP",
     "type": "detection",
     "severity": "low",
-    "description": "DestinationPort=='445' && isSourceInternal=='false' && denied_flow==`false` && DestinationAddress!='",
+    "description": "",
+    "expression": "DestinationPort=='445' && isSourceInternal=='false' && denied_flow==`false` && DestinationAddress!='0.0.0.0'",
     "version": "1.0",
     "path": "rules/detection/low/syslog.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "syslog"
   },
   {
     "name": "Failure Interactive Logon from Public IP",
     "type": "detection",
     "severity": "low",
-    "description": "to_string(event.code)=='4625' && winlog.cybersift.LoginInfo.PrivateLoginSourceAddress==`false` && st",
+    "description": "",
+    "expression": "to_string(event.code)=='4625' && winlog.cybersift.LoginInfo.PrivateLoginSourceAddress==`false` && starts_with(to_string(winlog.event_data.LogonProcessName), 'User32')",
     "version": "1.0",
     "path": "rules/detection/low/windows.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/failure-interactive-logon-from-public-ip-NVzpN0ewZD"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/failure-interactive-logon-from-public-ip-NVzpN0ewZD",
+    "log_source": "windows"
   },
   {
     "name": "AWS - Local User Created Outside Identity Provider",
     "type": "detection",
     "severity": "medium",
-    "description": "to_string(event.dataset)=='aws.cloudtrail' && (to_string(cybersift.aws.eventName)=='CreateUser' && t",
+    "description": "",
+    "expression": "to_string(event.dataset)=='aws.cloudtrail' && (to_string(cybersift.aws.eventName)=='CreateUser' && to_string(cybersift.aws.eventSource)=='iam.amazonaws.com')",
     "version": "1.0",
     "path": "rules/detection/medium/aws.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/aws-local-user-created-outside-identity-provider-GKvYW8F9aN"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/aws-local-user-created-outside-identity-provider-GKvYW8F9aN",
+    "log_source": "aws"
   },
   {
     "name": "AWS - S3 Bucket Deleted",
     "type": "detection",
     "severity": "medium",
-    "description": "to_string(event.dataset)=='aws.cloudtrail' && to_string(cybersift.aws.eventName)=='DeleteBucket'",
+    "description": "",
+    "expression": "to_string(event.dataset)=='aws.cloudtrail' && to_string(cybersift.aws.eventName)=='DeleteBucket'",
     "version": "1.0",
     "path": "rules/detection/medium/aws.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/aws-s3-bucket-deleted-5LwdDNTBXQ"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/aws-s3-bucket-deleted-5LwdDNTBXQ",
+    "log_source": "aws"
   },
   {
     "name": "AWS API Activity from Uncommon S3 Client",
     "type": "detection",
     "severity": "medium",
-    "description": "event.dataset == 'aws.cloudtrail' && (contains(to_string(cybersift.aws.userAgent), 'S3 Browser') || ",
+    "description": "",
+    "expression": "event.dataset == 'aws.cloudtrail' && (contains(to_string(cybersift.aws.userAgent), 'S3 Browser') || contains(to_string(cybersift.aws.userAgent), 'Cyberduck'))",
     "version": "1.0",
     "path": "rules/detection/medium/aws.json",
-    "reference": "https://outline.cybersift.io/s/8cb26b93-72a6-4f16-a753-310af2c5284e"
+    "reference": "https://outline.cybersift.io/s/8cb26b93-72a6-4f16-a753-310af2c5284e",
+    "log_source": "aws"
   },
   {
     "name": "AWS Account Discovery By Rare User",
     "type": "detection",
     "severity": "medium",
-    "description": "event.dataset == 'aws.cloudtrail' && to_string(cybersift.aws.userIdentity.type) != 'AWSService' && (",
+    "description": "",
+    "expression": "event.dataset == 'aws.cloudtrail' && to_string(cybersift.aws.userIdentity.type) != 'AWSService' && ((to_string(cybersift.aws.eventSource) == 'organizations.amazonaws.com' && contains(['DescribeOrganization','DescribeOrgnanizationalUnit','ListAccounts','ListRoots','ListOrganizationalUnitsForParent','ListAccountsForParent','ListPolicies','ListAWSServiceAccessForOrganization','ListDelegatedAdministrators','ListDelegatedServicesForAccount','DescribeResourcePolicy'], to_string(cybersift.aws.eventName))) || (to_string(cybersift.aws.eventSource) == 'iam.amazonaws.com' && contains(['ListAccountAliases','GetAccountSummary'], to_string(cybersift.aws.eventName))))",
     "version": "1.0",
     "path": "rules/detection/medium/aws.json",
-    "reference": "https://outline.cybersift.io/s/2a7cbf90-3596-4c6a-9714-8fb12a92e91d"
+    "reference": "https://outline.cybersift.io/s/2a7cbf90-3596-4c6a-9714-8fb12a92e91d",
+    "log_source": "aws"
   },
   {
     "name": "AWS Suspicious User Agent Fingerprint",
     "type": "detection",
     "severity": "medium",
-    "description": "event.dataset == 'aws.cloudtrail' && (contains(to_string(cybersift.aws.userAgent), 'kali') || contai",
+    "description": "",
+    "expression": "event.dataset == 'aws.cloudtrail' && (contains(to_string(cybersift.aws.userAgent), 'kali') || contains(to_string(cybersift.aws.userAgent), 'Kali') || contains(to_string(cybersift.aws.userAgent), 'TruffleHog') || contains(to_string(cybersift.aws.userAgent), 'trufflehog'))",
     "version": "1.0",
     "path": "rules/detection/medium/aws.json",
-    "reference": "https://outline.cybersift.io/s/9733a16c-5571-4a79-96d1-9c7c9329bb18"
+    "reference": "https://outline.cybersift.io/s/9733a16c-5571-4a79-96d1-9c7c9329bb18",
+    "log_source": "aws"
   },
   {
     "name": "Google Workspace Suspicious Login (Success)",
     "type": "detection",
     "severity": "medium",
-    "description": "to_string(event.action)=='login_success' && to_string(google_workspace.login.is_suspicious)=='true'",
+    "description": "",
+    "expression": "to_string(event.action)=='login_success' && to_string(google_workspace.login.is_suspicious)=='true'",
     "version": "1.0",
     "path": "rules/detection/medium/google_workspace.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-successful-login-from-a-suspicious-source-sBss15CUuz"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-successful-login-from-a-suspicious-source-sBss15CUuz",
+    "log_source": "google_workspace"
   },
   {
     "name": "Google Workspace 2SV Policy Disabled",
     "type": "detection",
     "severity": "medium",
-    "description": "event.dataset == 'google_workspace.login' && event.action == '2sv_disable'",
+    "description": "",
+    "expression": "event.dataset == 'google_workspace.login' && event.action == '2sv_disable'",
     "version": "1.0",
     "path": "rules/detection/medium/google_workspace.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-2sv-policy-disabled-vNtnDoB8zt"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-2sv-policy-disabled-vNtnDoB8zt",
+    "log_source": "google_workspace"
   },
   {
     "name": "Application Added to Google Workspace Domain",
     "type": "detection",
     "severity": "medium",
-    "description": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' &&",
+    "description": "",
+    "expression": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' && event.action == 'ADD_APPLICATION'",
     "version": "1.0",
     "path": "rules/detection/medium/google_workspace.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/application-added-to-google-workspace-domain-cUtCTeAPjA"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/application-added-to-google-workspace-domain-cUtCTeAPjA",
+    "log_source": "google_workspace"
   },
   {
     "name": "Application Removed from Blocklist in Google Workspace",
     "type": "detection",
     "severity": "medium",
-    "description": "event.dataset == 'google_workspace.admin' && event.category == 'iam' && event.type == 'change' && ev",
+    "description": "",
+    "expression": "event.dataset == 'google_workspace.admin' && event.category == 'iam' && event.type == 'change' && event.action == 'CHANGE_APPLICATION_SETTING' && event.google_workspace.admin.application.name == 'Google Workspace Marketplace' && contains(to_string(google_workspace.admin.old_value), 'allowed') && contains(to_string(google_workspace.admin.old_value), 'false') && contains(to_string(google_workspace.admin.new_value), 'allowed') && contains(to_string(google_workspace.admin.new_value), 'true')",
     "version": "1.0",
     "path": "rules/detection/medium/google_workspace.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/application-removed-from-blocklist-in-google-workspace-qC95cQpJ5f"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/application-removed-from-blocklist-in-google-workspace-qC95cQpJ5f",
+    "log_source": "google_workspace"
   },
   {
     "name": "Domain Added to Google Workspace Trusted Domains",
     "type": "detection",
     "severity": "high",
-    "description": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' &&",
+    "description": "",
+    "expression": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' && event.action == 'ADD_TRUSTED_DOMAINS'",
     "version": "1.0",
     "path": "rules/detection/medium/google_workspace.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/domain-added-to-google-workspace-trusted-domains-50ZJ3Jetf3"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/domain-added-to-google-workspace-trusted-domains-50ZJ3Jetf3",
+    "log_source": "google_workspace"
   },
   {
     "name": "External User Added to Google Workspace Group",
     "type": "detection",
     "severity": "medium",
-    "description": "event.dataset=='google_workspace.admin' && event.action=='ADD_GROUP_MEMBER' && !ends_with(to_string(",
+    "description": "",
+    "expression": "event.dataset=='google_workspace.admin' && event.action=='ADD_GROUP_MEMBER' && !ends_with(to_string(user.target.email), to_string(user.target.group.domain))",
     "version": "1.0",
     "path": "rules/detection/medium/google_workspace.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/external-user-added-to-google-workspace-group-1snAabH4ZK"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/external-user-added-to-google-workspace-group-1snAabH4ZK",
+    "log_source": "google_workspace"
   },
   {
     "name": "Google Workspace Bitlocker Setting Disabled",
     "type": "detection",
     "severity": "medium",
-    "description": "event.dataset == 'google_workspace.admin' && event.action == 'CHANGE_APPLICATION_SETTING' && (event.",
+    "description": "",
+    "expression": "event.dataset == 'google_workspace.admin' && event.action == 'CHANGE_APPLICATION_SETTING' && (event.category == 'iam' || event.category == 'configuration') && google_workspace.admin.new_value == 'Disabled' && starts_with(to_string(google_workspace.admin.setting.name), 'BitLocker')",
     "version": "1.0",
     "path": "rules/detection/medium/google_workspace.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-bitlocker-setting-disabled-toGd0L3CEB"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-bitlocker-setting-disabled-toGd0L3CEB",
+    "log_source": "google_workspace"
   },
   {
     "name": "Google Workspace Custom Admin Role Created",
     "type": "detection",
     "severity": "medium",
-    "description": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' &&",
+    "description": "",
+    "expression": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' && event.action == 'CREATE_ROLE'",
     "version": "1.0",
     "path": "rules/detection/medium/google_workspace.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-custom-admin-role-created-fhSKzIDrp7"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-custom-admin-role-created-fhSKzIDrp7",
+    "log_source": "google_workspace"
   },
   {
     "name": "Google Workspace MFA Enforcement Disabled",
     "type": "detection",
     "severity": "medium",
-    "description": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' &&",
+    "description": "",
+    "expression": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' && event.action == 'ENFORCE_STRONG_AUTHENTICATION' && google_workspace.admin.new_value == false",
     "version": "1.0",
     "path": "rules/detection/medium/google_workspace.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-mfa-enforcement-disabled-sAivve4Cno"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-mfa-enforcement-disabled-sAivve4Cno",
+    "log_source": "google_workspace"
   },
   {
     "name": "Google Workspace API Access Granted via Domain-Wide Delegation",
     "type": "detection",
     "severity": "medium",
-    "description": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' &&",
+    "description": "",
+    "expression": "event.dataset == 'google_workspace.admin' && event.provider == 'admin' && event.category == 'iam' && event.action == 'AUTHORIZE_API_CLIENT_ACCESS' && event.outcome == 'success'",
     "version": "1.0",
     "path": "rules/detection/medium/google_workspace.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-api-access-granted-via-domain-wide-delegation-qlfQHE7LxI"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-workspace-api-access-granted-via-domain-wide-delegation-qlfQHE7LxI",
+    "log_source": "google_workspace"
   },
   {
     "name": "Google Drive Internet-Accessible Sensitive File Shared",
     "type": "detection",
     "severity": "medium",
-    "description": "(to_string(event.dataset) == 'google_workspace.drive' && to_string(google_workspace.drive.visibility",
+    "description": "",
+    "expression": "(to_string(event.dataset) == 'google_workspace.drive' && to_string(google_workspace.drive.visibility) == 'people_with_link' && to_string(google_workspace.drive.visibility_change) == 'external') && (contains(to_string(file.name_normalized), 'password') || contains(to_string(file.name_normalized), 'secret') || contains(to_string(file.name_normalized), 'payroll') || contains(to_string(file.name_normalized), 'pii') || contains(to_string(file.name_normalized), 'confidential') || contains(to_string(file.name_normalized), 'backup') || contains(to_string(file.name_normalized), 'internal') || contains(to_string(file.name_normalized), 'private') || contains(to_string(file.name_normalized), 'restricted') || contains(to_string(file.name_normalized), 'sensitive'))",
     "version": "1.0",
     "path": "rules/detection/medium/google_workspace.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/google-drive-internet-accessible-sensitive-file-shared-lyfTM6WfpU"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/google-drive-internet-accessible-sensitive-file-shared-lyfTM6WfpU",
+    "log_source": "google_workspace"
   },
   {
     "name": "Sudo Execution of Account and Credential Utilities",
     "type": "detection",
     "severity": "medium",
-    "description": "(contains(to_string(event.category), 'process') && to_string(event.action)=='ran-command' && to_stri",
+    "description": "",
+    "expression": "(contains(to_string(event.category), 'process') && to_string(event.action)=='ran-command' && to_string(process.executable)=='/usr/bin/sudo') && (contains(to_string(auditd.data.cmd), 'passwd') || contains(to_string(auditd.data.cmd), 'shadow') || contains(to_string(auditd.data.cmd), 'gshadow') || contains(to_string(auditd.data.cmd), 'group') || contains(to_string(auditd.data.cmd), 'visudo'))",
     "version": "1.0",
     "path": "rules/detection/medium/linux.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/sudo-execution-of-account-and-credential-utilities-xKYyH8eglI"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/sudo-execution-of-account-and-credential-utilities-xKYyH8eglI",
+    "log_source": "auditbeat"
   },
   {
     "name": "Executable Shell Script Creation",
     "type": "detection",
     "severity": "medium",
-    "description": "(contains(to_string(process.title), 'chmod +x')) && (contains(to_string(process.title), '.sh'))",
+    "description": "",
+    "expression": "(contains(to_string(process.title), 'chmod +x')) && (contains(to_string(process.title), '.sh'))",
     "version": "1.0",
     "path": "rules/detection/medium/linux.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/executable-shell-script-creation-bsGilaywCK"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/executable-shell-script-creation-bsGilaywCK",
+    "log_source": "auditbeat"
   },
   {
     "name": "O365 Inbox Rule Created or Modified",
     "type": "detection",
     "severity": "medium",
-    "description": "contains(['New-InboxRule', 'Set-InboxRule'], o365.audit.Operation)",
+    "description": "",
+    "expression": "contains(['New-InboxRule', 'Set-InboxRule'], o365.audit.Operation)",
     "version": "1.0",
     "path": "rules/detection/medium/o365.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "o365"
   },
   {
     "name": "O365 Exchange Anti-Phish Policy Deletion",
     "type": "detection",
     "severity": "medium",
-    "description": "event.dataset == 'o365.audit' && event.provider == 'Exchange' && event.category == 'web' && contains",
+    "description": "",
+    "expression": "event.dataset == 'o365.audit' && event.provider == 'Exchange' && event.category == 'web' && contains(to_string(event.action), 'Remove-AntiPhishPolicy')",
     "version": "1.0",
     "path": "rules/detection/medium/o365.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "o365"
   },
   {
     "name": "O365 Exchange DLP Policy Removed",
     "type": "detection",
     "severity": "medium",
-    "description": "event.dataset=='o365.audit' && event.provider=='Exchange' && event.category=='web' && event.action==",
+    "description": "",
+    "expression": "event.dataset=='o365.audit' && event.provider=='Exchange' && event.category=='web' && event.action=='Remove-DlpPolicy' && event.outcome=='success'",
     "version": "1.0",
     "path": "rules/detection/medium/o365.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "o365"
   },
   {
     "name": "O365 Copilot Jailbreak Attempt Detected",
     "type": "detection",
     "severity": "medium",
-    "description": "contains(to_string(o365.audit.CopilotEventData.Messages[].JailbreakDetected), 'true')",
+    "description": "",
+    "expression": "contains(to_string(o365.audit.CopilotEventData.Messages[].JailbreakDetected), 'true')",
     "version": "1.0",
     "path": "rules/detection/medium/o365.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/o365-copilot-jailbreak-attempt-detected-ov5sunR6fe"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/o365-copilot-jailbreak-attempt-detected-ov5sunR6fe",
+    "log_source": "o365"
   },
   {
     "name": "O365 Sharepoint Operation from a threat IP",
     "type": "detection",
     "severity": "medium",
-    "description": "to_string(event.code) == 'SharePointFileOperation' && to_string(\"cybersift.threat_info\".knownThreat)",
+    "description": "",
+    "expression": "to_string(event.code) == 'SharePointFileOperation' && to_string(\"cybersift.threat_info\".knownThreat) == 'true'",
     "version": "1.0",
     "path": "rules/detection/medium/o365.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/o365-sharepoint-operation-from-a-threat-ip-OkS0as2LKU"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/o365-sharepoint-operation-from-a-threat-ip-OkS0as2LKU",
+    "log_source": "o365"
   },
   {
     "name": "Potential Data Leak - Dropbox Usage",
     "type": "detection",
     "severity": "medium",
-    "description": "\"ASN Description\"=='DROPBOX'",
+    "description": "",
+    "expression": "\"ASN Description\"=='DROPBOX'",
     "version": "1.0",
     "path": "rules/detection/medium/syslog.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "syslog"
   },
   {
     "name": "SMB to public IP",
     "type": "detection",
     "severity": "medium",
-    "description": "DestinationPort=='445' && isSourceInternal=='true' && isDestinationInternal=='false' && denied_flow=",
+    "description": "",
+    "expression": "DestinationPort=='445' && isSourceInternal=='true' && isDestinationInternal=='false' && denied_flow==`false` && DestinationAddress!='0.0.0.0'",
     "version": "1.0",
     "path": "rules/detection/medium/syslog.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "syslog"
   },
   {
     "name": "Threat Intel: Filtered MISP Feed Hit",
     "type": "detection",
     "severity": "medium",
-    "description": "(contains(to_string(\"cybersift.threat_info\".threats), 'MITA MISP')) && !((contains(to_string(\"cybers",
+    "description": "",
+    "expression": "(contains(to_string(\"cybersift.threat_info\".threats), 'MITA MISP')) && !((contains(to_string(\"cybersift.threat_info\".threats), '1319')) || (contains(to_string(\"cybersift.threat_info\".threats), '1320')))",
     "version": "1.0",
     "path": "rules/detection/medium/syslog.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/threat-intel-filtered-misp-feed-hit-rBbp9X7j2x"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/threat-intel-filtered-misp-feed-hit-rBbp9X7j2x",
+    "log_source": "syslog"
   },
   {
     "name": "Non-existent user login",
     "type": "detection",
     "severity": "medium",
-    "description": "to_string(event.code)=='4625' && winlog.event_data.SubStatus=='0xc0000064' && winlog.cybersift.Targe",
+    "description": "",
+    "expression": "to_string(event.code)=='4625' && winlog.event_data.SubStatus=='0xc0000064' && winlog.cybersift.TargetUserType=='user'",
     "version": "1.0",
     "path": "rules/detection/medium/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Abnormal Login Source Workstation First Time Seen",
     "type": "detection",
     "severity": "medium",
-    "description": "contains(Abnormalities || '', 'AbnormalLoginSource_FirstTimeSeen')",
+    "description": "",
+    "expression": "contains(Abnormalities || '', 'AbnormalLoginSource_FirstTimeSeen')",
     "version": "1.0",
     "path": "rules/detection/medium/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Abnormal Login Source Workstation Rarely Seen",
     "type": "detection",
     "severity": "medium",
-    "description": "contains(Abnormalities || '', 'AbnormalLoginSource_RarelySeen')",
+    "description": "",
+    "expression": "contains(Abnormalities || '', 'AbnormalLoginSource_RarelySeen')",
     "version": "1.0",
     "path": "rules/detection/medium/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "High Privilege User Login",
     "type": "detection",
     "severity": "medium",
-    "description": "contains(Abnormalities || '', 'HighPrivilegeUser')",
+    "description": "",
+    "expression": "contains(Abnormalities || '', 'HighPrivilegeUser')",
     "version": "1.0",
     "path": "rules/detection/medium/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Possible Lateral Movement",
     "type": "detection",
     "severity": "medium",
-    "description": "contains(Abnormalities || '', 'PossibleLateralMovement')",
+    "description": "",
+    "expression": "contains(Abnormalities || '', 'PossibleLateralMovement')",
     "version": "1.0",
     "path": "rules/detection/medium/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Possible NTLM Relay",
     "type": "detection",
     "severity": "medium",
-    "description": "contains(Abnormalities || '', 'Possible-NTLM-Relay')",
+    "description": "",
+    "expression": "contains(Abnormalities || '', 'Possible-NTLM-Relay')",
     "version": "1.0",
     "path": "rules/detection/medium/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Abnormal Login Source Workstation",
     "type": "detection",
     "severity": "medium",
-    "description": "contains(Abnormalities || '', 'AbnormalLoginSource_Workstation_Normal_Privilege_User')",
+    "description": "",
+    "expression": "contains(Abnormalities || '', 'AbnormalLoginSource_Workstation_Normal_Privilege_User')",
     "version": "1.0",
     "path": "rules/detection/medium/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Disabled User Activity",
     "type": "detection",
     "severity": "medium",
-    "description": "winlog.event_data.Status=='0xc0000072' || winlog.event_data.SubStatus=='0xc0000072'",
+    "description": "",
+    "expression": "winlog.event_data.Status=='0xc0000072' || winlog.event_data.SubStatus=='0xc0000072'",
     "version": "1.0",
     "path": "rules/detection/medium/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "nltest Enumeration",
     "type": "detection",
     "severity": "medium",
-    "description": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.NewProcessName), 'nltest.exe",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.NewProcessName), 'nltest.exe')",
     "version": "1.0",
     "path": "rules/detection/medium/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "The security log is now full",
     "type": "detection",
     "severity": "medium",
-    "description": "to_string(event.code) == '1104' && to_string(winlog.channel) == 'Security'",
+    "description": "",
+    "expression": "to_string(event.code) == '1104' && to_string(winlog.channel) == 'Security'",
     "version": "1.0",
     "path": "rules/detection/medium/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "High Risk Binary Executed with Admin Privilige",
     "type": "detection",
     "severity": "medium",
-    "description": "to_string(event.code) == '4688' && winlog.event_data.TokenElevationType == '%%1937' && (ends_with(to",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && winlog.event_data.TokenElevationType == '%%1937' && (ends_with(to_string(winlog.event_data.NewProcessName), '\\\\mshta.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\wmic.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\at.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\psexec.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\winrm.cmd') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\winrs.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\bcdedit.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\takeown.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\installutil.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\odbcconf.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\cmstp.exe'))",
     "version": "1.0",
     "path": "rules/detection/medium/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   },
   {
     "name": "Windows Account Set to Password Never Expires",
     "type": "detection",
     "severity": "medium",
-    "description": "(to_string(event.code)=='4738' && to_string(event.action)=='Process Creation') && contains(to_string",
+    "description": "",
+    "expression": "(to_string(event.code)=='4738' && to_string(event.action)=='Process Creation') && contains(to_string(winlog.event_data.UserAccountControl), '%%2089')",
     "version": "1.0",
     "path": "rules/detection/medium/windows.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/windows-account-set-to-never-expires-h79JXS0EtB"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/windows-account-set-to-never-expires-h79JXS0EtB",
+    "log_source": "windows"
   },
   {
     "name": "Successful Interactive Logon from Public IP",
     "type": "detection",
     "severity": "medium",
-    "description": "to_string(event.code)=='4624' && winlog.cybersift.LoginInfo.PrivateLoginSourceAddress==`false` && st",
+    "description": "",
+    "expression": "to_string(event.code)=='4624' && winlog.cybersift.LoginInfo.PrivateLoginSourceAddress==`false` && starts_with(to_string(winlog.event_data.LogonProcessName), 'User32')",
     "version": "1.0",
     "path": "rules/detection/medium/windows.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/successful-interactive-logon-from-public-ip-e2uptELtgV"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/successful-interactive-logon-from-public-ip-e2uptELtgV",
+    "log_source": "windows"
   },
   {
     "name": "Common DNS Servers",
     "type": "filtering",
     "severity": "info",
-    "description": "contains(['8.8.8.8', '4.2.2.2', '4.2.2.1', '8.8.4.4', '1.0.0.1', '1.1.1.1', '1.1.1.2', '1.1.1.3', '1",
+    "description": "",
+    "expression": "contains(['8.8.8.8', '4.2.2.2', '4.2.2.1', '8.8.4.4', '1.0.0.1', '1.1.1.1', '1.1.1.2', '1.1.1.3', '1.0.0.2', '1.0.0.3'], DestinationAddress)",
     "version": "1.0",
     "path": "rules/filtering/syslog.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "syslog"
   },
   {
     "name": "Link Local Traffic",
     "type": "filtering",
     "severity": "info",
-    "description": "DestinationAddress=='169.254.255.255'",
+    "description": "",
+    "expression": "DestinationAddress=='169.254.255.255'",
     "version": "1.0",
     "path": "rules/filtering/syslog.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "syslog"
   },
   {
     "name": "COM Server application events 10016",
     "type": "filtering",
     "severity": "info",
-    "description": "event.code=='10016'",
+    "description": "",
+    "expression": "event.code=='10016'",
     "version": "1.0",
     "path": "rules/filtering/windows.json",
-    "reference": ""
+    "reference": "",
+    "log_source": "windows"
   }
 ]
