@@ -55,7 +55,7 @@
     "log_source": "aws"
   },
   {
-    "name": "Cloudflare Login from Known Threat",
+    "name": "Cloudflare - Login from Known Threat",
     "type": "detection",
     "severity": "high",
     "description": "",
@@ -1232,6 +1232,17 @@
     "log_source": "aws"
   },
   {
+    "name": "Cloudflare - DNS Record Deletion",
+    "type": "detection",
+    "severity": "medium",
+    "description": "",
+    "expression": "to_string(resource.product)=='dns_records' && to_string(action.type)=='delete' && to_string(actor.context)=='dash'",
+    "version": "1.0",
+    "path": "rules/detection/medium/cloudflare.json",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/cloudflare-dns-record-deletion-zeX5YUx4SR",
+    "log_source": "cloudflare"
+  },
+  {
     "name": "Google Workspace Suspicious Login (Success)",
     "type": "detection",
     "severity": "medium",
@@ -1603,6 +1614,17 @@
     "version": "1.0",
     "path": "rules/detection/medium/windows.json",
     "reference": "https://outline.cybersift.io/s/engineering/doc/successful-interactive-logon-from-public-ip-e2uptELtgV",
+    "log_source": "windows"
+  },
+  {
+    "name": "Windows whoami Privilege Discovery",
+    "type": "detection",
+    "severity": "medium",
+    "description": "",
+    "expression": "to_string(event.code)=='4688' && (contains(to_string(winlog.event_data.CommandLine), 'whoami') && (contains(to_string(winlog.event_data.CommandLine), 'all')) || contains(to_string(winlog.event_data.CommandLine), 'priv'))",
+    "version": "1.0",
+    "path": "rules/detection/medium/windows.json",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/windows-whoami-privilege-discovery-bJOeWpehMD",
     "log_source": "windows"
   },
   {
