@@ -78,5 +78,12 @@
     "severity": "medium",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/engineering/doc/successful-interactive-logon-from-public-ip-e2uptELtgV"
+  },
+  {
+    "title": "Windows whoami Privilege Discovery",
+    "expression": "to_string(event.code)=='4688' && (contains(to_string(winlog.event_data.CommandLine), 'whoami') && (contains(to_string(winlog.event_data.CommandLine), 'all')) || contains(to_string(winlog.event_data.CommandLine), 'priv'))",
+    "severity": "medium",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/windows-whoami-privilege-discovery-bJOeWpehMD"
   }
 ]
