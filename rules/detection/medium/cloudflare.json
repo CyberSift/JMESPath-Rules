@@ -1,0 +1,9 @@
+[
+  {
+    "title": "Cloudflare - DNS Record Deletion",
+    "expression": "to_string(resource.product)=='dns_records' && to_string(action.type)=='delete' && to_string(actor.context)=='dash'",
+    "severity": "medium",
+    "type": "cloudflare",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/cloudflare-dns-record-deletion-zeX5YUx4SR"
+  }
+]
