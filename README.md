@@ -1,27 +1,39 @@
-# JMESPath-Rules
+<p align="center">
+  <img src="https://raw.githubusercontent.com/CyberSift/JMESPath-Rules/refs/heads/main/docs/logo.png" alt="CyberSift logo" width="220">
+</p>
 
-# The Zen of Security Rules
-- almost all points from the Zen of Python are applicable to security rules - start there
-- favor inclusion-by-exception over exclusion-by-exception, or else endure perpetual whack-a-mole
-- have a propensity towards performance; expensive rules must justify the cost
-- resist temptation to over or under-scoping; balance is key
-- generic patterns can minimize brittleness, but at the cost of performance
-- correlation is powerful, but overly comprehensive rules can lead to brittleness and trivial bypasses
-- detect behaviors over IOCs, except when necessary
-- if a rule is too complex to understand, the alert is even worse
-- just like code, readability is important for avoiding errors
-- detection logic formatting should emphasize logical precedence and grouping
-- detection logic should be resilient, but when it can’t, use multiple rules
-- consistency in rule structure leads to predictability and fewer errors
-- if you can detect it, you can test it
-- always version your rules
-- maintenance cost of a rule should not outweigh the value of the rule
-- there will ALWAYS be surprises from FPs and FNs
-- minimizing FPs sometimes outweighs eliminating FNs, due the costs of alert fatigue
-- less is more; don’t write rules for the sake of writing rules
-- there is no “correct” quantity of total rules, but there can be too many and too few
-- when necessary, break the rules, so you don’t break the rules
-- production environments vary wildly, so minimize assumptions
-- adopt a detections-as-code or similar software-driven process for managing rules early
+# CyberSift JMESPath Rules
 
-  *from: https://br0k3nlab.com/resources/zen-of-security-rules/*
+Detection rules for [CyberSift.io](https://cybersift.io/) and Sentio SIEM, written in [JMESPath](https://jmespath.org/) and maintained as version-controlled detection content.
+
+This repository provides a practical rule library for identifying suspicious activity across structured security events. Rules are designed to be readable, reviewable, and easy to manage as part of a modern SIEM detection workflow.
+
+## Overview
+
+CyberSift helps security teams collect, analyze, and act on security telemetry through Sentio SIEM. This rule repository supports that workflow by keeping detection logic transparent and maintainable.
+
+Each rule is written using JMESPath, a query language for JSON data. This makes the rules well suited for evaluating normalized event data and expressing detection logic in a clear, consistent format.
+
+## What This Repository Contains
+
+- SIEM detection rules written in JMESPath
+- Rule content intended for CyberSift/Sentio SIEM workflows
+- Version-controlled detection logic for review, maintenance, and improvement
+- A source repository for rules published to the CyberSift rule catalog
+- Some of the rules include "cybersift" fields which are proprietary to Sentio SIEM
+
+## Published Rule Catalog
+
+The published rules are available at:
+
+[https://rules.cybersift.io/](https://rules.cybersift.io/)
+
+## Rule Management Documentation
+
+For details about managing rules in Sentio SIEM, see:
+
+[Sentio SIEM Rule Management](https://outline.cybersift.io/s/sentio-siem/doc/rule-management-1bCmPqUgBb)
+
+## Repository
+
+[CyberSift/JMESPath-Rules](https://github.com/CyberSift/JMESPath-Rules/)
