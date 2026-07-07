@@ -85,5 +85,12 @@
     "severity": "medium",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/engineering/doc/windows-whoami-privilege-discovery-bJOeWpehMD"
+  },
+  {
+    "title": "Local Administrators Group Enumeration",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), 'localgroup') && contains(to_string(winlog.event_data.CommandLine), 'administrators')",
+    "severity": "medium",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/6aa4e37d-e158-4062-9841-c5aede4b76a7"
   }
 ]
