@@ -1067,6 +1067,17 @@
     "log_source": "windows"
   },
   {
+    "name": "PowerShell Encoded Command Execution",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'powershell.exe') && (contains(to_string(winlog.event_data.CommandLine), '-enc') || contains(to_string(winlog.event_data.CommandLine), '-Enc')) && !contains(to_string(winlog.event_data.CommandLine), '-encoding')",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/212f3544-a7b1-4dce-9bb9-431c3a5f497d",
+    "log_source": "windows"
+  },
+  {
     "name": "Failed command",
     "type": "detection",
     "severity": "info",
