@@ -47,9 +47,9 @@
     "severity": "medium",
     "type": "windows"
   },
-    {
+  {
     "title": "nltest Enumeration",
-    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.NewProcessName), 'nltest.exe')",
+    "expression": "to_string(event.code) == '4688' && (contains(to_string(winlog.event_data.NewProcessName), 'nltest.exe') || contains(to_string(winlog.event_data.CommandLine), 'nltest'))",
     "severity": "medium",
     "type": "windows"
   },
