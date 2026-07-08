@@ -1577,7 +1577,7 @@
     "type": "detection",
     "severity": "medium",
     "description": "",
-    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.NewProcessName), 'nltest.exe')",
+    "expression": "to_string(event.code) == '4688' && (contains(to_string(winlog.event_data.NewProcessName), 'nltest.exe') || contains(to_string(winlog.event_data.CommandLine), 'nltest'))",
     "version": "1.0",
     "path": "rules/detection/medium/windows.json",
     "reference": "",
@@ -1636,6 +1636,17 @@
     "version": "1.0",
     "path": "rules/detection/medium/windows.json",
     "reference": "https://outline.cybersift.io/s/engineering/doc/windows-whoami-privilege-discovery-bJOeWpehMD",
+    "log_source": "windows"
+  },
+  {
+    "name": "Local Administrators Group Enumeration",
+    "type": "detection",
+    "severity": "medium",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), 'localgroup') && contains(to_string(winlog.event_data.CommandLine), 'administrators')",
+    "version": "1.0",
+    "path": "rules/detection/medium/windows.json",
+    "reference": "https://outline.cybersift.io/s/6aa4e37d-e158-4062-9841-c5aede4b76a7",
     "log_source": "windows"
   },
   {
