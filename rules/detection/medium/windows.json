@@ -13,7 +13,7 @@
   },
   {
     "title": "Abnormal Login Source Workstation Rarely Seen",
-    "expression": "contains(Abnormalities || '', 'AbnormalLoginSource_RarelySeen')",
+    "expression": "contains(to_string(Abnormalities) 'AbnormalLoginSource_RarelySeen') && !(to_string(winlog.event_data.WorkstationName)=='-' || to_string(winlog.cybersift.LogonTypeText)=='Service' || to_string(winlog.event_data.IpAddress)=='127.0.0.1')",
     "severity": "medium",
     "type": "windows"
   },
@@ -37,7 +37,7 @@
   },
   {
     "title": "Abnormal Login Source Workstation",
-    "expression": "contains(Abnormalities || '', 'AbnormalLoginSource_Workstation_Normal_Privilege_User')",
+    "expression": "contains(to_string(Abnormalities) 'AbnormalLoginSource') && !(to_string(winlog.event_data.WorkstationName)=='-' || to_string(winlog.cybersift.LogonTypeText)=='Service' || to_string(winlog.event_data.IpAddress)=='127.0.0.1')",
     "severity": "medium",
     "type": "windows"
   },
