@@ -324,5 +324,11 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/9eda598e-80ab-454d-b69f-44da11e1cd02"
+  },
+    "title": "Suspicious Defender Configuration Change via System Settings UI Flow",
+    "expression": "to_string(event.code) == '4688' && (contains(to_string(winlog.event_data.CommandLine), 'delete shadows') || contains(to_string(winlog.event_data.CommandLine), 'delete shadowstorage') || contains(to_string(winlog.event_data.CommandLine), 'shadowcopy delete') || contains(to_string(winlog.event_data.CommandLine), 'Remove-VolumeShadowCopy') || contains(to_string(winlog.event_data.CommandLine), 'Delete-VolumeShadowCopy') || contains(to_string(winlog.event_data.CommandLine), 'Remove-ShadowCopy') || contains(to_string(winlog.event_data.CommandLine), 'wmic delete catalog') || ((contains(to_string(winlog.event_data.NewProcessName), 'wbadmin.exe') || contains(to_string(winlog.event_data.ProcessName), 'wbadmin.exe')) && contains(to_string(winlog.event_data.CommandLine), 'delete catalog')))",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/7ecca81d-e97b-4221-8b08-25c6a689b202"
   }
 ]
