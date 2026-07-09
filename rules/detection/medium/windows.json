@@ -60,7 +60,7 @@
     "type": "windows"
   },
   {
-    "title": "High Risk Binary Executed with Admin Privilige",
+    "title": "High Risk Binary Executed with Admin Privilege",
     "expression": "to_string(event.code) == '4688' && winlog.event_data.TokenElevationType == '%%1937' && (ends_with(to_string(winlog.event_data.NewProcessName), '\\\\mshta.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\wmic.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\at.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\psexec.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\winrm.cmd') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\winrs.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\bcdedit.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\takeown.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\installutil.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\odbcconf.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\cmstp.exe'))",
     "severity": "medium",
     "type": "windows"
@@ -81,7 +81,7 @@
   },
   {
     "title": "Windows whoami Privilege Discovery",
-    "expression": "to_string(event.code)=='4688' && (contains(to_string(winlog.event_data.CommandLine), 'whoami') && (contains(to_string(winlog.event_data.CommandLine), 'all')) || contains(to_string(winlog.event_data.CommandLine), 'priv'))",
+    "expression": "to_string(event.code)=='4688' && contains(to_string(winlog.event_data.CommandLine), 'whoami') && (contains(to_string(winlog.event_data.CommandLine), 'all') || contains(to_string(winlog.event_data.CommandLine), 'priv'))",
     "severity": "medium",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/engineering/doc/windows-whoami-privilege-discovery-bJOeWpehMD"
