@@ -317,5 +317,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/212f3544-a7b1-4dce-9bb9-431c3a5f497d"
+  },
+  {
+    "title": "Boot Recovery Configuration Modified",
+    "expression": "to_string(event.code) == '4688' && ((contains(to_string(winlog.event_data.NewProcessName), 'bcdedit.exe') || contains(to_string(winlog.event_data.ProcessName), 'bcdedit.exe')) && (contains(to_string(winlog.event_data.CommandLine), 'recoveryenabled no') || contains(to_string(winlog.event_data.CommandLine), 'bootstatuspolicy ignoreallfailures')))",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/90462151-ddbc-4fa1-bb0f-e76b54e512db"
   }
 ]
