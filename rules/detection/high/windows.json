@@ -319,6 +319,13 @@
     "reference": "https://outline.cybersift.io/s/212f3544-a7b1-4dce-9bb9-431c3a5f497d"
   },
   {
+    "title": "Deletion of Forensic Artifacts",
+    "expression": "to_string(event.code) == '4688' && ((contains(to_string(winlog.event_data.CommandLine), 'del /f /q') || contains(to_string(winlog.event_data.CommandLine), 'erase /f /q') || contains(to_string(winlog.event_data.CommandLine), 'Remove-Item')) && (contains(to_string(winlog.event_data.CommandLine), '\\\\Windows\\\\Prefetch') || contains(to_string(winlog.event_data.CommandLine), 'Windows Defender\\\\Support') || contains(to_string(winlog.event_data.CommandLine), '\\\\System32\\\\LogFiles\\\\RDP')))",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/9eda598e-80ab-454d-b69f-44da11e1cd02"
+  },
+  {
     "title": "Suspicious Defender Configuration Change via System Settings UI Flow",
     "expression": "to_string(event.code) == '4688' && (contains(to_string(winlog.event_data.CommandLine), 'delete shadows') || contains(to_string(winlog.event_data.CommandLine), 'delete shadowstorage') || contains(to_string(winlog.event_data.CommandLine), 'shadowcopy delete') || contains(to_string(winlog.event_data.CommandLine), 'Remove-VolumeShadowCopy') || contains(to_string(winlog.event_data.CommandLine), 'Delete-VolumeShadowCopy') || contains(to_string(winlog.event_data.CommandLine), 'Remove-ShadowCopy') || contains(to_string(winlog.event_data.CommandLine), 'wmic delete catalog') || ((contains(to_string(winlog.event_data.NewProcessName), 'wbadmin.exe') || contains(to_string(winlog.event_data.ProcessName), 'wbadmin.exe')) && contains(to_string(winlog.event_data.CommandLine), 'delete catalog')))",
     "severity": "high",
