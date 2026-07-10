@@ -73,12 +73,15 @@
         }
 
         .cover__brand {
-            font-family: var(--font-serif);
-            font-size: var(--type-eyebrow);
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--cs-red);
+            display: inline-flex;
+            align-items: center;
+            line-height: 0;
+        }
+
+        .cover__logo {
+            display: block;
+            width: min(150px, 38vw);
+            height: auto;
         }
 
         .cover__date {
@@ -146,8 +149,20 @@
             margin-bottom: 1.5rem;
         }
 
+        .filter-panel {
+            background: var(--cs-white);
+            border: 1px solid rgba(168, 178, 185, 0.45);
+            border-left: 4px solid var(--cs-red);
+            border-radius: var(--card-radius);
+            padding: 1.25rem;
+        }
+
         .control-group {
             margin-bottom: 1.25rem;
+        }
+
+        .control-group:last-child {
+            margin-bottom: 0;
         }
 
         label {
@@ -177,19 +192,53 @@
         select:focus {
             outline: none;
             border-color: var(--cs-red);
+            box-shadow: 0 0 0 3px rgba(232, 42, 55, 0.12);
+        }
+
+        .search-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
         }
 
         .filter-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+            gap: 1rem;
+            align-items: end;
         }
 
         .stats {
             font-family: var(--font-display);
             font-size: var(--type-small);
-            color: var(--cs-mid-grey);
+            color: #606A72;
             margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+            border-top: 1px solid rgba(168, 178, 185, 0.25);
+            padding-top: 1rem;
+        }
+
+        .reset-btn {
+            background: var(--cs-charcoal);
+            color: var(--cs-white);
+            border: none;
+            border-radius: var(--card-radius);
+            cursor: pointer;
+            font-family: var(--font-display);
+            font-size: var(--type-body);
+            font-weight: 600;
+            min-height: 2.55rem;
+            padding: 0.625rem 1rem;
+            white-space: nowrap;
+            transition: background 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: var(--cs-near-black);
         }
 
         /* ── Rules Grid ── */
@@ -423,6 +472,9 @@
             .filter-row {
                 grid-template-columns: 1fr;
             }
+            .search-row {
+                grid-template-columns: 1fr;
+            }
             footer {
                 padding: 1.5rem;
             }
@@ -432,7 +484,7 @@
 <body>
     <header class="cover">
         <div class="cover__top">
-            <span class="cover__brand">CyberSift</span>
+            <a class="cover__brand" href="https://www.cybersift.com/" aria-label="CyberSift"><img class="cover__logo" src="logo.png" alt="CyberSift"></a>
             <span class="cover__date">JMESPath Rules Catalog</span>
         </div>
         <div class="cover__content">
@@ -446,38 +498,48 @@
         <div class="controls">
             <p class="eyebrow">Filters</p>
             <h2>Search &amp; Filter</h2>
-            <div class="filter-row">
-                <div class="control-group">
-                    <label for="search">Search Rules</label>
-                    <input type="text" id="search" placeholder="Search by name, description...">
+            <div class="filter-panel">
+                <div class="search-row">
+                    <div class="control-group">
+                        <label for="search">Rule Search</label>
+                        <input type="text" id="search" placeholder="Search by name or description">
+                    </div>
+                    <div class="control-group">
+                        <label for="expression-search">Expression Search</label>
+                        <input type="text" id="expression-search" placeholder="Find matching JMESPath logic">
+                    </div>
                 </div>
-                <div class="control-group">
-                    <label for="severity">Severity</label>
-                    <select id="severity">
-                        <option value="">All Severities</option>
-                        <option value="high">High</option>
-                        <option value="medium">Medium</option>
-                        <option value="low">Low</option>
-                        <option value="info">Info</option>
-                    </select>
+                <div class="filter-row">
+                    <div class="control-group">
+                        <label for="severity">Severity</label>
+                        <select id="severity">
+                            <option value="">All Severities</option>
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                            <option value="info">Info</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="type">Rule Type</label>
+                        <select id="type">
+                            <option value="">All Types</option>
+                            <option value="detection">Detection</option>
+                            <option value="filtering">Filtering</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="logsource">Log Source</label>
+                        <select id="logsource">
+                            <option value="">All Log Sources</option>
+                        </select>
+                    </div>
+                    <button class="reset-btn" type="button" id="reset-filters">Reset</button>
                 </div>
-                <div class="control-group">
-                    <label for="type">Rule Type</label>
-                    <select id="type">
-                        <option value="">All Types</option>
-                        <option value="detection">Detection</option>
-                        <option value="filtering">Filtering</option>
-                    </select>
+                <div class="stats">
+                    <span>Showing <strong id="displayed-count">0</strong> of <strong id="rule-count">0</strong> rules</span>
+                    <span id="active-filters">No active filters</span>
                 </div>
-                <div class="control-group">
-                    <label for="logsource">Log Source</label>
-                    <select id="logsource">
-                        <option value="">All Log Sources</option>
-                    </select>
-                </div>
-            </div>
-            <div class="stats">
-                Showing <strong id="displayed-count">0</strong> of <strong id="rule-count">0</strong> rules
             </div>
         </div>
 
@@ -489,7 +551,7 @@
     </div>
 
     <footer>
-        JMESPath Rules Catalog - Auto-generated from repository rules
+        Sentio SIEM - Made with ❤️ by Cybersift
     </footer>
 
     <script>
@@ -542,6 +604,10 @@
                 currentPage = 0;
                 filterRules();
             });
+            document.getElementById('expression-search').addEventListener('input', () => {
+                currentPage = 0;
+                filterRules();
+            });
             document.getElementById('severity').addEventListener('change', () => {
                 currentPage = 0;
                 filterRules();
@@ -554,6 +620,7 @@
                 currentPage = 0;
                 filterRules();
             });
+            document.getElementById('reset-filters').addEventListener('click', resetFilters);
             document.getElementById('load-more-btn').addEventListener('click', loadMoreRules);
             document.getElementById('rules-container').addEventListener('click', event => {
                 const button = event.target.closest('.expression-toggle');
@@ -564,20 +631,48 @@
 
         function filterRules() {
             const searchTerm = document.getElementById('search').value.toLowerCase();
+            const expressionTerm = document.getElementById('expression-search').value.toLowerCase();
             const severity = document.getElementById('severity').value;
             const type = document.getElementById('type').value;
             const logsource = document.getElementById('logsource').value;
+            updateActiveFilters(searchTerm, expressionTerm, severity, type, logsource);
 
             filteredRules = allRules.filter(rule => {
+                const expression = (rule.expression || '').toLowerCase();
                 const matchesSearch = !searchTerm || rule.name.toLowerCase().includes(searchTerm) || (rule.description && rule.description.toLowerCase().includes(searchTerm));
+                const matchesExpression = !expressionTerm || expression.includes(expressionTerm);
                 const matchesSeverity = !severity || rule.severity === severity;
                 const matchesType = !type || rule.type === type;
                 const matchesLogSource = !logsource || getRuleLogSource(rule) === logsource;
-                return matchesSearch && matchesSeverity && matchesType && matchesLogSource;
+                return matchesSearch && matchesExpression && matchesSeverity && matchesType && matchesLogSource;
             });
 
             currentPage = 0;
             renderRules();
+        }
+
+        function resetFilters() {
+            document.getElementById('search').value = '';
+            document.getElementById('expression-search').value = '';
+            document.getElementById('severity').value = '';
+            document.getElementById('type').value = '';
+            document.getElementById('logsource').value = '';
+            currentPage = 0;
+            filterRules();
+        }
+
+        function updateActiveFilters(searchTerm, expressionTerm, severity, type, logsource) {
+            const activeFilters = [
+                searchTerm && 'rule text',
+                expressionTerm && 'expression',
+                severity && `severity: ${severity}`,
+                type && `type: ${type}`,
+                logsource && `source: ${logsource}`
+            ].filter(Boolean);
+
+            document.getElementById('active-filters').textContent = activeFilters.length
+                ? `Active filters: ${activeFilters.join(', ')}`
+                : 'No active filters';
         }
 
         function renderRules() {
@@ -707,3 +802,4 @@
     </script>
 </body>
 </html>
+
