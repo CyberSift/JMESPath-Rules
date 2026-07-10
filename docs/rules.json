@@ -1078,6 +1078,39 @@
     "log_source": "windows"
   },
   {
+    "name": "Boot Recovery Configuration Modified",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && ((contains(to_string(winlog.event_data.NewProcessName), 'bcdedit.exe') || contains(to_string(winlog.event_data.ProcessName), 'bcdedit.exe')) && (contains(to_string(winlog.event_data.CommandLine), 'recoveryenabled no') || contains(to_string(winlog.event_data.CommandLine), 'bootstatuspolicy ignoreallfailures')))",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/90462151-ddbc-4fa1-bb0f-e76b54e512db",
+    "log_source": "windows"
+  },
+  {
+    "name": "Deletion of Forensic Artifacts",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && ((contains(to_string(winlog.event_data.CommandLine), 'del /f /q') || contains(to_string(winlog.event_data.CommandLine), 'erase /f /q') || contains(to_string(winlog.event_data.CommandLine), 'Remove-Item')) && (contains(to_string(winlog.event_data.CommandLine), '\\\\Windows\\\\Prefetch') || contains(to_string(winlog.event_data.CommandLine), 'Windows Defender\\\\Support') || contains(to_string(winlog.event_data.CommandLine), '\\\\System32\\\\LogFiles\\\\RDP')))",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/9eda598e-80ab-454d-b69f-44da11e1cd02",
+    "log_source": "windows"
+  },
+  {
+    "name": "Volume Shadow Copy and Backup Deletion",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && (contains(to_string(winlog.event_data.CommandLine), 'delete shadows') || contains(to_string(winlog.event_data.CommandLine), 'delete shadowstorage') || contains(to_string(winlog.event_data.CommandLine), 'shadowcopy delete') || contains(to_string(winlog.event_data.CommandLine), 'Remove-VolumeShadowCopy') || contains(to_string(winlog.event_data.CommandLine), 'Delete-VolumeShadowCopy') || contains(to_string(winlog.event_data.CommandLine), 'Remove-ShadowCopy') || contains(to_string(winlog.event_data.CommandLine), 'wmic delete catalog') || ((contains(to_string(winlog.event_data.NewProcessName), 'wbadmin.exe') || contains(to_string(winlog.event_data.ProcessName), 'wbadmin.exe')) && contains(to_string(winlog.event_data.CommandLine), 'delete catalog')))",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/7ecca81d-e97b-4221-8b08-25c6a689b202",
+    "log_source": "windows"
+  },
+  {
     "name": "Failed command",
     "type": "detection",
     "severity": "info",
@@ -1595,7 +1628,7 @@
     "log_source": "windows"
   },
   {
-    "name": "High Risk Binary Executed with Admin Privilige",
+    "name": "High Risk Binary Executed with Admin Privilege",
     "type": "detection",
     "severity": "medium",
     "description": "",
@@ -1632,7 +1665,7 @@
     "type": "detection",
     "severity": "medium",
     "description": "",
-    "expression": "to_string(event.code)=='4688' && (contains(to_string(winlog.event_data.CommandLine), 'whoami') && (contains(to_string(winlog.event_data.CommandLine), 'all')) || contains(to_string(winlog.event_data.CommandLine), 'priv'))",
+    "expression": "to_string(event.code)=='4688' && contains(to_string(winlog.event_data.CommandLine), 'whoami') && (contains(to_string(winlog.event_data.CommandLine), 'all') || contains(to_string(winlog.event_data.CommandLine), 'priv'))",
     "version": "1.0",
     "path": "rules/detection/medium/windows.json",
     "reference": "https://outline.cybersift.io/s/engineering/doc/windows-whoami-privilege-discovery-bJOeWpehMD",
