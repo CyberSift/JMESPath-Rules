@@ -338,5 +338,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/7ecca81d-e97b-4221-8b08-25c6a689b202"
+  },
+  {
+    "title": "UAC Bypass Attempt via Fodhelper Registry Hijack",
+    "expression": "to_string(event.code) == '4657' && (contains(to_string(winlog.event_data.ObjectName), 'ms-settings\\\\Shell\\\\Open\\\\command') || contains(to_string(winlog.event_data.ObjectName), 'ms-settings\\\\shell\\\\open\\\\command')) && winlog.event_data.ObjectValueName == 'DelegateExecute'",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/7226a89a-89b2-4b42-866e-7b6684270083"
   }
 ]
