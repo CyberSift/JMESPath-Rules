@@ -15,7 +15,7 @@
   },
   {
     "title": "Splice Syscall",
-    "expression": "auditd.message_type=='syscall' && auditd.data.syscall=='splice' && to_string(user.id)!='0'",
+    "expression": "auditd.message_type=='syscall' && auditd.data.syscall=='splice' && to_string(user.id)!='0' && user.name != 'oracle'",
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/engineering/doc/splice-syscall-sDAKxmqFbX"
