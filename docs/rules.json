@@ -158,7 +158,7 @@
     "type": "detection",
     "severity": "high",
     "description": "",
-    "expression": "auditd.message_type=='syscall' && auditd.data.syscall=='splice' && to_string(user.id)!='0'",
+    "expression": "auditd.message_type=='syscall' && auditd.data.syscall=='splice' && to_string(user.id)!='0' && user.name != 'oracle'",
     "version": "1.0",
     "path": "rules/detection/high/linux.json",
     "reference": "https://outline.cybersift.io/s/engineering/doc/splice-syscall-sDAKxmqFbX",
@@ -213,7 +213,7 @@
     "type": "detection",
     "severity": "high",
     "description": "",
-    "expression": "(to_string(event.action) == 'executed') && (contains(to_string(process.name), 'linpeas') || contains(to_string(process.args), 'linpeas.sh') || contains(to_string(process.title), 'les.sh') || contains(to_string(process.title), 'linux-exploit-suggester'))",
+    "expression": "(to_string(event.action) == 'executed') && (contains(to_string(process.name), 'linpeas') || contains(to_string(process.args), 'linpeas.sh') || contains(to_string(process.title), '/les.sh') || contains(to_string(process.title), 'linux-exploit-suggester'))",
     "version": "1.0",
     "path": "rules/detection/high/linux.json",
     "reference": "https://outline.cybersift.io/s/engineering/doc/linux-privilege-escalation-enumeration-tool-execution-lTcaAQhuMC",
@@ -1108,6 +1108,17 @@
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
     "reference": "https://outline.cybersift.io/s/7ecca81d-e97b-4221-8b08-25c6a689b202",
+    "log_source": "windows"
+  },
+  {
+    "name": "UAC Bypass Attempt via Fodhelper Registry Hijack",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4657' && (contains(to_string(winlog.event_data.ObjectName), 'ms-settings\\\\Shell\\\\Open\\\\command') || contains(to_string(winlog.event_data.ObjectName), 'ms-settings\\\\shell\\\\open\\\\command'))",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/7226a89a-89b2-4b42-866e-7b6684270083",
     "log_source": "windows"
   },
   {
