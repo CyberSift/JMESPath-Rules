@@ -54,5 +54,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/engineering/doc/linux-privilege-escalation-enumeration-tool-execution-lTcaAQhuMC"
+  },
+  {
+    "title": "Linux SUID File Enumeration",
+    "expression": "contains(to_string(process.title), 'find') && contains(to_string(process.title), '-perm') && contains(to_string(process.title), '-4000')",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/dcc57a5d-436b-40aa-ba4e-490ab4c5e7ec"
   }
 ]
