@@ -67,7 +67,7 @@
 
         .cover__top {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: flex-start;
             margin-bottom: 1rem;
         }
@@ -78,20 +78,52 @@
             line-height: 0;
         }
 
-        .cover__logo {
+        .cover__icon {
             display: block;
-            width: min(150px, 38vw);
-            height: auto;
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
         }
 
-        .cover__date {
+        .cover__links {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .cover__link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--cs-white);
             font-family: var(--font-display);
             font-size: var(--type-small);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .cover__link:hover {
             color: var(--cs-mid-grey);
+            text-decoration: underline;
+        }
+
+        .cover__link svg {
+            width: 1rem;
+            height: 1rem;
+            fill: currentColor;
+            flex: 0 0 auto;
         }
 
         .cover__content {
             margin-top: 1rem;
+        }
+
+        .cover__title-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
         .cover h1 {
@@ -139,14 +171,49 @@
             padding: 2rem 0;
         }
 
-        .controls h2 {
+        .filter-toggle {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--cs-red);
+            cursor: pointer;
             font-family: var(--font-display);
             font-weight: 700;
             font-size: var(--type-h2);
             color: var(--cs-charcoal);
-            border-bottom: 2px solid var(--cs-red);
             padding-bottom: 0.5rem;
             margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .filter-toggle:hover,
+        .filter-toggle:focus-visible {
+            color: var(--cs-red);
+        }
+
+        .filter-toggle:focus-visible {
+            outline: 3px solid rgba(232, 42, 55, 0.18);
+            outline-offset: 4px;
+        }
+
+        .filter-toggle__icon {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-right: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            transform: rotate(45deg);
+            transition: transform 0.2s ease;
+            margin: 0 0.25rem 0.35rem 0;
+            flex: 0 0 auto;
+        }
+
+        .filter-toggle[aria-expanded="false"] .filter-toggle__icon {
+            transform: rotate(-45deg);
+            margin-bottom: 0;
         }
 
         .filter-panel {
@@ -209,6 +276,10 @@
             align-items: end;
         }
 
+        .filter-row .control-group {
+            margin-bottom: 0;
+        }
+
         .stats {
             font-family: var(--font-display);
             font-size: var(--type-small);
@@ -223,22 +294,28 @@
         }
 
         .reset-btn {
-            background: var(--cs-charcoal);
-            color: var(--cs-white);
-            border: none;
+            background: var(--cs-white);
+            color: var(--cs-red);
+            border: 1px solid var(--cs-red);
             border-radius: var(--card-radius);
             cursor: pointer;
             font-family: var(--font-display);
             font-size: var(--type-body);
             font-weight: 600;
-            min-height: 2.55rem;
-            padding: 0.625rem 1rem;
+            height: 2.625rem;
+            padding: 0.625rem 1.25rem;
             white-space: nowrap;
-            transition: background 0.2s;
+            transition: background 0.2s, color 0.2s;
         }
 
         .reset-btn:hover {
-            background: var(--cs-near-black);
+            background: var(--cs-red);
+            color: var(--cs-white);
+        }
+
+        .reset-btn:focus-visible {
+            outline: 3px solid rgba(232, 42, 55, 0.18);
+            outline-offset: 2px;
         }
 
         /* ── Rules Grid ── */
@@ -452,7 +529,27 @@
             padding: 1.5rem 4rem;
             font-family: var(--font-display);
             font-size: 0.75rem;
-            text-align: center;
+        }
+
+        .footer__inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .footer__brand {
+            display: inline-flex;
+            align-items: center;
+            line-height: 0;
+        }
+
+        .footer__logo {
+            display: block;
+            width: min(150px, 38vw);
+            height: auto;
         }
 
         /* ── Responsive ── */
@@ -463,6 +560,15 @@
             .cover h1 {
                 font-size: 1.75rem;
             }
+            .cover__title-row {
+                gap: 0.75rem;
+            }
+            .cover__top {
+                gap: 1rem;
+            }
+            .cover__links {
+                gap: 0.75rem;
+            }
             .container {
                 padding: 0 1.5rem;
             }
@@ -472,11 +578,18 @@
             .filter-row {
                 grid-template-columns: 1fr;
             }
+            .reset-btn {
+                width: 100%;
+            }
             .search-row {
                 grid-template-columns: 1fr;
             }
             footer {
                 padding: 1.5rem;
+            }
+            .footer__inner {
+                flex-direction: column;
+                text-align: center;
             }
         }
     </style>
@@ -484,11 +597,20 @@
 <body>
     <header class="cover">
         <div class="cover__top">
-            <a class="cover__brand" href="https://www.cybersift.com/" aria-label="CyberSift"><img class="cover__logo" src="logo.png" alt="CyberSift"></a>
-            <span class="cover__date">JMESPath Rules Catalog</span>
+            <nav class="cover__links" aria-label="CyberSift resources">
+                <a class="cover__link" href="https://github.com/CyberSift/JMESPath-Rules" target="_blank" rel="noopener noreferrer" aria-label="JMESPath Rules on GitHub">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.41c.58.11.79-.25.79-.56v-2.23c-3.22.7-3.9-1.37-3.9-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.04 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.74-1.55-2.57-.29-5.27-1.28-5.27-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.47.11-3.05 0 0 .97-.31 3.16 1.18a10.99 10.99 0 0 1 5.76 0c2.19-1.49 3.15-1.18 3.15-1.18.63 1.58.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.71 5.39-5.29 5.68.42.36.79 1.06.79 2.14v3.18c0 .31.21.68.8.56A11.5 11.5 0 0 0 12 .7Z"/></svg>
+                    
+                </a>
+                <a class="cover__link" href="https://outline.cybersift.io/s/engineering" target="_blank" rel="noopener noreferrer">Docs</a>
+                <a class="cover__link" href="https://cybersift.io/" target="_blank" rel="noopener noreferrer">CyberSift.io</a>
+            </nav>
         </div>
         <div class="cover__content">
-            <h1>JMESPath Rules Catalog</h1>
+            <div class="cover__title-row">
+                <a class="cover__brand" href="https://cybersift.io/" aria-label="CyberSift website"><img class="cover__icon" src="favicon.png" alt="CyberSift"></a>
+                <h1>JMESPath Rules Catalog</h1>
+            </div>
             <p class="cover__sub">Detection Rules and Filtering rules for Sentio SIEM</p>
         </div>
         <div class="cover__footer">Part of <strong>GO plc.</strong> Group</div>
@@ -497,8 +619,11 @@
     <div class="container">
         <div class="controls">
             <p class="eyebrow">Filters</p>
-            <h2>Search &amp; Filter</h2>
-            <div class="filter-panel">
+            <button class="filter-toggle" type="button" id="filter-toggle" aria-expanded="true" aria-controls="filter-panel">
+                <span>Search &amp; Filter</span>
+                <span class="filter-toggle__icon" aria-hidden="true"></span>
+            </button>
+            <div class="filter-panel" id="filter-panel">
                 <div class="search-row">
                     <div class="control-group">
                         <label for="search">Rule Search</label>
@@ -534,7 +659,7 @@
                             <option value="">All Log Sources</option>
                         </select>
                     </div>
-                    <button class="reset-btn" type="button" id="reset-filters">Reset</button>
+                    <button class="reset-btn" type="button" id="reset-filters">Clear filters</button>
                 </div>
                 <div class="stats">
                     <span>Showing <strong id="displayed-count">0</strong> of <strong id="rule-count">0</strong> rules</span>
@@ -551,7 +676,10 @@
     </div>
 
     <footer>
-        Sentio SIEM - Made with ❤️ by Cybersift
+        <div class="footer__inner">
+            <a class="footer__brand" href="https://cybersift.io/" aria-label="CyberSift website"><img class="footer__logo" src="logo.png" alt="CyberSift"></a>
+            <span>Sentio SIEM - Made with ❤️ by Cybersift</span>
+        </div>
     </footer>
 
     <script>
@@ -580,7 +708,6 @@
                 filteredRules = [...allRules];
                 currentPage = 0;
                 renderRules();
-                setupFilters();
             } catch (error) {
                 console.error('Error loading rules:', error);
                 document.getElementById('rules-container').innerHTML = '<div class="empty-state"><p>Error loading rules</p></div>';
@@ -600,6 +727,13 @@
         }
 
         function setupFilters() {
+            const filterToggle = document.getElementById('filter-toggle');
+            const filterPanel = document.getElementById('filter-panel');
+            filterToggle.addEventListener('click', () => {
+                const isExpanded = filterToggle.getAttribute('aria-expanded') === 'true';
+                filterToggle.setAttribute('aria-expanded', String(!isExpanded));
+                filterPanel.hidden = isExpanded;
+            });
             document.getElementById('search').addEventListener('input', () => {
                 currentPage = 0;
                 filterRules();
@@ -798,8 +932,10 @@
             return div.innerHTML;
         }
 
-        document.addEventListener('DOMContentLoaded', loadRules);
+        document.addEventListener('DOMContentLoaded', () => {
+            setupFilters();
+            loadRules();
+        });
     </script>
 </body>
 </html>
-
