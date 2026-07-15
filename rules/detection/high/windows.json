@@ -348,7 +348,7 @@
   },
   {
     "title": "Microsoft Defender Protection Disabled",
-    "expression": "to_string(event.code) == '4688' && (contains(to_string(winlog.event_data.CommandLine), 'DisableRealtimeMonitoring') || contains(to_string(winlog.event_data.CommandLine), 'DisableBehaviorMonitoring'))",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), 'Set-MpPreference') && (contains(to_string(winlog.event_data.CommandLine), 'DisableRealtimeMonitoring') || contains(to_string(winlog.event_data.CommandLine), 'DisableBehaviorMonitoring'))",
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/ecb21779-c744-4297-98b1-f52e86ed470a"
