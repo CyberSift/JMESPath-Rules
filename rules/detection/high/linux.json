@@ -61,5 +61,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/dcc57a5d-436b-40aa-ba4e-490ab4c5e7ec"
+  },
+  {
+    "title": "Potential Reverse Shell Interactive TTY Spawned",
+    "expression": "contains(to_string(process.title), 'rlwrap') || contains(to_string(process.title), 'pty.spawn')",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/f02784c0-8fc7-4fa7-993c-dca52a001a57"
   }
 ]
