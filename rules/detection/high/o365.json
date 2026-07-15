@@ -25,7 +25,7 @@
   },
   {
     "title": "O365 User Login with Suspicious User Agent",
-    "expression": "(to_string(o365.audit.Operation) == 'UserLoggedIn' || to_string(o365.audit.LogonError) == 'UserStrongAuthClientAuthNRequiredInterrupt') && o365.audit.ExtendedProperties.UserAgent != null && (!starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Mozilla') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Windows-AzureAD-Authentication-Provider') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'BAV2ROPC') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'AppSSOAgent'))",
+    "expression": "o365.audit.Operation == 'UserLoggedIn' && o365.audit.ExtendedProperties.UserAgent != null && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Mozilla') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Windows-AzureAD-Authentication-Provider') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'BAV2ROPC') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'AppSSOAgent') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Microsoft%20Authenticator') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Microsoft Authenticator')",
     "severity": "high",
     "type": "o365"
   },
