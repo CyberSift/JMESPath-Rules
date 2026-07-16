@@ -62,5 +62,12 @@
     "severity": "high",
     "type": "syslog",
     "reference": "https://outline.cybersift.io/s/0d7bdae2-e8f3-44c3-b58a-8b1171afdb1d"
+  },
+  {
+    "title": "Checkpoint - Global Properties Modified",
+    "expression": "cybersift.parser.vendor == 'CHECKPOINT' && subject == 'Object Manipulation' && objecttype == 'Global Properties' && contains(['Modify Object'], to_string(operation))",
+    "severity": "high",
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/565840b7-b681-49f5-9240-aaf722991942"
   }
 ]
