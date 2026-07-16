@@ -62,5 +62,12 @@
     "severity": "high",
     "type": "syslog",
     "reference": "https://outline.cybersift.io/s/0d7bdae2-e8f3-44c3-b58a-8b1171afdb1d"
+  },
+  {
+    "title": "Checkpoint - Log Exporter/SIEM Configuration Modified or Deleted",
+    "expression": "cybersift.parser.vendor == 'CHECKPOINT' && subject == 'Object Manipulation' && objecttype == 'Log Exporter/SIEM' && contains(['Modify Object', 'Delete Object'], to_string(operation))",
+    "severity": "high",
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/800f4d15-03b2-4528-bbd1-eedba0e8cc29"
   }
 ]
