@@ -62,5 +62,12 @@
     "severity": "high",
     "type": "syslog",
     "reference": "https://outline.cybersift.io/s/0d7bdae2-e8f3-44c3-b58a-8b1171afdb1d"
+  },
+  {
+    "title": "Checkpoint - Administrator Object Created or Modified",
+    "expression": "cybersift.parser.vendor == 'CHECKPOINT' && subject == 'Object Manipulation' && objecttype == 'Administrator' && contains(['Create Object', 'Modify Object'], operation)",
+    "severity": "high",
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/478e0cb1-476c-4a6d-914a-9669fc380096"
   }
 ]
