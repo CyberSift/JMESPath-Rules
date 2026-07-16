@@ -68,5 +68,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/f02784c0-8fc7-4fa7-993c-dca52a001a57"
+  },
+  {
+    "title": "Linux - Temporary Web Server Started",
+    "expression": "contains(to_string(process.title),'SimpleHTTPServer') || contains(to_string(process.title),'http.server') || contains(to_string(process.title),'php -S') || contains(to_string(process.title),'npx http-server')",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/1b8b0fcd-7892-4dff-be83-28f2d6f24ab7"
   }
 ]
