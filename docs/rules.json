@@ -220,6 +220,28 @@
     "log_source": "auditbeat"
   },
   {
+    "name": "Linux SUID File Enumeration",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "contains(to_string(process.title), 'find') && contains(to_string(process.title), '-perm') && contains(to_string(process.title), '-4000')",
+    "version": "1.0",
+    "path": "rules/detection/high/linux.json",
+    "reference": "https://outline.cybersift.io/s/dcc57a5d-436b-40aa-ba4e-490ab4c5e7ec",
+    "log_source": "auditbeat"
+  },
+  {
+    "name": "Potential Reverse Shell Interactive TTY Spawned",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "contains(to_string(process.title), 'rlwrap') || contains(to_string(process.title), 'pty.spawn')",
+    "version": "1.0",
+    "path": "rules/detection/high/linux.json",
+    "reference": "https://outline.cybersift.io/s/f02784c0-8fc7-4fa7-993c-dca52a001a57",
+    "log_source": "auditbeat"
+  },
+  {
     "name": "O365 Suspicious Inbox Rule Created or Modified (MarkAsRead)",
     "type": "detection",
     "severity": "high",
@@ -268,7 +290,7 @@
     "type": "detection",
     "severity": "high",
     "description": "",
-    "expression": "o365.audit.Operation == 'UserLoggedIn' && o365.audit.ExtendedProperties.UserAgent != null && (!starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Mozilla') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Windows-AzureAD-Authentication-Provider') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'BAV2ROPC') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'AppSSOAgent'))",
+    "expression": "(to_string(o365.audit.Operation) == 'UserLoggedIn' || to_string(o365.audit.LogonError) == 'UserStrongAuthClientAuthNRequiredInterrupt') && o365.audit.ExtendedProperties.UserAgent != null && (!starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Mozilla') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Windows-AzureAD-Authentication-Provider') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'BAV2ROPC') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'AppSSOAgent') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Microsoft%20Authenticator') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Microsoft Authenticator'))",
     "version": "1.0",
     "path": "rules/detection/high/o365.json",
     "reference": "",
@@ -301,7 +323,7 @@
     "type": "detection",
     "severity": "high",
     "description": "",
-    "expression": "((o365.audit.Operation == 'UserLoggedIn' || o365.audit.LogonError == 'UserStrongAuthClientAuthNRequiredInterrupt') && \"cybersift.threat_info\".usageType == 'hosting') && ((contains(to_string(o365.cybersift.application), 'Azure') || contains(to_string(o365.cybersift.application), 'Admin')) && (source.as.organization.name != 'MICROSOFT-CORP-MSN-AS-BLOCK'))",
+    "expression": "((to_string(o365.audit.Operation) == 'UserLoggedIn' || to_string(o365.audit.LogonError) == 'UserStrongAuthClientAuthNRequiredInterrupt') && \"cybersift.threat_info\".usageType == 'hosting') && ((contains(to_string(o365.cybersift.application), 'Azure') || contains(to_string(o365.cybersift.application), 'Admin')) && (source.as.organization.name != 'MICROSOFT-CORP-MSN-AS-BLOCK'))",
     "version": "1.0",
     "path": "rules/detection/high/o365.json",
     "reference": "",
@@ -323,7 +345,7 @@
     "type": "detection",
     "severity": "high",
     "description": "",
-    "expression": "event.action == 'UserLoggedIn' && to_string(\"cybersift.threat_info\".knownThreat) == 'true'",
+    "expression": "(to_string(event.action) == 'UserLoggedIn' || to_string(o365.audit.LogonError) == 'UserStrongAuthClientAuthNRequiredInterrupt') && to_string(\"cybersift.threat_info\".knownThreat) == 'true'",
     "version": "1.0",
     "path": "rules/detection/high/o365.json",
     "reference": "https://outline.cybersift.io/s/engineering/doc/known-threat-o365-user-login-attempt-N3yaZfNyMi",
@@ -1119,6 +1141,17 @@
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
     "reference": "https://outline.cybersift.io/s/7226a89a-89b2-4b42-866e-7b6684270083",
+    "log_source": "windows"
+  },
+  {
+    "name": "Microsoft Defender Protection Disabled",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), 'Set-MpPreference') && (contains(to_string(winlog.event_data.CommandLine), 'DisableRealtimeMonitoring') || contains(to_string(winlog.event_data.CommandLine), 'DisableBehaviorMonitoring'))",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/ecb21779-c744-4297-98b1-f52e86ed470a",
     "log_source": "windows"
   },
   {
