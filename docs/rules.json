@@ -55,6 +55,17 @@
     "log_source": "aws"
   },
   {
+    "name": "AWS - CloudWatch Alarm Deletion",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "event.dataset == 'aws.cloudtrail' && cybersift.aws.eventSource == 'monitoring.amazonaws.com' && cybersift.aws.eventName == 'DeleteAlarms' && cybersift.aws.userAgent != 'AWS Internal'",
+    "version": "1.0",
+    "path": "rules/detection/high/aws.json",
+    "reference": "https://outline.cybersift.io/s/a35f1e52-0aa6-4622-8f70-537f790b2626",
+    "log_source": "aws"
+  },
+  {
     "name": "Cloudflare - Login from Known Threat",
     "type": "detection",
     "severity": "high",
@@ -239,6 +250,17 @@
     "version": "1.0",
     "path": "rules/detection/high/linux.json",
     "reference": "https://outline.cybersift.io/s/f02784c0-8fc7-4fa7-993c-dca52a001a57",
+    "log_source": "auditbeat"
+  },
+  {
+    "name": "Linux - Temporary Web Server Started",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "contains(to_string(process.title),'SimpleHTTPServer') || contains(to_string(process.title),'http.server') || contains(to_string(process.title),'php -S') || contains(to_string(process.title),'npx http-server')",
+    "version": "1.0",
+    "path": "rules/detection/high/linux.json",
+    "reference": "https://outline.cybersift.io/s/1b8b0fcd-7892-4dff-be83-28f2d6f24ab7",
     "log_source": "auditbeat"
   },
   {
@@ -525,6 +547,28 @@
     "version": "1.0",
     "path": "rules/detection/high/syslog.json",
     "reference": "https://outline.cybersift.io/s/0d7bdae2-e8f3-44c3-b58a-8b1171afdb1d",
+    "log_source": "syslog"
+  },
+  {
+    "name": "Checkpoint - Log Exporter/SIEM Configuration Modified or Deleted",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "cybersift.parser.vendor == 'CHECKPOINT' && subject == 'Object Manipulation' && objecttype == 'Log Exporter/SIEM' && contains(['Modify Object', 'Delete Object'], to_string(operation))",
+    "version": "1.0",
+    "path": "rules/detection/high/syslog.json",
+    "reference": "https://outline.cybersift.io/s/800f4d15-03b2-4528-bbd1-eedba0e8cc29",
+    "log_source": "syslog"
+  },
+  {
+    "name": "NetScaler ADC - Administrative User, Group, or Command Policy Modified",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "cybersift.parser.vendor == 'Netscaler_ADC' && cybersift.netscaler.SubCategory == 'CMD_EXECUTED' && (contains(to_string(cybersift.netscaler.Message), 'system user') || contains(to_string(cybersift.netscaler.Message), 'system group') || contains(to_string(cybersift.netscaler.Message), 'system cmdPolicy')) && !(contains(to_string(cybersift.netscaler.Message), 'show system user') || contains(to_string(cybersift.netscaler.Message), 'show system group') || contains(to_string(cybersift.netscaler.Message), 'show system cmdPolicy'))",
+    "version": "1.0",
+    "path": "rules/detection/high/syslog.json",
+    "reference": "https://outline.cybersift.io/s/1a21e0be-8450-455b-9e54-b037ed1ade0a",
     "log_source": "syslog"
   },
   {
