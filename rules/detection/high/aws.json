@@ -33,12 +33,5 @@
     "severity": "high",
     "type": "aws",
     "reference": "https://outline.cybersift.io/s/0c187e5f-135b-48a6-a51b-c52939b692d2"
-  },
-  {
-    "title": "AWS - CloudWatch Alarm Deletion",
-    "expression": "event.dataset == 'aws.cloudtrail' && cybersift.aws.eventSource == 'monitoring.amazonaws.com' && cybersift.aws.eventName == 'DeleteAlarms' && cybersift.aws.userAgent != 'AWS Internal'",
-    "severity": "high",
-    "type": "aws",
-    "reference": "https://outline.cybersift.io/s/a35f1e52-0aa6-4622-8f70-537f790b2626"
   }
 ]
