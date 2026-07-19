@@ -69,5 +69,12 @@
     "severity": "high",
     "type": "syslog",
     "reference": "https://outline.cybersift.io/s/800f4d15-03b2-4528-bbd1-eedba0e8cc29"
+  },
+  {
+    "title": "NetScaler ADC - Administrative User, Group, or Command Policy Modified",
+    "expression": "cybersift.parser.vendor == 'Netscaler_ADC' && cybersift.netscaler.SubCategory == 'CMD_EXECUTED' && (contains(to_string(cybersift.netscaler.Message), 'system user') || contains(to_string(cybersift.netscaler.Message), 'system group') || contains(to_string(cybersift.netscaler.Message), 'system cmdPolicy')) && !(contains(to_string(cybersift.netscaler.Message), 'show system user') || contains(to_string(cybersift.netscaler.Message), 'show system group') || contains(to_string(cybersift.netscaler.Message), 'show system cmdPolicy'))",
+    "severity": "high",
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/1a21e0be-8450-455b-9e54-b037ed1ade0a"
   }
 ]
