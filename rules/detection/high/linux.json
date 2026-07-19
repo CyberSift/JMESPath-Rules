@@ -68,5 +68,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/f02784c0-8fc7-4fa7-993c-dca52a001a57"
+  },
+  {
+    "title": "Linux - Web Enumeration Tool Execution",
+    "expression": "contains(to_string(process.args),'dirsearch') || contains(to_string(process.args),'gobuster') || contains(to_string(process.args),'wfuzz') || contains(to_string(process.args),'ffuf') || contains(to_string(process.args),'feroxbuster') || contains(to_string(process.args),'dirb')",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/a340ef0a-1ba9-4511-819e-e3df8d2876f1"
   }
 ]
