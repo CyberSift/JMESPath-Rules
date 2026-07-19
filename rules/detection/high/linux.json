@@ -70,10 +70,10 @@
     "reference": "https://outline.cybersift.io/s/f02784c0-8fc7-4fa7-993c-dca52a001a57"
   },
   {
-    "title": "Linux - Web Enumeration Tool Execution",
-    "expression": "contains(to_string(process.args),'dirsearch') || contains(to_string(process.args),'gobuster') || contains(to_string(process.args),'wfuzz') || contains(to_string(process.args),'ffuf') || contains(to_string(process.args),'feroxbuster') || contains(to_string(process.args),'dirb')",
+    "title": "Linux - Temporary Web Server Started",
+    "expression": "contains(to_string(process.title),'SimpleHTTPServer') || contains(to_string(process.title),'http.server') || contains(to_string(process.title),'php -S') || contains(to_string(process.title),'npx http-server')",
     "severity": "high",
     "type": "auditbeat",
-    "reference": "https://outline.cybersift.io/s/a340ef0a-1ba9-4511-819e-e3df8d2876f1"
+    "reference": "https://outline.cybersift.io/s/1b8b0fcd-7892-4dff-be83-28f2d6f24ab7"
   }
 ]
