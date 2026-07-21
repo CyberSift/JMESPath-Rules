@@ -75,5 +75,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/1b8b0fcd-7892-4dff-be83-28f2d6f24ab7"
+  },
+  {
+    "title": "Potential Linux Backdoor User Account Creation",
+    "expression": "event.type=='start' && (process.name=='usermod' || process.name=='useradd') && ((contains(to_string(process.args), '0') && (contains(to_string(process.args), '-u') || contains(to_string(process.args), '--uid')) && (contains(to_string(process.args), '-o') || contains(to_string(process.args), '--non-unique'))) || ((contains(to_string(process.args), '-o') || contains(to_string(process.args), '--non-unique')) && (contains(to_string(process.args), '-u0') || contains(to_string(process.args), '--uid=0'))) || ((contains(to_string(process.args), '-ou') || contains(to_string(process.args), '-uo')) && contains(to_string(process.args), '0')) || contains(to_string(process.args), '-ou0') || contains(to_string(process.args), '-uo0') || contains(to_string(process.args), '-o0'))",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/af2fe970-980f-4090-bae8-b7a85ffa169e"
   }
 ]
