@@ -75,5 +75,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/1b8b0fcd-7892-4dff-be83-28f2d6f24ab7"
+  },
+  {
+    "title": "Suspicious Linux Local Enumeration",
+    "expression": "contains(to_string(process.args), 'find') && contains(to_string(process.args), '-xdev') && ((contains(to_string(process.args), '-perm') && contains(to_string(process.args), '-0002')) || contains(to_string(process.args), '-nouser') || contains(to_string(process.args), '-nogroup'))",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/abc13893-7d55-49ca-9fed-ba3d0feda7e8"
   }
 ]
