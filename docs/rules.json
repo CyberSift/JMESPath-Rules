@@ -264,6 +264,17 @@
     "log_source": "auditbeat"
   },
   {
+    "name": "Potential Linux Backdoor User Account Creation",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "event.type=='start' && (process.name=='usermod' || process.name=='useradd') && ((contains(to_string(process.args), '0') && (contains(to_string(process.args), '-u') || contains(to_string(process.args), '--uid')) && (contains(to_string(process.args), '-o') || contains(to_string(process.args), '--non-unique'))) || ((contains(to_string(process.args), '-o') || contains(to_string(process.args), '--non-unique')) && (contains(to_string(process.args), '-u0') || contains(to_string(process.args), '--uid=0'))) || ((contains(to_string(process.args), '-ou') || contains(to_string(process.args), '-uo')) && contains(to_string(process.args), '0')) || contains(to_string(process.args), '-ou0') || contains(to_string(process.args), '-uo0') || contains(to_string(process.args), '-o0'))",
+    "version": "1.0",
+    "path": "rules/detection/high/linux.json",
+    "reference": "https://outline.cybersift.io/s/af2fe970-980f-4090-bae8-b7a85ffa169e",
+    "log_source": "auditbeat"
+  },
+  {
     "name": "O365 Suspicious Inbox Rule Created or Modified (MarkAsRead)",
     "type": "detection",
     "severity": "high",
@@ -1515,6 +1526,17 @@
     "version": "1.0",
     "path": "rules/detection/medium/linux.json",
     "reference": "https://outline.cybersift.io/s/engineering/doc/executable-shell-script-creation-bsGilaywCK",
+    "log_source": "auditbeat"
+  },
+  {
+    "name": "Suspicious Linux Local Enumeration",
+    "type": "detection",
+    "severity": "medium",
+    "description": "",
+    "expression": "contains(to_string(process.args), 'find') && contains(to_string(process.args), '-xdev') && ((contains(to_string(process.args), '-perm') && contains(to_string(process.args), '-0002')) || contains(to_string(process.args), '-nouser') || contains(to_string(process.args), '-nogroup'))",
+    "version": "1.0",
+    "path": "rules/detection/medium/linux.json",
+    "reference": "https://outline.cybersift.io/s/abc13893-7d55-49ca-9fed-ba3d0feda7e8",
     "log_source": "auditbeat"
   },
   {
