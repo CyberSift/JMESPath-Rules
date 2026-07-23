@@ -82,5 +82,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/af2fe970-980f-4090-bae8-b7a85ffa169e"
+  },
+  {
+    "title": "Potential Linux Credential Dumping via Proc Memory Access",
+    "expression": "event.category == 'process' && event.type == 'start' && (contains(to_string(process.name),'strings') || contains(to_string(process.name),'cat') || contains(to_string(process.name),'dd') || contains(to_string(process.name),'gdb') || contains(to_string(process.name),'grep')) && ((contains(to_string(process.title), '/proc/') && contains(to_string(process.title), '/mem') && !contains(to_string(process.title), '/proc/meminfo')) || (contains(to_string(process.title), '/proc/') && contains(to_string(process.title), '/maps')))",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/1b8b0fcd-7892-4dff-be83-28f2d6f24ab7"
   }
 ]
