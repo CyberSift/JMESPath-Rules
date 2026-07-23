@@ -275,6 +275,17 @@
     "log_source": "auditbeat"
   },
   {
+    "name": "Potential Linux Credential Dumping via Proc Memory Access",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "event.category == 'process' && event.type == 'start' && (contains(to_string(process.name),'strings') || contains(to_string(process.name),'cat') || contains(to_string(process.name),'dd') || contains(to_string(process.name),'gdb') || contains(to_string(process.name),'grep')) && ((contains(to_string(process.title), '/proc/') && contains(to_string(process.title), '/mem') && !contains(to_string(process.title), '/proc/meminfo')) || (contains(to_string(process.title), '/proc/') && contains(to_string(process.title), '/maps')))",
+    "version": "1.0",
+    "path": "rules/detection/high/linux.json",
+    "reference": "https://outline.cybersift.io/s/1b8b0fcd-7892-4dff-be83-28f2d6f24ab7",
+    "log_source": "auditbeat"
+  },
+  {
     "name": "O365 Suspicious Inbox Rule Created or Modified (MarkAsRead)",
     "type": "detection",
     "severity": "high",
@@ -1207,6 +1218,17 @@
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
     "reference": "https://outline.cybersift.io/s/ecb21779-c744-4297-98b1-f52e86ed470a",
+    "log_source": "windows"
+  },
+  {
+    "name": "Command and Scripting Interpreter via Windows Scripts",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code)=='4688' && (ends_with(to_string(winlog.event_data.ParentProcessName),'wscript.exe') || ends_with(to_string(winlog.event_data.ParentProcessName),'mshta.exe')) && (ends_with(to_string(winlog.event_data.NewProcessName),'powershell.exe') || ends_with(to_string(winlog.event_data.NewProcessName),'cmd.exe'))",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/42e7be4a-0ce8-474e-8fdc-b3afcaf140f2",
     "log_source": "windows"
   },
   {
