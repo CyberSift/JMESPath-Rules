@@ -12,5 +12,12 @@
     "severity": "high",
     "type": "cloudflare",
     "reference": "https://outline.cybersift.io/s/engineering/doc/cloudflare-sensitive-mx-or-ns-dns-record-modification-Kaw2baGAr4"
+  },
+  {
+    "title": "Cloudflare – API Token Created (Read All Resources)",
+    "expression": "to_string(action.description)=='Create Token' && to_string(resource.request.name)=='Read all resources'",
+    "severity": "high",
+    "type": "cloudflare",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/cloudflare-api-token-created-read-all-resources-KnfVqfXzdr"
   }
 ]
