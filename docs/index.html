@@ -654,9 +654,9 @@
                         </select>
                     </div>
                     <div class="control-group">
-                        <label for="logsource">Log Source</label>
+                        <label for="logsource">Vendor / Platform</label>
                         <select id="logsource">
-                            <option value="">All Log Sources</option>
+                            <option value="">All Vendors / Platforms</option>
                         </select>
                     </div>
                     <button class="reset-btn" type="button" id="reset-filters">Clear filters</button>
@@ -921,7 +921,9 @@
         }
 
         function getRuleLogSource(rule) {
-            if (!rule.path) return '';
+            if (!rule.path) {
+                return (rule.log_source || '').trim().toLowerCase();
+            }
         
             const filename = rule.path.split('/').pop() || '';
         
@@ -944,3 +946,4 @@
     </script>
 </body>
 </html>
+
