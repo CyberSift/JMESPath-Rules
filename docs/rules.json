@@ -88,6 +88,28 @@
     "log_source": "cloudflare"
   },
   {
+    "name": "Cloudflare \u2013 API Token Created (Read All Resources)",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(action.description)=='Create Token' && to_string(resource.request.name)=='Read all resources'",
+    "version": "1.0",
+    "path": "rules/detection/high/cloudflare.json",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/cloudflare-api-token-created-read-all-resources-KnfVqfXzdr",
+    "log_source": "cloudflare"
+  },
+  {
+    "name": "CyberArk - Built-In Privileged User Logon",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(\"cybersift.parser.vendor\")=='CYBERARK_CEF' && (to_string(\"cybersift.cyberark.act\")=='Logon' && (to_string(\"cybersift.cyberark.suser\")=='Administrator' || to_string(\"cybersift.cyberark.suser\")=='Master'))",
+    "version": "1.0",
+    "path": "rules/detection/high/cyberark.json",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/cyberark-built-in-privileged-user-logon-VXKA4asakR",
+    "log_source": "syslog"
+  },
+  {
     "name": "Potentially Unauthorized Gmail Route / Message Security Rule Change",
     "type": "detection",
     "severity": "high",
@@ -272,6 +294,17 @@
     "version": "1.0",
     "path": "rules/detection/high/linux.json",
     "reference": "https://outline.cybersift.io/s/af2fe970-980f-4090-bae8-b7a85ffa169e",
+    "log_source": "auditbeat"
+  },
+  {
+    "name": "Potential Linux Credential Dumping via Proc Memory Access",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "event.category == 'process' && event.type == 'start' && (contains(to_string(process.name),'strings') || contains(to_string(process.name),'cat') || contains(to_string(process.name),'dd') || contains(to_string(process.name),'gdb') || contains(to_string(process.name),'grep')) && ((contains(to_string(process.title), '/proc/') && contains(to_string(process.title), '/mem') && !contains(to_string(process.title), '/proc/meminfo')) || (contains(to_string(process.title), '/proc/') && contains(to_string(process.title), '/maps')))",
+    "version": "1.0",
+    "path": "rules/detection/high/linux.json",
+    "reference": "https://outline.cybersift.io/s/1b8b0fcd-7892-4dff-be83-28f2d6f24ab7",
     "log_source": "auditbeat"
   },
   {
@@ -1210,6 +1243,17 @@
     "log_source": "windows"
   },
   {
+    "name": "Command and Scripting Interpreter via Windows Scripts",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code)=='4688' && (ends_with(to_string(winlog.event_data.ParentProcessName),'wscript.exe') || ends_with(to_string(winlog.event_data.ParentProcessName),'mshta.exe')) && (ends_with(to_string(winlog.event_data.NewProcessName),'powershell.exe') || ends_with(to_string(winlog.event_data.NewProcessName),'cmd.exe'))",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/42e7be4a-0ce8-474e-8fdc-b3afcaf140f2",
+    "log_source": "windows"
+  },
+  {
     "name": "Failed command",
     "type": "detection",
     "severity": "info",
@@ -1386,6 +1430,17 @@
     "log_source": "cloudflare"
   },
   {
+    "name": "CyberArk - Show Password Action Detected",
+    "type": "detection",
+    "severity": "medium",
+    "description": "",
+    "expression": "to_string(\"cybersift.parser.vendor\")=='CYBERARK_CEF' && (to_string(\"cybersift.cyberark.eventTitle\")=='Retrieve password' && (to_string(\"cybersift.cyberark.msg\")=='(Action: Show Password)'))",
+    "version": "1.0",
+    "path": "rules/detection/medium/cyberark.json",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/cyberark-show-password-action-detected-76s61dzcwT",
+    "log_source": "syslog"
+  },
+  {
     "name": "Google Workspace Suspicious Login (Success)",
     "type": "detection",
     "severity": "medium",
@@ -1537,6 +1592,17 @@
     "version": "1.0",
     "path": "rules/detection/medium/linux.json",
     "reference": "https://outline.cybersift.io/s/abc13893-7d55-49ca-9fed-ba3d0feda7e8",
+    "log_source": "auditbeat"
+  },
+  {
+    "name": "Linux Find Command Enumerating SUID, SGID, or Sticky Bit Files",
+    "type": "detection",
+    "severity": "medium",
+    "description": "",
+    "expression": "contains(to_string(process.args), 'find') && contains(to_string(process.args), '-perm') && (contains(to_string(process.args), '-1000') || contains(to_string(process.args), '/1000') || contains(to_string(process.args), '1000') || contains(to_string(process.args), '01000') || contains(to_string(process.args), '-2000') || contains(to_string(process.args), '/2000') || contains(to_string(process.args), '2000') || contains(to_string(process.args), '02000') || contains(to_string(process.args), '-4000') || contains(to_string(process.args), '/4000') || contains(to_string(process.args), '4000') || contains(to_string(process.args), '04000') || contains(to_string(process.args), '-g=s') || contains(to_string(process.args), 'g=s') || contains(to_string(process.args), '-u=s') || contains(to_string(process.args), 'u=s'))",
+    "version": "1.0",
+    "path": "rules/detection/medium/linux.json",
+    "reference": "https://outline.cybersift.io/s/acca7af8-20fa-4bd9-9d6e-f93daf8784e0",
     "log_source": "auditbeat"
   },
   {
