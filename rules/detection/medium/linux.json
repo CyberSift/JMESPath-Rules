@@ -19,5 +19,12 @@
     "severity": "medium",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/abc13893-7d55-49ca-9fed-ba3d0feda7e8"
+  },
+  {
+    "title": "Linux Find Command Enumerating SUID, SGID, or Sticky Bit Files",
+    "expression": "contains(to_string(process.args), 'find') && contains(to_string(process.args), '-perm') && (contains(to_string(process.args), '-1000') || contains(to_string(process.args), '/1000') || contains(to_string(process.args), '1000') || contains(to_string(process.args), '01000') || contains(to_string(process.args), '-2000') || contains(to_string(process.args), '/2000') || contains(to_string(process.args), '2000') || contains(to_string(process.args), '02000') || contains(to_string(process.args), '-4000') || contains(to_string(process.args), '/4000') || contains(to_string(process.args), '4000') || contains(to_string(process.args), '04000') || contains(to_string(process.args), '-g=s') || contains(to_string(process.args), 'g=s') || contains(to_string(process.args), '-u=s') || contains(to_string(process.args), 'u=s'))",
+    "severity": "medium",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/acca7af8-20fa-4bd9-9d6e-f93daf8784e0"
   }
 ]
