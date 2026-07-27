@@ -1,0 +1,9 @@
+[
+  {
+    "title": "CyberArk - Built-In Privileged User Logon",
+    "expression": "to_string(\"cybersift.parser.vendor\")=='CYBERARK_CEF' && (to_string(\"cybersift.cyberark.act\")=='Logon' && (to_string(\"cybersift.cyberark.suser\")=='Administrator' || to_string(\"cybersift.cyberark.suser\")=='Master'))",
+    "severity": "high",
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/cyberark-built-in-privileged-user-logon-VXKA4asakR"
+  }
+]
