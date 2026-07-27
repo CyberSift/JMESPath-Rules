@@ -721,7 +721,9 @@
             sortedSources.forEach(source => {
                 const option = document.createElement('option');
                 option.value = source;
-                option.textContent = source.charAt(0).toUpperCase() + source.slice(1);
+                option.textContent = source
+                    .replace(/_/g, ' ')
+                    .replace(/\b\w/g, character => character.toUpperCase());
                 dropdown.appendChild(option);
             });
         }
@@ -801,7 +803,7 @@
                 expressionTerm && 'expression',
                 severity && `severity: ${severity}`,
                 type && `type: ${type}`,
-                logsource && `source: ${logsource}`
+                logsource && `vendor/platform: ${logsource.replace(/_/g, ' ')}`
             ].filter(Boolean);
 
             document.getElementById('active-filters').textContent = activeFilters.length
@@ -919,11 +921,14 @@
         }
 
         function getRuleLogSource(rule) {
-            if (rule.log_source) return rule.log_source;
             if (!rule.path) return '';
-
+        
             const filename = rule.path.split('/').pop() || '';
-            return filename.replace(/\.json$/i, '');
+        
+            return filename
+                .replace(/\.json$/i, '')
+                .trim()
+                .toLowerCase();
         }
 
         function escapeHtml(text) {
