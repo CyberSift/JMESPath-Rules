@@ -1,0 +1,9 @@
+[
+  {
+    "title": "CyberArk - Show Password Action Detected",
+    "expression": "to_string(\"cybersift.parser.vendor\")=='CYBERARK_CEF' && (to_string(\"cybersift.cyberark.eventTitle\")=='Retrieve password' && (to_string(\"cybersift.cyberark.msg\")=='(Action: Show Password)'))",
+    "severity": "medium",
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/cyberark-show-password-action-detected-76s61dzcwT"
+  }
+]
