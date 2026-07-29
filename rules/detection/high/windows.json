@@ -359,5 +359,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/42e7be4a-0ce8-474e-8fdc-b3afcaf140f2"
+  },
+  {
+    "title": "PowerShell Registry Run Key Persistence",
+    "expression": "to_string(event.code) == '4688' && (contains(to_string(winlog.event_data.CommandLine), 'powershell') && (contains(to_string(winlog.event_data.CommandLine), 'Set-ItemProperty') || contains(to_string(winlog.event_data.CommandLine), 'New-ItemProperty')) && contains(to_string(winlog.event_data.CommandLine), 'CurrentVersion\\\\Run') && (contains(to_string(winlog.event_data.CommandLine), '.exe') || contains(to_string(winlog.event_data.CommandLine), '.js')))",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/b6acb416-6658-4594-afb1-98675f6bf508"
   }
 ]
