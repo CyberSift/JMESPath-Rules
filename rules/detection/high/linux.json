@@ -89,5 +89,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/1b8b0fcd-7892-4dff-be83-28f2d6f24ab7"
+  },
+  {
+    "title": "Offline Password Cracking or Hash Preparation Tool Launched",
+    "expression": "(contains(to_string(process.name), 'unshadow') || contains(to_string(process.name), 'john') || contains(to_string(process.name), 'hashcat') || contains(to_string(process.name), 'lazagne') || contains(to_string(process.name), 'ssh2john') || contains(to_string(process.name), 'zip2john') || contains(to_string(process.name), 'rar2john') || contains(to_string(process.name), 'keepass2john') || contains(to_string(process.name), 'htdigest2john')) || (contains(to_string(process.executable), '/unshadow') || contains(to_string(process.executable), '/john') || contains(to_string(process.executable), '/hashcat') || contains(to_string(process.executable), '/lazagne') || contains(to_string(process.executable), '/ssh2john') || contains(to_string(process.executable), '/zip2john') || contains(to_string(process.executable), '/rar2john') || contains(to_string(process.executable), '/keepass2john') || contains(to_string(process.executable), '/htdigest2john'))",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/2392966c-0b70-4f8c-b478-b7b909a36607"
   }
 ]
