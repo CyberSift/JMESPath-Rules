@@ -366,5 +366,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/b6acb416-6658-4594-afb1-98675f6bf508"
+  },
+  {
+    "title": "Registry Run Key Persistence With Suspicious Execution Payload",
+    "expression": "to_string(event.code) == '4657' && contains(to_string(winlog.event_data.ObjectName), 'CurrentVersion\\\\Run') && (contains(to_string(winlog.event_data.NewValue), 'powershell.exe') || contains(to_string(winlog.event_data.NewValue), 'cmd.exe') || contains(to_string(winlog.event_data.NewValue), 'wscript.exe') || contains(to_string(winlog.event_data.NewValue), 'cscript.exe') || contains(to_string(winlog.event_data.NewValue), 'mshta.exe') || contains(to_string(winlog.event_data.NewValue), 'rundll32.exe') || contains(to_string(winlog.event_data.NewValue), 'regsvr32.exe') || contains(to_string(winlog.event_data.NewValue), 'deno.exe') || contains(to_string(winlog.event_data.NewValue), 'AppData') || contains(to_string(winlog.event_data.NewValue), 'Temp') || contains(to_string(winlog.event_data.NewValue), '.js'))",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/b37c498b-8632-4271-885c-ad27468f38a9"
   }
 ]
