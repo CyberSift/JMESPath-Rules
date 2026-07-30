@@ -88,7 +88,7 @@
     "log_source": "cloudflare"
   },
   {
-    "name": "Cloudflare \u2013 API Token Created (Read All Resources)",
+    "name": "Cloudflare - API Token Created (Read All Resources)",
     "type": "detection",
     "severity": "high",
     "description": "",
@@ -224,7 +224,7 @@
     "type": "detection",
     "severity": "high",
     "description": "",
-    "expression": "(contains(to_string(process.title), 'grep')) && ((contains(to_string(process.title), '/etc/passwd')) || (contains(to_string(process.title), '/etc/shadw')))",
+    "expression": "(contains(to_string(process.title), 'grep')) && ((contains(to_string(process.title), '/etc/passwd')) || (contains(to_string(process.title), '/etc/shadow')))",
     "version": "1.0",
     "path": "rules/detection/high/linux.json",
     "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-grep-of-sensitive-linux-configuration-files-eKWes89Bcm",
@@ -305,6 +305,17 @@
     "version": "1.0",
     "path": "rules/detection/high/linux.json",
     "reference": "https://outline.cybersift.io/s/1b8b0fcd-7892-4dff-be83-28f2d6f24ab7",
+    "log_source": "auditbeat"
+  },
+  {
+    "name": "Offline Password Cracking or Hash Preparation Tool Launched",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "(contains(to_string(process.name), 'unshadow') || contains(to_string(process.name), 'john') || contains(to_string(process.name), 'hashcat') || contains(to_string(process.name), 'lazagne') || contains(to_string(process.name), 'ssh2john') || contains(to_string(process.name), 'zip2john') || contains(to_string(process.name), 'rar2john') || contains(to_string(process.name), 'keepass2john') || contains(to_string(process.name), 'htdigest2john')) || (contains(to_string(process.executable), '/unshadow') || contains(to_string(process.executable), '/john') || contains(to_string(process.executable), '/hashcat') || contains(to_string(process.executable), '/lazagne') || contains(to_string(process.executable), '/ssh2john') || contains(to_string(process.executable), '/zip2john') || contains(to_string(process.executable), '/rar2john') || contains(to_string(process.executable), '/keepass2john') || contains(to_string(process.executable), '/htdigest2john'))",
+    "version": "1.0",
+    "path": "rules/detection/high/linux.json",
+    "reference": "https://outline.cybersift.io/s/2392966c-0b70-4f8c-b478-b7b909a36607",
     "log_source": "auditbeat"
   },
   {
@@ -675,7 +686,7 @@
     "type": "detection",
     "severity": "high",
     "description": "",
-    "expression": "(   contains(to_string(winlog.event_data.ParentProcessName), 'powershell.exe') ||   contains(to_string(winlog.event_data.NewProcessName), 'powershell.exe') ||   contains(to_string(winlog.event_data.ProcessName), 'powershell.exe') ||   contains(to_string(winlog.event_data.CommandLine), 'powershell.exe') ) && (   contains(to_string(winlog.event_data.CommandLine), 'IEX') ||   contains(to_string(winlog.event_data.CommandLine), 'Invoke-WebRequest') ||   contains(to_string(winlog.event_data.CommandLine), 'DownloadString') ||   contains(to_string(winlog.event_data.CommandLine), 'curl') ||   contains(to_string(winlog.event_data.CommandLine), 'wget') ||   contains(to_string(winlog.event_data.CommandLine), 'certutil') ||   contains(to_string(winlog.event_data.CommandLine), 'Net.WebClient') )",
+    "expression": "(contains(to_string(winlog.event_data.ParentProcessName), 'powershell.exe') || contains(to_string(winlog.event_data.NewProcessName), 'powershell.exe') || contains(to_string(winlog.event_data.ProcessName), 'powershell.exe') || contains(to_string(winlog.event_data.CommandLine), 'powershell')) && (contains(to_string(winlog.event_data.CommandLine), 'IEX') || contains(to_string(winlog.event_data.CommandLine), 'iex') || contains(to_string(winlog.event_data.CommandLine), 'Invoke-WebRequest') || contains(to_string(winlog.event_data.CommandLine), 'DownloadString') || contains(to_string(winlog.event_data.CommandLine), 'curl') || contains(to_string(winlog.event_data.CommandLine), 'wget') || contains(to_string(winlog.event_data.CommandLine), 'certutil') || contains(to_string(winlog.event_data.CommandLine), 'Net.WebClient'))",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
     "reference": "",
@@ -1251,6 +1262,28 @@
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
     "reference": "https://outline.cybersift.io/s/42e7be4a-0ce8-474e-8fdc-b3afcaf140f2",
+    "log_source": "windows"
+  },
+  {
+    "name": "PowerShell Registry Run Key Persistence",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && (contains(to_string(winlog.event_data.CommandLine), 'powershell') && (contains(to_string(winlog.event_data.CommandLine), 'Set-ItemProperty') || contains(to_string(winlog.event_data.CommandLine), 'New-ItemProperty')) && contains(to_string(winlog.event_data.CommandLine), 'CurrentVersion\\\\Run') && (contains(to_string(winlog.event_data.CommandLine), '.exe') || contains(to_string(winlog.event_data.CommandLine), '.js')))",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/b6acb416-6658-4594-afb1-98675f6bf508",
+    "log_source": "windows"
+  },
+  {
+    "name": "Registry Run Key Persistence With Suspicious Execution Payload",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4657' && contains(to_string(winlog.event_data.ObjectName), 'CurrentVersion\\\\Run') && (contains(to_string(winlog.event_data.NewValue), 'powershell.exe') || contains(to_string(winlog.event_data.NewValue), 'cmd.exe') || contains(to_string(winlog.event_data.NewValue), 'wscript.exe') || contains(to_string(winlog.event_data.NewValue), 'cscript.exe') || contains(to_string(winlog.event_data.NewValue), 'mshta.exe') || contains(to_string(winlog.event_data.NewValue), 'rundll32.exe') || contains(to_string(winlog.event_data.NewValue), 'regsvr32.exe') || contains(to_string(winlog.event_data.NewValue), 'deno.exe') || contains(to_string(winlog.event_data.NewValue), 'AppData') || contains(to_string(winlog.event_data.NewValue), 'Temp') || contains(to_string(winlog.event_data.NewValue), '.js'))",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/b37c498b-8632-4271-885c-ad27468f38a9",
     "log_source": "windows"
   },
   {
