@@ -24,18 +24,6 @@
     "type": "syslog"
   },
   {
-    "title": "FortiGate Suspicious SSO or Config Download",
-    "expression": "cybersift.parser.vendor == 'Fortigate' && type == 'event' && subtype == 'system' && (contains(to_string(msg), 'sso') || contains(to_string(msg), 'downloaded'))",
-    "severity": "high",
-    "type": "syslog"
-  },
-  {
-    "title": "FortiGate Admin Account Creation",
-    "expression": "cybersift.parser.vendor == 'Fortigate' && type == 'event' && subtype == 'system' && contains(to_string(msg), 'Add system.admin')",
-    "severity": "high",
-    "type": "syslog"
-  },
-  {
     "title": "Successful SonicWall VPN Authentication",
     "expression": "cybersift.parser.vendor == 'SONICWALL' && to_string(m) == '1080' && to_string(fw_action) != 'denied_or_failed'",
     "severity": "high",
@@ -48,13 +36,6 @@
     "severity": "high",
     "type": "syslog",
     "reference": "https://outline.cybersift.io/s/8c08410d-975a-4e87-93da-d96acdcbf7ef"
-  },
-  {
-    "title": "FortiGate SSL VPN login from Known Threat",
-    "expression": "cybersift.parser.vendor=='Fortigate' && action=='tunnel-up' && (to_string(\"cybersift.threat_info\".knownThreat)=='true')",
-    "severity": "high",
-    "type": "syslog",
-    "reference": "https://outline.cybersift.io/s/63228031-66a5-441a-8809-3c79cabfb103"
   },
   {
     "title": "FortiGate SSL VPN Settings Modified",
