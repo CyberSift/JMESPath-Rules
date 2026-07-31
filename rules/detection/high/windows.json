@@ -373,5 +373,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/b37c498b-8632-4271-885c-ad27468f38a9"
+  },
+  {
+    "title": "Windows Startup Folder Script File Creation",
+    "expression": "to_string(event.code) == '4663' && contains(to_string(winlog.event_data.ObjectName), 'Programs\\\\Startup') && (ends_with(to_string(winlog.event_data.ObjectName), '.js') || ends_with(to_string(winlog.event_data.ObjectName), '.vbs') || ends_with(to_string(winlog.event_data.ObjectName), '.bat'))",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/44553d40-c1af-48fc-9af3-f3c494d81860"
   }
 ]
