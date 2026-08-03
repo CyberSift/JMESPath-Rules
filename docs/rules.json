@@ -66,6 +66,17 @@
     "log_source": "aws"
   },
   {
+    "name": "Checkpoint - Log Exporter/SIEM Configuration Modified or Deleted",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "cybersift.parser.vendor == 'CHECKPOINT' && subject == 'Object Manipulation' && objecttype == 'Log Exporter/SIEM' && contains(['Modify Object', 'Delete Object'], to_string(operation))",
+    "version": "1.0",
+    "path": "rules/detection/high/checkpoint.json",
+    "reference": "https://outline.cybersift.io/s/800f4d15-03b2-4528-bbd1-eedba0e8cc29",
+    "log_source": "syslog"
+  },
+  {
     "name": "Cloudflare - Login from Known Threat",
     "type": "detection",
     "severity": "high",
@@ -107,6 +118,50 @@
     "version": "1.0",
     "path": "rules/detection/high/cyberark.json",
     "reference": "https://outline.cybersift.io/s/engineering/doc/cyberark-built-in-privileged-user-logon-VXKA4asakR",
+    "log_source": "syslog"
+  },
+  {
+    "name": "FortiGate Firewall Policy Creation from External Source IP",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "cybersift.parser.vendor == 'Fortigate' && subtype == 'system' && action == 'Add' && contains(to_string(msg), 'firewall.policy') && to_string(UiSourceInternal) == 'false'",
+    "version": "1.0",
+    "path": "rules/detection/high/fortigate.json",
+    "reference": "https://outline.cybersift.io/s/697eaccc-2460-4c0e-9c3d-bc3c094b083e",
+    "log_source": "syslog"
+  },
+  {
+    "name": "FortiGate SSL VPN Settings Modified",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "cybersift.parser.vendor == 'Fortigate' && subtype == 'system' && action == 'Edit' && contains(to_string(msg), 'vpn.ssl.settings')",
+    "version": "1.0",
+    "path": "rules/detection/high/fortigate.json",
+    "reference": "https://outline.cybersift.io/s/0d7bdae2-e8f3-44c3-b58a-8b1171afdb1d",
+    "log_source": "syslog"
+  },
+  {
+    "name": "FortiGate Admin Account Creation",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "cybersift.parser.vendor == 'Fortigate' && type == 'event' && subtype == 'system' && contains(to_string(msg), 'Add system.admin')",
+    "version": "1.0",
+    "path": "rules/detection/high/fortigate.json",
+    "reference": "",
+    "log_source": "syslog"
+  },
+  {
+    "name": "FortiGate Suspicious SSO or Config Download",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "cybersift.parser.vendor == 'Fortigate' && type == 'event' && subtype == 'system' && (contains(to_string(msg), 'sso') || contains(to_string(msg), 'downloaded'))",
+    "version": "1.0",
+    "path": "rules/detection/high/fortigate.json",
+    "reference": "",
     "log_source": "syslog"
   },
   {
@@ -319,6 +374,28 @@
     "log_source": "auditbeat"
   },
   {
+    "name": "Linux - Ngrok Process Execution",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "contains(to_string(process.executable), 'ngrok') || contains(to_string(process.args), 'ngrok') || contains(to_string(process.title), 'ngrok')",
+    "version": "1.0",
+    "path": "rules/detection/high/linux.json",
+    "reference": "https://outline.cybersift.io/s/9a379c17-f05e-4999-915e-d841301e6935",
+    "log_source": "auditbeat"
+  },
+  {
+    "name": "NetScaler ADC - Administrative User, Group, or Command Policy Modified",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "cybersift.parser.vendor == 'Netscaler_ADC' && cybersift.netscaler.SubCategory == 'CMD_EXECUTED' && (contains(to_string(cybersift.netscaler.Message), 'system user') || contains(to_string(cybersift.netscaler.Message), 'system group') || contains(to_string(cybersift.netscaler.Message), 'system cmdPolicy')) && !(contains(to_string(cybersift.netscaler.Message), 'show system user') || contains(to_string(cybersift.netscaler.Message), 'show system group') || contains(to_string(cybersift.netscaler.Message), 'show system cmdPolicy'))",
+    "version": "1.0",
+    "path": "rules/detection/high/netscaler.json",
+    "reference": "https://outline.cybersift.io/s/1a21e0be-8450-455b-9e54-b037ed1ade0a",
+    "log_source": "syslog"
+  },
+  {
     "name": "O365 Suspicious Inbox Rule Created or Modified (MarkAsRead)",
     "type": "detection",
     "severity": "high",
@@ -495,6 +572,28 @@
     "log_source": "o365"
   },
   {
+    "name": "Successful SonicWall VPN Authentication",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "cybersift.parser.vendor == 'SONICWALL' && to_string(m) == '1080' && to_string(fw_action) != 'denied_or_failed'",
+    "version": "1.0",
+    "path": "rules/detection/high/sonicwall.json",
+    "reference": "https://outline.cybersift.io/s/4b9edcea-231d-4089-a029-a7c306ba8f0e",
+    "log_source": "syslog"
+  },
+  {
+    "name": "SonicWall VPN Authentication Attempt From Known Threat IP",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "cybersift.parser.vendor == 'SONICWALL' && to_string(m) == '1080' && to_string(\"cybersift.threat_info\".knownThreat) == 'true'",
+    "version": "1.0",
+    "path": "rules/detection/high/sonicwall.json",
+    "reference": "https://outline.cybersift.io/s/8c08410d-975a-4e87-93da-d96acdcbf7ef",
+    "log_source": "syslog"
+  },
+  {
     "name": "SSH to or from known threat public IP",
     "type": "detection",
     "severity": "high",
@@ -536,94 +635,6 @@
     "version": "1.0",
     "path": "rules/detection/high/syslog.json",
     "reference": "",
-    "log_source": "syslog"
-  },
-  {
-    "name": "FortiGate Suspicious SSO or Config Download",
-    "type": "detection",
-    "severity": "high",
-    "description": "",
-    "expression": "cybersift.parser.vendor == 'Fortigate' && type == 'event' && subtype == 'system' && (contains(to_string(msg), 'sso') || contains(to_string(msg), 'downloaded'))",
-    "version": "1.0",
-    "path": "rules/detection/high/syslog.json",
-    "reference": "",
-    "log_source": "syslog"
-  },
-  {
-    "name": "FortiGate Admin Account Creation",
-    "type": "detection",
-    "severity": "high",
-    "description": "",
-    "expression": "cybersift.parser.vendor == 'Fortigate' && type == 'event' && subtype == 'system' && contains(to_string(msg), 'Add system.admin')",
-    "version": "1.0",
-    "path": "rules/detection/high/syslog.json",
-    "reference": "",
-    "log_source": "syslog"
-  },
-  {
-    "name": "Successful SonicWall VPN Authentication",
-    "type": "detection",
-    "severity": "high",
-    "description": "",
-    "expression": "cybersift.parser.vendor == 'SONICWALL' && to_string(m) == '1080' && to_string(fw_action) != 'denied_or_failed'",
-    "version": "1.0",
-    "path": "rules/detection/high/syslog.json",
-    "reference": "https://outline.cybersift.io/s/4b9edcea-231d-4089-a029-a7c306ba8f0e",
-    "log_source": "syslog"
-  },
-  {
-    "name": "SonicWall VPN Authentication Attempt From Known Threat IP",
-    "type": "detection",
-    "severity": "high",
-    "description": "",
-    "expression": "cybersift.parser.vendor == 'SONICWALL' && to_string(m) == '1080' && to_string(\"cybersift.threat_info\".knownThreat) == 'true'",
-    "version": "1.0",
-    "path": "rules/detection/high/syslog.json",
-    "reference": "https://outline.cybersift.io/s/8c08410d-975a-4e87-93da-d96acdcbf7ef",
-    "log_source": "syslog"
-  },
-  {
-    "name": "FortiGate SSL VPN login from Known Threat",
-    "type": "detection",
-    "severity": "high",
-    "description": "",
-    "expression": "cybersift.parser.vendor=='Fortigate' && action=='tunnel-up' && (to_string(\"cybersift.threat_info\".knownThreat)=='true')",
-    "version": "1.0",
-    "path": "rules/detection/high/syslog.json",
-    "reference": "https://outline.cybersift.io/s/63228031-66a5-441a-8809-3c79cabfb103",
-    "log_source": "syslog"
-  },
-  {
-    "name": "FortiGate SSL VPN Settings Modified",
-    "type": "detection",
-    "severity": "high",
-    "description": "",
-    "expression": "cybersift.parser.vendor == 'Fortigate' && subtype == 'system' && action == 'Edit' && contains(to_string(msg), 'vpn.ssl.settings')",
-    "version": "1.0",
-    "path": "rules/detection/high/syslog.json",
-    "reference": "https://outline.cybersift.io/s/0d7bdae2-e8f3-44c3-b58a-8b1171afdb1d",
-    "log_source": "syslog"
-  },
-  {
-    "name": "Checkpoint - Log Exporter/SIEM Configuration Modified or Deleted",
-    "type": "detection",
-    "severity": "high",
-    "description": "",
-    "expression": "cybersift.parser.vendor == 'CHECKPOINT' && subject == 'Object Manipulation' && objecttype == 'Log Exporter/SIEM' && contains(['Modify Object', 'Delete Object'], to_string(operation))",
-    "version": "1.0",
-    "path": "rules/detection/high/syslog.json",
-    "reference": "https://outline.cybersift.io/s/800f4d15-03b2-4528-bbd1-eedba0e8cc29",
-    "log_source": "syslog"
-  },
-  {
-    "name": "NetScaler ADC - Administrative User, Group, or Command Policy Modified",
-    "type": "detection",
-    "severity": "high",
-    "description": "",
-    "expression": "cybersift.parser.vendor == 'Netscaler_ADC' && cybersift.netscaler.SubCategory == 'CMD_EXECUTED' && (contains(to_string(cybersift.netscaler.Message), 'system user') || contains(to_string(cybersift.netscaler.Message), 'system group') || contains(to_string(cybersift.netscaler.Message), 'system cmdPolicy')) && !(contains(to_string(cybersift.netscaler.Message), 'show system user') || contains(to_string(cybersift.netscaler.Message), 'show system group') || contains(to_string(cybersift.netscaler.Message), 'show system cmdPolicy'))",
-    "version": "1.0",
-    "path": "rules/detection/high/syslog.json",
-    "reference": "https://outline.cybersift.io/s/1a21e0be-8450-455b-9e54-b037ed1ade0a",
     "log_source": "syslog"
   },
   {
@@ -1284,6 +1295,17 @@
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
     "reference": "https://outline.cybersift.io/s/b37c498b-8632-4271-885c-ad27468f38a9",
+    "log_source": "windows"
+  },
+  {
+    "name": "BITS File Download via PowerShell or Bitsadmin",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && (contains(to_string(winlog.event_data.CommandLine), 'start-bitstransfer') || contains(to_string(winlog.event_data.CommandLine), 'Start-BitsTransfer') || contains(to_string(winlog.event_data.CommandLine), 'bitsadmin')) && contains(to_string(winlog.event_data.CommandLine), 'http')",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/508ffd3a-01d7-4a75-8753-e1d7882dd24b",
     "log_source": "windows"
   },
   {
