@@ -380,5 +380,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/508ffd3a-01d7-4a75-8753-e1d7882dd24b"
+  },
+  {
+    "title": "Suspicious ngrok Tunnel and Remote Access Activity",
+    "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), 'ngrok.exe') || contains(to_string(winlog.event_data.CommandLine), 'ngrok')) && (contains(to_string(winlog.event_data.CommandLine), ' http ') || contains(to_string(winlog.event_data.CommandLine), ' authtoken ') || contains(to_string(winlog.event_data.CommandLine), ' start ') || contains(to_string(winlog.event_data.CommandLine), '--all') || contains(to_string(winlog.event_data.CommandLine), '.yml') || contains(to_string(winlog.event_data.CommandLine), '--config') || contains(to_string(winlog.event_data.CommandLine), ' tcp 22') || contains(to_string(winlog.event_data.CommandLine), ' tcp 139') || contains(to_string(winlog.event_data.CommandLine), ' tcp 445') || contains(to_string(winlog.event_data.CommandLine), ' tcp 3389') || contains(to_string(winlog.event_data.CommandLine), ' tcp 5985') || contains(to_string(winlog.event_data.CommandLine), ' tcp 5986'))",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-ngrok-tunnel-and-remote-access-activity-kEcdv0eWN9"
   }
 ]
