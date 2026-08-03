@@ -375,10 +375,10 @@
     "reference": "https://outline.cybersift.io/s/b37c498b-8632-4271-885c-ad27468f38a9"
   },
   {
-    "title": "Windows Startup Folder Script File Creation",
-    "expression": "to_string(event.code) == '4663' && contains(to_string(winlog.event_data.ObjectName), 'Programs\\\\Startup') && (ends_with(to_string(winlog.event_data.ObjectName), '.js') || ends_with(to_string(winlog.event_data.ObjectName), '.vbs') || ends_with(to_string(winlog.event_data.ObjectName), '.bat'))",
+    "title": "BITS File Download via PowerShell or Bitsadmin",
+    "expression": "to_string(event.code) == '4688' && (contains(to_string(winlog.event_data.CommandLine), 'start-bitstransfer') || contains(to_string(winlog.event_data.CommandLine), 'Start-BitsTransfer') || contains(to_string(winlog.event_data.CommandLine), 'bitsadmin')) && contains(to_string(winlog.event_data.CommandLine), 'http')",
     "severity": "high",
     "type": "windows",
-    "reference": "https://outline.cybersift.io/s/44553d40-c1af-48fc-9af3-f3c494d81860"
+    "reference": "https://outline.cybersift.io/s/508ffd3a-01d7-4a75-8753-e1d7882dd24b"
   }
 ]
