@@ -1,9 +1,0 @@
-[
- {
-    "title": "FortiGate Firewall Policy Creation from External Source IP",
-    "expression": "cybersift.parser.vendor == 'Fortigate' && subtype == 'system' && action == 'Add' && contains(to_string(msg), 'firewall.policy') && to_string(UiSourceInternal) == 'false'",
-    "severity": "high",
-    "type": "syslog",
-    "reference": "https://outline.cybersift.io/s/697eaccc-2460-4c0e-9c3d-bc3c094b083e"
- }
-]

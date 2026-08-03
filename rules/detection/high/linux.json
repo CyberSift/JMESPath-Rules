@@ -96,5 +96,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/2392966c-0b70-4f8c-b478-b7b909a36607"
+  },
+  {
+    "title": "Linux - Ngrok Process Execution",
+    "expression": "contains(to_string(process.executable), 'ngrok') || contains(to_string(process.args), 'ngrok') || contains(to_string(process.title), 'ngrok')",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/9a379c17-f05e-4999-915e-d841301e6935"
   }
 ]
