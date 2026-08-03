@@ -22,59 +22,5 @@
     "expression": "to_string(DestinationPort) == '5985' && denied_flow == 'false'",
     "severity": "high",
     "type": "syslog"
-  },
-  {
-    "title": "FortiGate Suspicious SSO or Config Download",
-    "expression": "cybersift.parser.vendor == 'Fortigate' && type == 'event' && subtype == 'system' && (contains(to_string(msg), 'sso') || contains(to_string(msg), 'downloaded'))",
-    "severity": "high",
-    "type": "syslog"
-  },
-  {
-    "title": "FortiGate Admin Account Creation",
-    "expression": "cybersift.parser.vendor == 'Fortigate' && type == 'event' && subtype == 'system' && contains(to_string(msg), 'Add system.admin')",
-    "severity": "high",
-    "type": "syslog"
-  },
-  {
-    "title": "Successful SonicWall VPN Authentication",
-    "expression": "cybersift.parser.vendor == 'SONICWALL' && to_string(m) == '1080' && to_string(fw_action) != 'denied_or_failed'",
-    "severity": "high",
-    "type": "syslog",
-    "reference": "https://outline.cybersift.io/s/4b9edcea-231d-4089-a029-a7c306ba8f0e"
-  },
-  {
-    "title": "SonicWall VPN Authentication Attempt From Known Threat IP",
-    "expression": "cybersift.parser.vendor == 'SONICWALL' && to_string(m) == '1080' && to_string(\"cybersift.threat_info\".knownThreat) == 'true'",
-    "severity": "high",
-    "type": "syslog",
-    "reference": "https://outline.cybersift.io/s/8c08410d-975a-4e87-93da-d96acdcbf7ef"
-  },
-  {
-    "title": "FortiGate SSL VPN login from Known Threat",
-    "expression": "cybersift.parser.vendor=='Fortigate' && action=='tunnel-up' && (to_string(\"cybersift.threat_info\".knownThreat)=='true')",
-    "severity": "high",
-    "type": "syslog",
-    "reference": "https://outline.cybersift.io/s/63228031-66a5-441a-8809-3c79cabfb103"
-  },
-  {
-    "title": "FortiGate SSL VPN Settings Modified",
-    "expression": "cybersift.parser.vendor == 'Fortigate' && subtype == 'system' && action == 'Edit' && contains(to_string(msg), 'vpn.ssl.settings')",
-    "severity": "high",
-    "type": "syslog",
-    "reference": "https://outline.cybersift.io/s/0d7bdae2-e8f3-44c3-b58a-8b1171afdb1d"
-  },
-  {
-    "title": "Checkpoint - Log Exporter/SIEM Configuration Modified or Deleted",
-    "expression": "cybersift.parser.vendor == 'CHECKPOINT' && subject == 'Object Manipulation' && objecttype == 'Log Exporter/SIEM' && contains(['Modify Object', 'Delete Object'], to_string(operation))",
-    "severity": "high",
-    "type": "syslog",
-    "reference": "https://outline.cybersift.io/s/800f4d15-03b2-4528-bbd1-eedba0e8cc29"
-  },
-  {
-    "title": "NetScaler ADC - Administrative User, Group, or Command Policy Modified",
-    "expression": "cybersift.parser.vendor == 'Netscaler_ADC' && cybersift.netscaler.SubCategory == 'CMD_EXECUTED' && (contains(to_string(cybersift.netscaler.Message), 'system user') || contains(to_string(cybersift.netscaler.Message), 'system group') || contains(to_string(cybersift.netscaler.Message), 'system cmdPolicy')) && !(contains(to_string(cybersift.netscaler.Message), 'show system user') || contains(to_string(cybersift.netscaler.Message), 'show system group') || contains(to_string(cybersift.netscaler.Message), 'show system cmdPolicy'))",
-    "severity": "high",
-    "type": "syslog",
-    "reference": "https://outline.cybersift.io/s/1a21e0be-8450-455b-9e54-b037ed1ade0a"
   }
 ]
