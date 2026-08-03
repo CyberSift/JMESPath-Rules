@@ -1,0 +1,28 @@
+[
+ {
+    "title": "FortiGate Firewall Policy Creation from External Source IP",
+    "expression": "cybersift.parser.vendor == 'Fortigate' && subtype == 'system' && action == 'Add' && contains(to_string(msg), 'firewall.policy') && to_string(UiSourceInternal) == 'false'",
+    "severity": "high",
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/697eaccc-2460-4c0e-9c3d-bc3c094b083e"
+ },
+ {
+    "title": "FortiGate SSL VPN Settings Modified",
+    "expression": "cybersift.parser.vendor == 'Fortigate' && subtype == 'system' && action == 'Edit' && contains(to_string(msg), 'vpn.ssl.settings')",
+    "severity": "high",
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/0d7bdae2-e8f3-44c3-b58a-8b1171afdb1d"
+  },
+  {
+    "title": "FortiGate Admin Account Creation",
+    "expression": "cybersift.parser.vendor == 'Fortigate' && type == 'event' && subtype == 'system' && contains(to_string(msg), 'Add system.admin')",
+    "severity": "high",
+    "type": "syslog"
+  },
+  {
+    "title": "FortiGate Suspicious SSO or Config Download",
+    "expression": "cybersift.parser.vendor == 'Fortigate' && type == 'event' && subtype == 'system' && (contains(to_string(msg), 'sso') || contains(to_string(msg), 'downloaded'))",
+    "severity": "high",
+    "type": "syslog"
+  }
+]
