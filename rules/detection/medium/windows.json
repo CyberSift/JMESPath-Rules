@@ -92,5 +92,12 @@
     "severity": "medium",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/6aa4e37d-e158-4062-9841-c5aede4b76a7"
+  },
+  {
+    "title": "Potential Registry Run Key Persistence",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), 'reg') && contains(to_string(winlog.event_data.CommandLine), 'add') && contains(to_string(winlog.event_data.CommandLine), 'CurrentVersion\\\\Run')",
+    "severity": "medium",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/a3e40d09-654d-4d06-ae36-bdbb8c26001d"
   }
 ]
