@@ -402,6 +402,7 @@
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/588ebe30-60c5-42ca-8b57-80aea4b22ee4"
   },
+  {
     "title": "Suspicious Command Script Execution via msiexec",
     "expression": "to_string(event.code) == '4688' && (contains(to_string(winlog.event_data.NewProcessName), 'msiexec.exe') || contains(to_string(winlog.event_data.ParentProcessName), 'msiexec.exe')) && contains(to_string(winlog.event_data.CommandLine), ' start ') && contains(to_string(winlog.event_data.CommandLine), '.cmd')",
     "severity": "high",
