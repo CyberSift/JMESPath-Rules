@@ -396,6 +396,13 @@
     "reference": "https://outline.cybersift.io/s/44553d40-c1af-48fc-9af3-f3c494d81860"
   },
   {
+    "title": "ZIP Archive Download via curl",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), 'curl') && contains(to_string(winlog.event_data.CommandLine), '.zip')",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/588ebe30-60c5-42ca-8b57-80aea4b22ee4"
+  },
+  {
     "title": "Suspicious Command Script Execution via msiexec",
     "expression": "to_string(event.code) == '4688' && (contains(to_string(winlog.event_data.NewProcessName), 'msiexec.exe') || contains(to_string(winlog.event_data.ParentProcessName), 'msiexec.exe')) && contains(to_string(winlog.event_data.CommandLine), ' start ') && contains(to_string(winlog.event_data.CommandLine), '.cmd')",
     "severity": "high",
