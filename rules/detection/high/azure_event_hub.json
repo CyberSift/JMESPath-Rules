@@ -1,0 +1,9 @@
+[
+  {
+    "title": "Entra ID Global Administrator Role Assigned",
+    "expression": "properties.category == 'RoleManagement' && operationName == 'Add member to role' && contains(to_string(properties.targetResources), 'Global Administrator')",
+    "severity": "high",
+    "type": "azure_event_hub",
+    "reference": "https://outline.cybersift.io/s/3331a079-f09b-4ce7-ae69-351f297b7eea"
+  }
+]
