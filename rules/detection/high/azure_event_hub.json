@@ -5,5 +5,12 @@
     "severity": "high",
     "type": "azure_event_hub",
     "reference": "https://outline.cybersift.io/s/3331a079-f09b-4ce7-ae69-351f297b7eea"
+  },
+  {
+    "title": "Entra ID Global Administrator Role Assigned (PIM User)",
+    "expression": "properties.category == 'RoleManagement' && (operationName == 'Add eligible member to role in PIM completed (permanent)' || operationName == 'Add member to role in PIM completed (timebound)') && contains(to_string(properties.targetResources), 'Global Administrator')",
+    "severity": "high",
+    "type": "azure_event_hub",
+    "reference": "https://outline.cybersift.io/s/f491d29c-0937-4147-a5cc-a41c537c9753"
   }
 ]
