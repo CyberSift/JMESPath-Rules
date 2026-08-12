@@ -1,0 +1,9 @@
+[
+  {
+    "title": "Entra ID Service Principal Credentials Created by Unusual User",
+    "expression": "operationName == 'Add service principal credentials'",
+    "severity": "medium",
+    "type": "azure_event_hub",
+    "reference": "https://outline.cybersift.io/s/9fedbb69-e3d5-4a96-a1f9-4137b2f985e4"
+  }
+]
