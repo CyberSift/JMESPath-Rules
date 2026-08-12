@@ -66,6 +66,17 @@
     "log_source": "aws"
   },
   {
+    "name": "Entra ID Global Administrator Role Assigned",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "properties.category == 'RoleManagement' && operationName == 'Add member to role' && contains(to_string(properties.targetResources), 'Global Administrator')",
+    "version": "1.0",
+    "path": "rules/detection/high/azure_event_hub.json",
+    "reference": "https://outline.cybersift.io/s/3331a079-f09b-4ce7-ae69-351f297b7eea",
+    "log_source": "azure_event_hub"
+  },
+  {
     "name": "Checkpoint - Log Exporter/SIEM Configuration Modified or Deleted",
     "type": "detection",
     "severity": "high",
@@ -1309,6 +1320,50 @@
     "log_source": "windows"
   },
   {
+    "name": "Suspicious ngrok Tunnel and Remote Access Activity",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), 'ngrok.exe') || contains(to_string(winlog.event_data.CommandLine), 'ngrok')) && (contains(to_string(winlog.event_data.CommandLine), ' http ') || contains(to_string(winlog.event_data.CommandLine), ' authtoken ') || contains(to_string(winlog.event_data.CommandLine), ' start ') || contains(to_string(winlog.event_data.CommandLine), '--all') || contains(to_string(winlog.event_data.CommandLine), '.yml') || contains(to_string(winlog.event_data.CommandLine), '--config') || contains(to_string(winlog.event_data.CommandLine), ' tcp 22') || contains(to_string(winlog.event_data.CommandLine), ' tcp 139') || contains(to_string(winlog.event_data.CommandLine), ' tcp 445') || contains(to_string(winlog.event_data.CommandLine), ' tcp 3389') || contains(to_string(winlog.event_data.CommandLine), ' tcp 5985') || contains(to_string(winlog.event_data.CommandLine), ' tcp 5986'))",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-ngrok-tunnel-and-remote-access-activity-kEcdv0eWN9",
+    "log_source": "windows"
+  },
+  {
+    "name": "Windows Startup Folder Script File Creation",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4663' && contains(to_string(winlog.event_data.ObjectName), 'Programs\\\\Startup') && (ends_with(to_string(winlog.event_data.ObjectName), '.js') || ends_with(to_string(winlog.event_data.ObjectName), '.vbs') || ends_with(to_string(winlog.event_data.ObjectName), '.bat'))",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/44553d40-c1af-48fc-9af3-f3c494d81860",
+    "log_source": "windows"
+  },
+  {
+    "name": "ZIP Archive Download via curl",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), 'curl') && contains(to_string(winlog.event_data.CommandLine), '.zip')",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/588ebe30-60c5-42ca-8b57-80aea4b22ee4",
+    "log_source": "windows"
+  },
+  {
+    "name": "Suspicious Command Script Execution via msiexec",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && (contains(to_string(winlog.event_data.NewProcessName), 'msiexec.exe') || contains(to_string(winlog.event_data.ParentProcessName), 'msiexec.exe')) && contains(to_string(winlog.event_data.CommandLine), ' start ') && contains(to_string(winlog.event_data.CommandLine), '.cmd')",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/33f45911-f2f7-4c77-ad8b-2010cd660a5a",
+    "log_source": "windows"
+  },
+  {
     "name": "Failed command",
     "type": "detection",
     "severity": "info",
@@ -1472,6 +1527,17 @@
     "path": "rules/detection/medium/aws.json",
     "reference": "https://outline.cybersift.io/s/9733a16c-5571-4a79-96d1-9c7c9329bb18",
     "log_source": "aws"
+  },
+  {
+    "name": "Entra ID Service Principal Credentials Created by Unusual User",
+    "type": "detection",
+    "severity": "medium",
+    "description": "",
+    "expression": "operationName == 'Add service principal credentials'",
+    "version": "1.0",
+    "path": "rules/detection/medium/azure_event_hub.json",
+    "reference": "https://outline.cybersift.io/s/9fedbb69-e3d5-4a96-a1f9-4137b2f985e4",
+    "log_source": "azure_event_hub"
   },
   {
     "name": "Cloudflare - DNS Record Deletion",
@@ -1911,6 +1977,17 @@
     "version": "1.0",
     "path": "rules/detection/medium/windows.json",
     "reference": "https://outline.cybersift.io/s/6aa4e37d-e158-4062-9841-c5aede4b76a7",
+    "log_source": "windows"
+  },
+  {
+    "name": "Potential Registry Run Key Persistence",
+    "type": "detection",
+    "severity": "medium",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), 'reg') && contains(to_string(winlog.event_data.CommandLine), 'add') && contains(to_string(winlog.event_data.CommandLine), 'CurrentVersion\\\\Run')",
+    "version": "1.0",
+    "path": "rules/detection/medium/windows.json",
+    "reference": "https://outline.cybersift.io/s/a3e40d09-654d-4d06-ae36-bdbb8c26001d",
     "log_source": "windows"
   },
   {
