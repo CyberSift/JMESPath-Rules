@@ -12,5 +12,12 @@
     "severity": "high",
     "type": "azure_event_hub",
     "reference": "https://outline.cybersift.io/s/f491d29c-0937-4147-a5cc-a41c537c9753"
+  },
+  {
+    "title": "Entra ID Outlook Non-Edge Browser Sign-In",
+    "expression": "operationName == 'Sign-in activity' && properties.appDisplayName == 'Microsoft Outlook' && properties.deviceDetail.browser != null && !starts_with(to_string(properties.deviceDetail.browser), 'Edge')  ",
+    "severity": "high",
+    "type": "azure_event_hub",
+    "reference": "https://outline.cybersift.io/s/623f6d24-ca5d-4074-9178-51f5226b993a"
   }
 ]
