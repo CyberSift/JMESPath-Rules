@@ -77,6 +77,28 @@
     "log_source": "azure_event_hub"
   },
   {
+    "name": "Entra ID Global Administrator Role Assigned (PIM User)",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "properties.category == 'RoleManagement' && (operationName == 'Add eligible member to role in PIM completed (permanent)' || operationName == 'Add member to role in PIM completed (timebound)') && contains(to_string(properties.targetResources), 'Global Administrator')",
+    "version": "1.0",
+    "path": "rules/detection/high/azure_event_hub.json",
+    "reference": "https://outline.cybersift.io/s/f491d29c-0937-4147-a5cc-a41c537c9753",
+    "log_source": "azure_event_hub"
+  },
+  {
+    "name": "Entra ID Outlook Non-Edge Browser Sign-In",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "operationName == 'Sign-in activity' && properties.appDisplayName == 'Microsoft Outlook' && properties.deviceDetail.browser != null && !starts_with(to_string(properties.deviceDetail.browser), 'Edge')  ",
+    "version": "1.0",
+    "path": "rules/detection/high/azure_event_hub.json",
+    "reference": "https://outline.cybersift.io/s/623f6d24-ca5d-4074-9178-51f5226b993a",
+    "log_source": "azure_event_hub"
+  },
+  {
     "name": "Checkpoint - Log Exporter/SIEM Configuration Modified or Deleted",
     "type": "detection",
     "severity": "high",
@@ -488,7 +510,7 @@
     "type": "detection",
     "severity": "high",
     "description": "",
-    "expression": "((to_string(o365.audit.Operation) == 'UserLoggedIn' || to_string(o365.audit.LogonError) == 'UserStrongAuthClientAuthNRequiredInterrupt') && \"cybersift.threat_info\".usageType == 'hosting') && ((contains(to_string(o365.cybersift.application), 'Azure') || contains(to_string(o365.cybersift.application), 'Admin')) && (source.as.organization.name != 'MICROSOFT-CORP-MSN-AS-BLOCK'))",
+    "expression": "((to_string(o365.audit.Operation) == 'UserLoggedIn' || to_string(o365.audit.LogonError) == 'UserStrongAuthClientAuthNRequiredInterrupt') && \"cybersift.threat_info\".usageType == 'hosting') && ((contains(to_string(o365.cybersift.application), 'Azure') || contains(to_string(o365.cybersift.application), 'Admin')) && (source.as.organization.name != 'MICROSOFT-CORP-MSN-AS-BLOCK') && (source.as.organization.name != 'Microsoft Corporation'))",
     "version": "1.0",
     "path": "rules/detection/high/o365.json",
     "reference": "",
