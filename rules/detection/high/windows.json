@@ -415,5 +415,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/cf440146-54ca-4839-97c1-d1661f0bd016"
+  },
+  {
+    "title": "Pcalua WebDAV Hidden Process Creation",
+    "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), '\\\\pcalua.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\pcalua.exe')) && contains(to_string(winlog.event_data.CommandLine), 'Win32_Process') && contains(to_string(winlog.event_data.CommandLine), 'ShowWindow=0') && contains(to_string(winlog.event_data.CommandLine), '@SSL')",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/c4f20c30-579b-4c43-8077-b70556bca2b6"
   }
 ]
