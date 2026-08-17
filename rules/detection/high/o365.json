@@ -98,5 +98,12 @@
     "severity": "high",
     "type": "o365",
     "reference" : "https://outline.cybersift.io/s/engineering/doc/o365-suspicious-email-sending-pattern-pFfm4oezxB"
+  },
+  {
+    "title": "O365 Potentially Malicious URL Click Detected",
+    "expression": "to_string(event.action)=='AlertEntityGenerated' && to_string(o365.audit.Name)=='A potentially malicious URL click was detected'",
+    "severity": "high",
+    "type": "o365",
+    "reference" : "https://outline.cybersift.io/s/engineering/doc/o365-potentially-malicious-url-click-detected-A4f0jUxXob"
   }
 ]
