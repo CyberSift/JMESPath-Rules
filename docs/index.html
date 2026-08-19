@@ -318,6 +318,172 @@
             outline-offset: 2px;
         }
 
+        .generator-row {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin: 0 0 1.5rem;
+        }
+
+        .generator-btn,
+        .modal-primary-btn {
+            background: var(--cs-red);
+            color: var(--cs-white);
+            border: 1px solid var(--cs-red);
+            border-radius: var(--card-radius);
+            cursor: pointer;
+            font-family: var(--font-display);
+            font-size: var(--type-body);
+            font-weight: 600;
+            padding: 0.75rem 1.25rem;
+        }
+
+        .generator-btn:hover,
+        .modal-primary-btn:hover {
+            background: var(--cs-dark-red);
+            border-color: var(--cs-dark-red);
+        }
+
+        .instructions-btn {
+            display: block;
+            background: var(--cs-white);
+            color: var(--cs-red);
+            border: 1px solid var(--cs-red);
+            border-radius: var(--card-radius);
+            cursor: pointer;
+            font-family: var(--font-display);
+            font-size: var(--type-body);
+            font-weight: 600;
+            padding: 0.75rem 1.25rem;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .instructions-btn:hover {
+            background: rgba(232, 42, 55, 0.06);
+        }
+
+        .honeyfile-dialog {
+            width: min(600px, calc(100% - 2rem));
+            max-height: calc(100vh - 2rem);
+            margin: auto;
+            padding: 0;
+            border: none;
+            border-left: 4px solid var(--cs-red);
+            border-radius: var(--card-radius);
+            color: var(--cs-charcoal);
+            box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.3);
+        }
+
+        .honeyfile-dialog::backdrop {
+            background: rgba(28, 31, 35, 0.72);
+        }
+
+        .honeyfile-form {
+            padding: 1.5rem;
+        }
+
+        .honeyfile-form > .instructions-btn {
+            width: 100%;
+            margin-bottom: 1.25rem;
+        }
+
+        .field-tooltip {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1rem;
+            height: 1rem;
+            margin-left: 0.35rem;
+            border-radius: 50%;
+            background: var(--cs-charcoal);
+            color: var(--cs-white);
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: none;
+            letter-spacing: normal;
+            cursor: help;
+        }
+
+        .field-tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            left: 50%;
+            bottom: calc(100% + 0.6rem);
+            z-index: 10;
+            width: min(270px, 75vw);
+            padding: 0.65rem 0.75rem;
+            border-radius: var(--card-radius);
+            background: var(--cs-charcoal);
+            color: var(--cs-white);
+            font-size: var(--type-small);
+            font-weight: 400;
+            line-height: 1.4;
+            text-align: left;
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, 0.25rem);
+            transition: opacity 0.15s, transform 0.15s;
+        }
+
+        .field-tooltip:hover::after,
+        .field-tooltip:focus::after {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .modal-header h2 {
+            font-size: var(--type-h2);
+            line-height: 1.25;
+        }
+
+        .modal-close {
+            border: none;
+            background: transparent;
+            color: var(--cs-charcoal);
+            cursor: pointer;
+            font-size: 1.75rem;
+            line-height: 1;
+        }
+
+        .generator-output {
+            margin-top: 1.25rem;
+        }
+
+        .generator-output[hidden] {
+            display: none;
+        }
+
+        .generator-output pre {
+            min-height: 5rem;
+            margin: 0 0 0.75rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            margin-top: 1.25rem;
+        }
+
+        .copy-status {
+            min-height: 1.25rem;
+            color: var(--cs-teal);
+            font-size: var(--type-small);
+            font-weight: 600;
+        }
+
         /* ── Rules Grid ── */
         .rules-grid {
             display: grid;
@@ -581,6 +747,12 @@
             .reset-btn {
                 width: 100%;
             }
+            .generator-btn {
+                width: 100%;
+            }
+            .instructions-btn {
+                width: 100%;
+            }
             .search-row {
                 grid-template-columns: 1fr;
             }
@@ -668,12 +840,47 @@
             </div>
         </div>
 
+        <div class="generator-row">
+            <button class="generator-btn" type="button" id="open-honeyfile-generator">Generate Honey Pot</button>
+        </div>
+
         <div class="rules-grid" id="rules-container"></div>
         
         <div class="pagination">
             <button class="load-more-btn" id="load-more-btn" style="display: none;">Load More Rules</button>
         </div>
     </div>
+
+    <dialog class="honeyfile-dialog" id="honeyfile-dialog" aria-labelledby="honeyfile-dialog-title">
+        <form class="honeyfile-form" id="honeyfile-form">
+            <div class="modal-header">
+                <div>
+                    <p class="eyebrow">Rule generator</p>
+                    <h2 id="honeyfile-dialog-title">What is the name of the honey file?</h2>
+                </div>
+                <button class="modal-close" type="button" id="close-honeyfile-generator" aria-label="Close">&times;</button>
+            </div>
+            <a class="instructions-btn" href="https://outline.cybersift.io/s/engineering/doc/the-honey-file-has-been-triggered-a3L2CEoRsv" target="_blank" rel="noopener noreferrer">Please Read Instructions</a>
+            <div class="control-group">
+                <label for="honeyfile-name">Honey file name <span class="field-tooltip" tabindex="0" aria-label="Choose an attractive filename for a threat actor, such as Admin-Passwords-2026.xlsx or Executive-Payroll.pdf. Populate it with realistic false data and create the file using the exact filename entered here." data-tooltip="Choose an attractive filename for a threat actor, such as Admin-Passwords-2026.xlsx or Executive-Payroll.pdf. Populate it with realistic false data and create the file using the exact filename entered here.">?</span></label>
+                <input type="text" id="honeyfile-name" placeholder="e.g. Admin-Passwords-2026.xlsx" required autocomplete="off">
+            </div>
+            <div class="control-group">
+                <label for="agent-hostname">Agent Hostname <span class="field-tooltip" tabindex="0" aria-label="Ensure this hostname exactly matches the value shown in the SIEM agent.hostname field." data-tooltip="Ensure this hostname exactly matches the value shown in the SIEM agent.hostname field. Double-check capitalization and spelling.">?</span></label>
+                <input type="text" id="agent-hostname" placeholder="e.g. SRV-02-PROD" required autocomplete="off">
+            </div>
+            <div class="generator-output" id="honeyfile-output" hidden>
+                <label for="generated-rule">Generated rule</label>
+                <pre class="rule-expression" id="generated-rule" tabindex="0"></pre>
+                <div class="copy-status" id="copy-status" role="status" aria-live="polite"></div>
+            </div>
+            <div class="modal-actions">
+                <button class="reset-btn" type="button" id="cancel-honeyfile-generator">Cancel</button>
+                <button class="modal-primary-btn" type="submit" id="generate-honeyfile-rule">Generate rule</button>
+                <button class="modal-primary-btn" type="button" id="copy-honeyfile-rule" hidden>Copy rule</button>
+            </div>
+        </form>
+    </dialog>
 
     <footer>
         <div class="footer__inner">
@@ -762,6 +969,87 @@
                 const button = event.target.closest('.expression-toggle');
                 if (!button) return;
                 toggleExpression(button);
+            });
+            setupHoneyfileGenerator();
+        }
+
+        function setupHoneyfileGenerator() {
+            const dialog = document.getElementById('honeyfile-dialog');
+            const form = document.getElementById('honeyfile-form');
+            const nameInput = document.getElementById('honeyfile-name');
+            const hostnameInput = document.getElementById('agent-hostname');
+            const output = document.getElementById('honeyfile-output');
+            const generatedRule = document.getElementById('generated-rule');
+            const generateButton = document.getElementById('generate-honeyfile-rule');
+            const copyButton = document.getElementById('copy-honeyfile-rule');
+            const copyStatus = document.getElementById('copy-status');
+
+            const closeDialog = () => dialog.close();
+
+            document.getElementById('open-honeyfile-generator').addEventListener('click', () => {
+                form.reset();
+                output.hidden = true;
+                copyButton.hidden = true;
+                generateButton.hidden = false;
+                generatedRule.textContent = '';
+                copyStatus.textContent = '';
+                dialog.showModal();
+                nameInput.focus();
+            });
+
+            document.getElementById('close-honeyfile-generator').addEventListener('click', closeDialog);
+            document.getElementById('cancel-honeyfile-generator').addEventListener('click', closeDialog);
+            dialog.addEventListener('click', event => {
+                if (event.target === dialog) closeDialog();
+            });
+
+            form.addEventListener('submit', event => {
+                event.preventDefault();
+                const name = nameInput.value.trim();
+                const hostname = hostnameInput.value.trim();
+                if (!name) {
+                    nameInput.setCustomValidity('Enter a honey file name.');
+                    nameInput.reportValidity();
+                    return;
+                }
+                const validFilename = /^[^\\/:*?"<>|\r\n]+\.[^.\s\\/:*?"<>|]+$/.test(name);
+                if (!validFilename) {
+                    nameInput.setCustomValidity('Enter a complete file name with an extension, such as Admin-Passwords-2026.xlsx.');
+                    nameInput.reportValidity();
+                    return;
+                }
+                if (!hostname) {
+                    hostnameInput.setCustomValidity('Enter an agent hostname.');
+                    hostnameInput.reportValidity();
+                    return;
+                }
+
+                nameInput.setCustomValidity('');
+                hostnameInput.setCustomValidity('');
+                const safeName = name.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+                const safeHostname = hostname.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+                generatedRule.textContent = `((to_string(agent.hostname)=='${safeHostname}' && to_string(event.code)=='4663') && (contains(to_string(winlog.event_data.ObjectName), '${safeName}') && contains(to_string(winlog.cybersift.AccessList), 'ReadData'))) && !(to_string(winlog.event_data.ProcessName)=='C:\\\\Windows\\\\System32\\\\SearchProtocolHost.exe')`;
+                output.hidden = false;
+                generateButton.hidden = true;
+                copyButton.hidden = false;
+                copyStatus.textContent = '';
+            });
+
+            nameInput.addEventListener('input', () => nameInput.setCustomValidity(''));
+            hostnameInput.addEventListener('input', () => hostnameInput.setCustomValidity(''));
+
+            copyButton.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(generatedRule.textContent);
+                    copyStatus.textContent = 'Rule copied to clipboard.';
+                } catch (error) {
+                    const selection = window.getSelection();
+                    const range = document.createRange();
+                    range.selectNodeContents(generatedRule);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                    copyStatus.textContent = 'Rule selected. Press Ctrl+C to copy.';
+                }
             });
         }
 
@@ -946,4 +1234,3 @@
     </script>
 </body>
 </html>
-
