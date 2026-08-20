@@ -422,5 +422,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/c4f20c30-579b-4c43-8077-b70556bca2b6"
+  },
+  {
+    "title": "WDigest Credential Exposure via Registry Modification",
+    "expression": "(to_string(event.code) == '4657' && contains(to_string(winlog.event_data.ObjectName), '\\\\Control\\\\SecurityProviders\\\\WDigest') && to_string(winlog.event_data.ObjectValueName) == 'UseLogonCredential' && to_string(winlog.event_data.NewValueType) == '1') || (to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), '\\\\Control\\\\SecurityProviders\\\\WDigest') && contains(to_string(winlog.event_data.CommandLine), 'UseLogonCredential') && contains(to_string(winlog.event_data.CommandLine), ' 1 '))",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/823affab-daa2-43b5-8ec0-193dde774d83"
   }
 ]
