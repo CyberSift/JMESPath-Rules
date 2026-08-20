@@ -605,6 +605,17 @@
     "log_source": "o365"
   },
   {
+    "name": "O365 Potentially Malicious URL Click Detected",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.action)=='AlertEntityGenerated' && to_string(o365.audit.Name)=='A potentially malicious URL click was detected'",
+    "version": "1.0",
+    "path": "rules/detection/high/o365.json",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/o365-potentially-malicious-url-click-detected-A4f0jUxXob",
+    "log_source": "o365"
+  },
+  {
     "name": "Successful SonicWall VPN Authentication",
     "type": "detection",
     "severity": "high",
@@ -1383,6 +1394,39 @@
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
     "reference": "https://outline.cybersift.io/s/33f45911-f2f7-4c77-ad8b-2010cd660a5a",
+    "log_source": "windows"
+  },
+  {
+    "name": "Windows Certutil HTTP/HTTPS Download Activity",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), 'certutil.exe') || contains(to_string(winlog.event_data.CommandLine), 'certutil')) && (contains(to_string(winlog.event_data.CommandLine), '-urlcache') || contains(to_string(winlog.event_data.CommandLine), '-split')) && (contains(to_string(winlog.event_data.CommandLine), 'http:') || contains(to_string(winlog.event_data.CommandLine), 'https:'))",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/cf440146-54ca-4839-97c1-d1661f0bd016",
+    "log_source": "windows"
+  },
+  {
+    "name": "Pcalua WebDAV Hidden Process Creation",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), '\\\\pcalua.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\pcalua.exe')) && contains(to_string(winlog.event_data.CommandLine), 'Win32_Process') && contains(to_string(winlog.event_data.CommandLine), 'ShowWindow=0') && contains(to_string(winlog.event_data.CommandLine), '@SSL')",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/c4f20c30-579b-4c43-8077-b70556bca2b6",
+    "log_source": "windows"
+  },
+  {
+    "name": "WDigest Credential Exposure via Registry Modification",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "(to_string(event.code) == '4657' && contains(to_string(winlog.event_data.ObjectName), '\\\\Control\\\\SecurityProviders\\\\WDigest') && to_string(winlog.event_data.ObjectValueName) == 'UseLogonCredential' && to_string(winlog.event_data.NewValueType) == '1') || (to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), '\\\\Control\\\\SecurityProviders\\\\WDigest') && contains(to_string(winlog.event_data.CommandLine), 'UseLogonCredential') && contains(to_string(winlog.event_data.CommandLine), ' 1 '))",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/823affab-daa2-43b5-8ec0-193dde774d83",
     "log_source": "windows"
   },
   {
