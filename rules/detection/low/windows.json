@@ -5,5 +5,12 @@
     "severity": "low",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/engineering/doc/failure-interactive-logon-from-public-ip-NVzpN0ewZD"
+  },
+  {
+    "title": "New Windows Account Created",
+    "expression": "to_string(event.code)=='4720'",
+    "severity": "low",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/efef2d64-72f7-446b-8f66-06508e2ad13c"
   }
 ]
