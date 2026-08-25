@@ -103,5 +103,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/9a379c17-f05e-4999-915e-d841301e6935"
+  },
+  {
+    "title": "Linux Telegram API Request",
+    "expression": "(process.name == 'curl' || process.name == 'wget' || process.name == 'python' || process.name == 'python3' || process.name == 'powershell' || process.name == 'pwsh' || process.name == 'php' || process.name == 'node') && contains(to_string(process.title), 'api.telegram.org')",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/42648d7c-34e8-46db-92f0-b9ee68f41864"
   }
 ]
