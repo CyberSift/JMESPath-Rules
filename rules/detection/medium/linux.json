@@ -26,5 +26,12 @@
     "severity": "medium",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/acca7af8-20fa-4bd9-9d6e-f93daf8784e0"
+  },
+  {
+    "title": "Suspicious JSP File Creation or Modification in Web-Accessible Directory",
+    "expression": "(to_string(event.action) == 'created' || to_string(event.action) == 'modified' || to_string(event.action) == 'renamed') && ends_with(to_string(file.path), '.jsp') && (contains(to_string(file.path), 'tmp') || contains(to_string(file.path), 'upload') || contains(to_string(file.path), 'uploads') || contains(to_string(file.path), 'files') || contains(to_string(file.path), 'images') || contains(to_string(file.path), 'public'))",
+    "severity": "medium",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/00bc6aec-b966-4d67-973f-aebd8028226f"
   }
 ]
