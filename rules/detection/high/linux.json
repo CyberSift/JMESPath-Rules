@@ -110,5 +110,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/42648d7c-34e8-46db-92f0-b9ee68f41864"
+  },
+  {
+    "title": "Attempt to Clear Kernel Ring Buffer",
+    "expression": "process.name=='dmesg' && (contains(to_string(process.args),'-c') || contains(to_string(process.args),'-C') || contains(to_string(process.args),'--read-clear') || contains(to_string(process.args),'--clear'))",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/eebd9297-8de4-467b-914f-8ad147fcc5c9"
   }
 ]
