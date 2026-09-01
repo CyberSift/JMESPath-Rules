@@ -418,6 +418,28 @@
     "log_source": "auditbeat"
   },
   {
+    "name": "Linux Telegram API Request",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "(process.name == 'curl' || process.name == 'wget' || process.name == 'python' || process.name == 'python3' || process.name == 'powershell' || process.name == 'pwsh' || process.name == 'php' || process.name == 'node') && contains(to_string(process.title), 'api.telegram.org')",
+    "version": "1.0",
+    "path": "rules/detection/high/linux.json",
+    "reference": "https://outline.cybersift.io/s/42648d7c-34e8-46db-92f0-b9ee68f41864",
+    "log_source": "auditbeat"
+  },
+  {
+    "name": "Attempt to Clear Kernel Ring Buffer",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "process.name=='dmesg' && (contains(to_string(process.args),'-c') || contains(to_string(process.args),'-C') || contains(to_string(process.args),'--read-clear') || contains(to_string(process.args),'--clear'))",
+    "version": "1.0",
+    "path": "rules/detection/high/linux.json",
+    "reference": "https://outline.cybersift.io/s/eebd9297-8de4-467b-914f-8ad147fcc5c9",
+    "log_source": "auditbeat"
+  },
+  {
     "name": "NetScaler ADC - Administrative User, Group, or Command Policy Modified",
     "type": "detection",
     "severity": "high",
@@ -1801,6 +1823,17 @@
     "version": "1.0",
     "path": "rules/detection/medium/linux.json",
     "reference": "https://outline.cybersift.io/s/acca7af8-20fa-4bd9-9d6e-f93daf8784e0",
+    "log_source": "auditbeat"
+  },
+  {
+    "name": "Suspicious JSP File Creation or Modification in Web-Accessible Directory",
+    "type": "detection",
+    "severity": "medium",
+    "description": "",
+    "expression": "(to_string(event.action) == 'created' || to_string(event.action) == 'modified' || to_string(event.action) == 'renamed') && ends_with(to_string(file.path), '.jsp') && (contains(to_string(file.path), 'tmp') || contains(to_string(file.path), 'upload') || contains(to_string(file.path), 'uploads') || contains(to_string(file.path), 'files') || contains(to_string(file.path), 'images') || contains(to_string(file.path), 'public'))",
+    "version": "1.0",
+    "path": "rules/detection/medium/linux.json",
+    "reference": "https://outline.cybersift.io/s/00bc6aec-b966-4d67-973f-aebd8028226f",
     "log_source": "auditbeat"
   },
   {
