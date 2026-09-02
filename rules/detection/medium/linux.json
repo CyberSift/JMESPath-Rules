@@ -33,5 +33,12 @@
     "severity": "medium",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/00bc6aec-b966-4d67-973f-aebd8028226f"
+  },
+  {
+    "title": "Direct Modification or Overwrite of Sensitive Authentication Files",
+    "expression": "contains(to_string(process.title), '>/etc/passwd') || contains(to_string(process.title), '> /etc/passwd') || contains(to_string(process.title), '>/etc/shadow') || contains(to_string(process.title), '> /etc/shadow') || (contains(to_string(process.title), 'tee ') && (contains(to_string(process.title), '/etc/passwd') || contains(to_string(process.title), '/etc/shadow'))) || (contains(to_string(process.title), 'dd ') && contains(to_string(process.title), 'of=') && (contains(to_string(process.title), '/etc/passwd') || contains(to_string(process.title), '/etc/shadow'))) || (contains(to_string(process.title), 'curl ') && contains(to_string(process.title), '-o') && (contains(to_string(process.title), '/etc/passwd') || contains(to_string(process.title), '/etc/shadow'))) || (contains(to_string(process.title), 'wget ') && contains(to_string(process.title), '-O') && (contains(to_string(process.title), '/etc/passwd') || contains(to_string(process.title), '/etc/shadow'))) || (contains(to_string(process.title), 'sed ') && contains(to_string(process.title), '-i') && (contains(to_string(process.title), '/etc/passwd') || contains(to_string(process.title), '/etc/shadow'))) || (contains(to_string(process.title), 'cp ') && (contains(to_string(process.title), '/etc/passwd') || contains(to_string(process.title), '/etc/shadow'))) || (contains(to_string(process.title), 'mv ') && (contains(to_string(process.title), '/etc/passwd') || contains(to_string(process.title), '/etc/shadow')))",
+    "severity": "medium",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/a555270e-ae07-40cc-8f76-70a5bb7ff4c6"
   }
 ]
