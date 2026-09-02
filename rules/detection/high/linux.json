@@ -117,5 +117,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/eebd9297-8de4-467b-914f-8ad147fcc5c9"
+  },
+  {
+    "title": "Potential Disabling of SELinux",
+    "expression": "process.name == 'setenforce' && contains(to_string(process.args),'0')",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/de3f933f-eef7-4836-ab34-b20ebb276b8d"
   }
 ]
