@@ -411,7 +411,7 @@
   },
   {
     "title": "Windows Certutil HTTP/HTTPS Download Activity",
-    "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), 'certutil.exe') || contains(to_string(winlog.event_data.CommandLine), 'certutil')) && (contains(to_string(winlog.event_data.CommandLine), '-urlcache') || contains(to_string(winlog.event_data.CommandLine), '-split')) && (contains(to_string(winlog.event_data.CommandLine), 'http:') || contains(to_string(winlog.event_data.CommandLine), 'https:'))",
+    "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), 'certutil.exe') || contains(to_string(winlog.event_data.CommandLine), 'certutil')) && (contains(to_string(winlog.event_data.CommandLine), '-urlcache') || contains(to_string(winlog.event_data.CommandLine), '-split') || contains(to_string(winlog.event_data.CommandLine), '-decode')) && (contains(to_string(winlog.event_data.CommandLine), 'http:') || contains(to_string(winlog.event_data.CommandLine), 'https:'))",
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/cf440146-54ca-4839-97c1-d1661f0bd016"
