@@ -40,5 +40,12 @@
     "severity": "medium",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/a555270e-ae07-40cc-8f76-70a5bb7ff4c6"
+  },
+  {
+    "title": "Linux Process Hooking via GDB",
+    "expression": "contains(to_string(process.title), '-p') || contains(to_string(process.title), '--pid') && (process.name == 'gdb' || (contains(to_string(process.executable), '/gdb') && !contains(to_string(process.executable), 'gdbus') && !contains(to_string(process.executable), 'gdbserver')))",
+    "severity": "medium",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/4d3f2fdb-843f-4889-98fc-2e0a679dd202"
   }
 ]
