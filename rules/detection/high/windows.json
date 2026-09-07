@@ -3,271 +3,316 @@
     "title": "Non-existent wordlist user login",
     "expression": "to_string(event.code) == '4625' && winlog.event_data.SubStatus=='0xc0000064' && contains(['ftpuser', 'backup', 'operator', 'superuser'], winlog.cybersift.TargetUserNameNormalized)",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/non-existent-wordlist-user-login-mTXiSccF6g"
   },
   {
     "title": "Well known credential dumping tool use",
     "expression": "to_string(event.code) == '4697' && (contains(winlog.event_data.ServiceFileName, 'cachedump')|| contains(winlog.event_data.ServiceFileName, 'dumpsvc')|| contains(winlog.event_data.ServiceFileName, 'fgexec')|| contains(winlog.event_data.ServiceFileName, 'gsecdump')|| contains(winlog.event_data.ServiceFileName, 'mimidrv')|| contains(winlog.event_data.ServiceFileName, 'pwdump')|| contains(winlog.event_data.ServiceFileName, 'servpw'))",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/well-known-credential-dumping-tool-use-Of5inuQb87"
   },
   {
     "title": "NULL SID Login",
     "expression": "contains(Abnormalities || '', 'AbnormalLogin_NULLSID')",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/null-sid-login-XleoLnxQeB"
   },
   {
     "title": "Abnormal Login Source Workstation by High Privilege User",
     "expression": "contains(Abnormalities || '', 'AbnormalLoginSource_Workstation_High_Privilege_User')",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/abnormal-login-source-workstation-by-high-privilege-user-KncbPAiqOx"
   },
   {
     "title": "Administrator Login - direct administrator logins should be disabled",
     "expression": "(to_string(event.code) == '4624'|| to_string(event.code) == '4625') && contains(['2', '10'], winlog.event_data.LogonType) && winlog.event_data.TargetUserNameNormalized=='administrator'",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/administrator-login-direct-administrator-logins-should-be-disabled-4D5KPFC5sO"
   },
   {
     "title": "PowerShell Remote Code Execution via Web Clients",
     "expression": "(contains(to_string(winlog.event_data.ParentProcessName), 'powershell.exe') || contains(to_string(winlog.event_data.NewProcessName), 'powershell.exe') || contains(to_string(winlog.event_data.ProcessName), 'powershell.exe') || contains(to_string(winlog.event_data.CommandLine), 'powershell')) && (contains(to_string(winlog.event_data.CommandLine), 'IEX') || contains(to_string(winlog.event_data.CommandLine), 'iex') || contains(to_string(winlog.event_data.CommandLine), 'Invoke-WebRequest') || contains(to_string(winlog.event_data.CommandLine), 'DownloadString') || contains(to_string(winlog.event_data.CommandLine), 'curl') || contains(to_string(winlog.event_data.CommandLine), 'wget') || contains(to_string(winlog.event_data.CommandLine), 'certutil') || contains(to_string(winlog.event_data.CommandLine), 'Net.WebClient'))",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/powershell-remote-code-execution-via-web-clients-dFG6Gl5vlI"
   },
   {
     "title": "Suspicious Scheduled Task Creation",
     "expression": "to_string(event.code) == '4698' && (contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'cmd.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'wscript.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'rundll32.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'regsvr32.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'wmic.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'mshta.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'powershell.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'bitsadmin.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'wget.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'cscript.exe') || contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Command), 'certutil.exe')) && !contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Arguments), '%windir%\\\\system32') && !contains(to_string(winlog.cybersift.TaskContent.Task.Actions.Exec.Arguments), '%systemroot%\\\\system32\\\\hpatchmonTask.cmd')",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-scheduled-task-creation-9T0UkCtLgU"
   },
   {
     "title": "Persistence via Run Keys",
     "expression": "to_string(event.code) == '4657' && (contains(to_string(winlog.event_data.ProcessName), 'powershell.exe') || contains(to_string(winlog.event_data.ProcessName), 'mshta.exe') || contains(to_string(winlog.event_data.ProcessName), 'wscript.exe')) && contains(to_string(winlog.event_data.ObjectName), 'Run')",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/persistence-via-run-keys-ArG2BfVabU"
   },
   {
     "title": "Enumeration of Privileged Domain Groups",
     "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), 'net.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'net1.exe')) && (contains(to_string(winlog.event_data.CommandLine), 'Admins') || contains(to_string(winlog.event_data.CommandLine), 'admins'))",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/enumeration-of-privileged-domain-groups-0rNh9DduGs"
   },
   {
     "title": "Windows Defender Bypass via PowerShell",
     "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.NewProcessName), 'powershell.exe') && (contains(to_string(winlog.event_data.CommandLine), 'Add-MpPreference') || contains(to_string(winlog.event_data.CommandLine), 'Set-MpPreference'))",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/windows-defender-bypass-via-powershell-h8Mh0aklnN"
   },
   {
     "title": "Suspicious Execution in User Writable Paths",
     "expression": "to_string(event.code) == '4663' && winlog.event_data.AccessMask == '0x20' && (contains(to_string(winlog.event_data.ObjectName), 'AppData\\Local\\Temp') || contains(to_string(winlog.event_data.ObjectName), 'AppData\\Roaming') || contains(to_string(winlog.event_data.ObjectName), 'Users\\Public')) && !ends_with(to_string(winlog.event_data.ObjectName), 'RunWallpaperSetupInit.cmd') && !ends_with(to_string(winlog.event_data.ProcessName), 'DismHost.exe') && !ends_with(to_string(winlog.event_data.ObjectName), 'DismHost.exe')",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-execution-in-user-writable-paths-RV6qJ1s5M3"
   },
   {
     "title": "Resource-Based Constrained Delegation Abuse",
     "expression": "to_string(event.code) == '5136' && winlog.event_data.AttributeLDAPDisplayName == 'msDS-AllowedToActOnBehalfOfOtherIdentity'",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/resource-based-constrained-delegation-abuse-1te2Le0U1M"
   },
   {
     "title": "Unusual Kerberos TicketOptions",
     "expression": "(to_string(event.code) == '4771' || to_string(event.code) == '4768' || to_string(event.code) == '4769') && (to_string(winlog.event_data.TicketOptions) == '0x50800000' || to_string(winlog.event_data.TicketOptions) == '0x40830000') && !(to_string(winlog.event_data.TicketEncryptionType)=='0xffffffff' && to_string(winlog.event_data.Status)=='0x20')",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/unusual-kerberos-ticketoptions-dCQL1btPJj"
   },
   {
     "title": "SAM Privilege Usage",
     "expression": "to_string(event.code) == '4673' && winlog.event_data.PrivilegeList == 'SeMachineAccountPrivilege' && winlog.event_data.Service == 'Security Account Manager'",
     "severity": "high",
     "type": "windows"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/sam-privilege-usage-ZUU7m11PlC"
   },
   {
     "title": "Odbcconf Abuse for DLL or RSP Execution",
     "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.ParentProcessName), 'odbcconf.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'odbcconf.exe')) && (contains(to_string(winlog.event_data.CommandLine), '.dll') || contains(to_string(winlog.event_data.CommandLine), '.rsp') || contains(to_string(winlog.event_data.CommandLine), 'REGSVR'))",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/odbcconf-abuse-for-dll-or-rsp-execution-ui6BAqs8Wd"
   },
   {
     "title": "userCertificate Modifications by SYSTEM",
     "expression": "to_string(event.code) == '5136' && winlog.event_data.AttributeLDAPDisplayName=='userCertificate' && winlog.cybersift.SubjectUserType=='user' && winlog.cybersift.SubjectUserNameNormalized=='system'",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/usercertificate-modifications-by-system-nGd9dPJOmv"
   },
   {
     "title": "Kerberos TGS Request RC4 Encryption",
     "expression": "to_string(event.code) == '4769' && winlog.event_data.TargetUserType == 'user' && winlog.event_data.SessionKeyEncryptionType == '0x17'",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/kerberos-tgs-request-rc4-encryption-sTDKEX7BUM"
   },
   {
     "title": "Potential Kerberos Delegation or Coerced Authentication Detected",
     "expression": "to_string(event.code) == '4769' && winlog.event_data.TransmittedServices != null && to_string(winlog.event_data.TransmittedServices) != '-'",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/potential-kerberos-delegation-or-coerced-authentication-detected-zoxrorIBHx"
   },
   {
     "title": "User Account Created with Password Not Required",
     "expression": "to_string(event.code) == '4741' && winlog.event_data.NewUacValue == '0x84'",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/user-account-created-with-password-not-required-ragDX6rKXa"
   },
   {
     "title": "WSUS RCE Process Spawn",
     "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.ParentProcessName),'w3wp.exe') || ends_with(to_string(winlog.event_data.ParentProcessName),'wsusservice.exe')) && (ends_with(to_string(winlog.event_data.NewProcessName),'cmd.exe') || ends_with(to_string(winlog.event_data.NewProcessName),'powershell.exe'))",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/wsus-rce-process-spawn-eSOw85ftEz"
   },
   {
     "title": "Kerberos Constrained Delegation Configured",
     "expression": "winlog.event_data.AllowedToDelegateTo != null && to_string(winlog.event_data.AllowedToDelegateTo) != '-'",
     "severity": "high",
     "type": "windows"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/kerberos-constrained-delegation-configured-vSxjvlhIit"
   },
   {
     "title": "C$ Share Access by Administrator Account",
     "expression": "(to_string(event.code) == '5140' || to_string(event.code) == '5145') && to_string(winlog.event_data.ShareName) == '\\\\*\\C$' && winlog.cybersift.SubjectUserNameNormalized == 'administrator' && to_string(winlog.event_data.IpAddress) != '::1'",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/c-share-access-by-administrator-account-X5GIJvXlbw"
   },
   {
     "title": "Access to Administrative Script Shares",
     "expression": "to_string(event.code) == '5140' && (ends_with(to_string(winlog.event_data.ShareName), 'env_variables_oracle_permission_script') || ends_with(to_string(winlog.event_data.ShareName), 'Tasks') || ends_with(to_string(winlog.event_data.ShareName), 'GPO Installations') || ends_with(to_string(winlog.event_data.ShareName), 'scripts'))",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/access-to-administrative-script-shares-XjR6i8YUX7"
   },
   {
     "title": "Unusual RPC Access to Sensitive Shares via SMB",
     "expression": "to_string(event.code) == '5145' && ends_with(to_string(winlog.event_data.ShareName), 'IPC$') && (to_string(winlog.event_data.RelativeTargetName) == 'DAV RPC Service' || to_string(winlog.event_data.RelativeTargetName) == 'svcctl' || to_string(winlog.event_data.RelativeTargetName) == 'cert' || to_string(winlog.event_data.RelativeTargetName) == 'lsass')",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/unusual-rpc-access-to-sensitive-shares-via-smb-aAsA13i3jQ"
   },
   {
     "title": "GPO Access by Non-Admin User",
     "expression": "to_string(event.code) == '4662' && winlog.cybersift.SubjectUserType == 'user' && winlog.event_data.ObjectServer == 'DS' && winlog.cybersift.KerberosObjectType == 'c-grouppolicycontainer'",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/gpo-access-by-non-admin-user-0B9qMf4g7j"
   },
   {
     "title": "PowerShell Suspicious Download and Extraction",
     "expression": "to_string(event.code) == '4104' && (contains(to_string(winlog.event_data.ScriptBlockText), 'certutil') || contains(to_string(winlog.event_data.ScriptBlockText), 'curl') || contains(to_string(winlog.event_data.ScriptBlockText), 'wget') || contains(to_string(winlog.event_data.ScriptBlockText), 'bitsadmin') || contains(to_string(winlog.event_data.ScriptBlockText), 'Start-BitsTransfer') || contains(to_string(winlog.event_data.ScriptBlockText), 'DownloadFile') || contains(to_string(winlog.event_data.ScriptBlockText), 'Invoke-WebRequest') || contains(to_string(winlog.event_data.ScriptBlockText), 'iwr')) && (contains(to_string(winlog.event_data.ScriptBlockText), 'Expand-Archive') || contains(to_string(winlog.event_data.ScriptBlockText), 'expand-archive'))",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/powershell-suspicious-download-or-extraction-s0r8lZOhIg"
   },
   {
     "title": "AutoIt3 Execution",
     "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), 'AutoIt3.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), 'AutoIt3.exe') || contains(to_string(winlog.event_data.CommandLine), '.au3') || contains(to_string(winlog.event_data.CommandLine), 'autoit'))",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/autoit3-execution-vNRAxEJyZS"
   },
   {
     "title": "Windows Security Audit Policy Tampering",
     "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'auditpol.exe') && winlog.event_data.SubjectUserSid != 'S-1-5-18'",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/windows-security-audit-policy-tampering-m5pqwz5AUA"
   },
   {
     "title": "Service Creation In Users Public Directory",
     "expression": "to_string(event.code) == '4697' && contains(to_string(winlog.event_data.ServiceFileName), 'Public')",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/service-creation-in-users-public-directory-Hrj59NZVmj"
   },
   {
     "title": "Suspicious Screenshots captures via PowerShell script",
     "expression": "to_string(event.code) == '4104' && (contains(to_string(winlog.event_data.ScriptBlockText), 'CopyFromScreen') && (contains(to_string(winlog.event_data.ScriptBlockText), 'System.Drawing.Bitmap') || contains(to_string(winlog.event_data.ScriptBlockText), 'Drawing.Bitmap')))",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-screenshots-captures-via-powershell-script-L2XyFlwuy5"
   },
   {
     "title": "Suspicious Access to Confidential AD Attributes",
     "expression": "to_string(event.code) == '4662' && winlog.cybersift.SubjectUserType == 'user' && contains(to_string(winlog.cybersift.KerberosRequestedAccessList), 'a-unixuserpassword') && contains(to_string(winlog.cybersift.KerberosRequestedAccessList), 'c-user') && !contains(to_string(winlog.cybersift.KerberosRequestedAccessList), 'a-mspkiroamingtimestamp') && (to_string(winlog.event_data.AccessMask) == '0x100' || to_string(winlog.event_data.AccessMask) == '0x40000')",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-access-to-confidential-ad-attributes-ndP4DWStOs"
   },
   {
     "title": "Persistence via Startup folder",
     "expression": "to_string(event.code) == '4663' && contains(to_string(winlog.event_data.ObjectName), '\\\\Programs\\\\Startup\\\\') && (contains(to_string(winlog.cybersift.AccessList), 'WriteData') || contains(to_string(winlog.cybersift.AccessList), 'AppendData')) && !ends_with(to_string(winlog.event_data.ObjectName), 'desktop.ini') && !ends_with(to_string(winlog.event_data.ObjectName), 'RunWallpaperSetup.cmd') && !ends_with(to_string(winlog.event_data.ObjectName), '}.tmp')",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/persistence-via-startup-folder-ZcMZNqHtap"
   },
   {
     "title": "PsExec Remote Service Execution",
     "expression": "(to_string(event.code) == '7045' && winlog.event_data.ServiceName == 'PSEXESVC') || (to_string(event.code) == '4657' && contains(to_string(winlog.event_data.ObjectName), 'PsExec')) || (to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName), 'PSEXESVC.exe')) || (to_string(event.code) == '5145' && ends_with(to_string(winlog.event_data.ShareName), 'IPC$') && (contains(to_string(winlog.event_data.RelativeTargetName), 'stdin') || contains(to_string(winlog.event_data.RelativeTargetName), 'stderr') || contains(to_string(winlog.event_data.RelativeTargetName), 'stdout')))",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/psexec-remote-service-execution-iBjeUcchYR"
   },
   {
     "title": "NotepadPP GUP Suspicious ChildProcesses",
     "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName),'GUP.exe') && winlog.event_data.NewProcessName!='C:\\\\Windows\\\\explorer.exe' && winlog.event_data.NewProcessName!='C:\\\\Program Files\\\\Notepad++\\\\updater\\\\GUP.exe'",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/notepadpp-gup-suspicious-childprocesses-LB76vLbygk"
   },
   {
     "title": "DPAPI Domain Backup Key Extraction",
     "expression": "to_string(event.code) == '4662' && winlog.event_data.ObjectType == 'SecretObject' && contains(to_string(winlog.event_data.ObjectName), 'BCKUPKEY') && to_string(winlog.event_data.AccessMask) == '0x2'",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/dpapi-domain-backup-key-extraction-c4SXIxMyw1"
   },
   { 
     "title": "NewCredentials Logon Using Secondary Logon",
     "expression": "to_string(event.code) == '4624' && to_string(winlog.event_data.LogonType) == '9' && contains(to_string(winlog.event_data.LogonProcessName), 'seclogo')",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/newcredentials-logon-using-secondary-logon-QbWkTWUSGf"
   },
   {
     "title": "Windows Process Execution with Double File Extension",
     "expression": "to_string(event.code) == '4688' && (contains(to_string(winlog.event_data.NewProcessName), '.pdf.') || contains(to_string(winlog.event_data.NewProcessName), '.doc.') || contains(to_string(winlog.event_data.NewProcessName), '.docx.') || contains(to_string(winlog.event_data.NewProcessName), '.xls.') || contains(to_string(winlog.event_data.NewProcessName), '.xlsx.') || contains(to_string(winlog.event_data.NewProcessName), '.ppt.') || contains(to_string(winlog.event_data.NewProcessName), '.pptx.') || contains(to_string(winlog.event_data.NewProcessName), '.jpg.') || contains(to_string(winlog.event_data.NewProcessName), '.txt.')) && (ends_with(to_string(winlog.event_data.NewProcessName), '.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '.scr') || ends_with(to_string(winlog.event_data.NewProcessName), '.hta') || ends_with(to_string(winlog.event_data.NewProcessName), '.js') || ends_with(to_string(winlog.event_data.NewProcessName), '.vbs') || ends_with(to_string(winlog.event_data.NewProcessName), '.ps1') || ends_with(to_string(winlog.event_data.NewProcessName), '.lnk') || ends_with(to_string(winlog.event_data.NewProcessName), '.wsf'))",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/windows-process-execution-with-double-file-extension-rSs7UFGShS"
   },
   {
     "title": "Potential Defense Evasion: Audit Log Cleared",
     "expression": "winlog.channel == 'Security' && event.provider == 'Microsoft-Windows-Eventlog' && (to_string(event.code) == '1102' || messageTitle == 'The audit log was cleared.')",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/potential-defense-evasion-audit-log-cleared-ZxlOz3Gb9q"
   },
   {
     "title": "Svchost Masquerading",
     "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'svchost.exe') && winlog.event_data.NewProcessName != 'C:\\\\Windows\\\\System32\\\\svchost.exe' && winlog.event_data.NewProcessName != 'C:\\\\Windows\\\\SysWOW64\\\\svchost.exe'",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/svchost-masquerading-GpCR5ft7J8"
   },
   {
     "title": "Remote Execution via WinRM",
     "expression": "(to_string(event.code) == '4624' && to_string(winlog.event_data.LogonType) == '3' && ends_with(to_string(winlog.event_data.ProcessName), 'powershell.exe')) || (to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName), 'WSMProvHost.exe') && (ends_with(to_string(winlog.event_data.NewProcessName), 'powershell.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'cmd.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'rundll32.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'wscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'cscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'mshta.exe')))",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/remote-execution-via-winrm-7R004TS2VH"
   },
   {
     "title": "Directory Services Restore Mode (DSRM) - Password Update Attempt",
     "expression": "to_string(event.code) == '4794'",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/directory-services-restore-mode-dsrm-password-update-attempt-RQeaWb62iP"
   },
   {
     "title": "Suspicious Run Dialog Execution",
     "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\explorer.exe') && (ends_with(to_string(winlog.event_data.NewProcessName), '\\\\wscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\cscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\net.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\net1.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\schtasks.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\mshta.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\forfiles.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\wmic.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\msbuild.exe'))",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-run-dialog-execution-otMh3FuETF"
   },
   {
     "title": "Suspicious RMM Execution",
     "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), '\\\\QuickAssist.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\AnyDesk.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\TeamViewer.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\ScreenConnect.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\LogMeIn.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\Client32.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\RmmService.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\Atera.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\AteraAgent.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\PDQConnectAgent.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\Remote Access.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\RemCmdStub.exe')) && !starts_with(to_string(winlog.event_data.NewProcessName), 'C:\\\\Program Files')",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-rmm-execution-eLZGS22c1R"
   },
   {
     "title": "Privileged Group Membership Addition",
     "expression": "(to_string(event.code) == '4728' || to_string(event.code) == '4756') && (winlog.cybersift.AddedToGroup == 'Enterprise Admins' || winlog.cybersift.AddedToGroup == 'Domain Admins' || winlog.cybersift.AddedToGroup == 'Administrators')",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/privileged-group-membership-addition-JIkcgnOCb9"
   },
   {
     "title": "Admin Group Membership Removal - Possible Evasion",
     "expression": "to_string(event.code) == '4729' && (winlog.cybersift.AddedToGroup == 'Enterprise Admins' || winlog.cybersift.AddedToGroup == 'Domain Admins' || winlog.cybersift.AddedToGroup == 'Administrators')",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/admin-group-membership-removal-possible-evasion-gWGb2A9FJF"
   },
   {
     "title": "Suspicious VBS wscript",
