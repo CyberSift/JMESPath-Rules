@@ -3,12 +3,14 @@
     "title": "Local Administrator Activity",
     "expression": "contains([`4624`, `4625`, `4648`, `4776`, `4688`], winlog.cybersift.\"event.code\") && winlog.event_data.TargetUserName=='Administrator'",
     "severity": "info",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/local-administrator-activity-21zpZFqkuY"
   },
   {
     "title": "NTLM V1 Detected",
     "expression": "to_string(event.code) == '4624' && winlog.event_data.LmPackageName == 'NTLM V1' && original.winlog.event_data.TargetUserNameNormalized != 'anonymous logon'",
     "severity": "info",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/ntlm-v1-detected-plS0y5OtoS"
   }
 ]
