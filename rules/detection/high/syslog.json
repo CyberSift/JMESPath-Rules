@@ -3,24 +3,28 @@
     "title": "SSH to or from known threat public IP",
     "expression": "DestinationPort=='22' && denied_flow==`false` && \"cybersift.threat_info\".knownThreat==`true` && DestinationAddress!='0.0.0.0'",
     "severity": "high",
-    "type": "syslog"
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/ssh-to-or-from-known-threat-public-ip-cgz7TZ63Ub"
   },
   {
     "title": "RDP to or from known threat public IP",
     "expression": "DestinationPort=='3389' && denied_flow==`false` && \"cybersift.threat_info\".knownThreat==`true` && DestinationAddress!='0.0.0.0'",
     "severity": "high",
-    "type": "syslog"
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/rdp-to-or-from-known-threat-public-ip-5ecetuxtEP"
   },
   {
     "title": "SMB to or from known threat public IP",
     "expression": "DestinationPort=='445' && denied_flow==`false` && \"cybersift.threat_info\".knownThreat==`true` && DestinationAddress!='0.0.0.0'",
     "severity": "high",
     "type": "syslog"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/smb-to-or-from-known-threat-public-ip-4aE9wLFodz"
   },
   {
     "title": "WinRM Connections Detection",
     "expression": "to_string(DestinationPort) == '5985' && denied_flow == 'false'",
     "severity": "high",
     "type": "syslog"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/winrm-connections-detection-RBQowMPbjc"
   }
 ]
