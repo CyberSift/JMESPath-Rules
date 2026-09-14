@@ -17,12 +17,14 @@
     "title": "FortiGate Admin Account Creation",
     "expression": "cybersift.parser.vendor == 'Fortigate' && type == 'event' && subtype == 'system' && contains(to_string(msg), 'Add system.admin')",
     "severity": "high",
-    "type": "syslog"
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/fortigate-admin-account-creation-HKgA4EUie7"
   },
   {
     "title": "FortiGate Suspicious SSO or Config Download",
     "expression": "cybersift.parser.vendor == 'Fortigate' && type == 'event' && subtype == 'system' && (contains(to_string(msg), 'sso') || contains(to_string(msg), 'downloaded'))",
     "severity": "high",
-    "type": "syslog"
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/fortigate-suspicious-sso-or-config-download-XGRKn7Lm2n"
   }
 ]
