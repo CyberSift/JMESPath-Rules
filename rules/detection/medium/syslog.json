@@ -3,13 +3,15 @@
     "title": "Potential Data Leak - Dropbox Usage",
     "expression": "\"ASN Description\"=='DROPBOX'",
     "severity": "medium",
-    "type": "syslog"
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/potential-data-leak-dropbox-usage-C12ZBkq0KB"
   },
   {
     "title": "SMB to public IP",
     "expression": "DestinationPort=='445' && isSourceInternal=='true' && isDestinationInternal=='false' && denied_flow==`false` && DestinationAddress!='0.0.0.0'",
     "severity": "medium",
-    "type": "syslog"
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/smb-to-public-ip-vtRRX9ef4B"
   },
   {
     "title": "Threat Intel: Filtered MISP Feed Hit",
