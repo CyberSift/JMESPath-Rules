@@ -3,55 +3,64 @@
     "title": "O365 Suspicious Inbox Rule Created or Modified (MarkAsRead)",
     "expression": "contains(['New-InboxRule', 'Set-InboxRule'], o365.audit.Operation) && to_string(o365.audit.Parameters.MarkAsRead)=='True'",
     "severity": "high",
-    "type": "o365"
+    "type": "o365",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/o365-suspicious-inbox-rule-created-or-modified-markasread-IW23tzM8ln"
   },
   {
     "title": "O365 Suspicious Inbox Rule Created or Modified (Suspicious Folder)",
     "expression": "contains(['New-InboxRule', 'Set-InboxRule'], o365.audit.Operation) && (contains(to_string(o365.audit.Parameters.MoveToFolder), 'RSS') || contains(to_string(o365.audit.Parameters.MoveToFolder), 'Archive') || contains(to_string(o365.audit.Parameters.MoveToFolder), 'Junk Email') || contains(to_string(o365.audit.Parameters.MoveToFolder), 'Conversation History'))",
     "severity": "high",
-    "type": "o365"
+    "type": "o365",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/o365-suspicious-inbox-rule-created-or-modified-suspicious-folder-rJhgaiQzaO"
   },
   {
     "title": "O365 Mailbox Audit Logging Bypass",
     "expression": "event.dataset == 'o365.audit' && event.provider == 'Exchange' && event.action == 'Set-MailboxAuditBypassAssociation' && event.outcome == 'success'",
     "severity": "high",
-    "type": "o365"
+    "type": "o365",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/o365-mailbox-audit-logging-bypass-2apXzzCNJ9"
   },
   {
     "title": "O365 Exchange Transport Rule Creation",
     "expression": "event.dataset == 'o365.audit' && event.provider == 'Exchange' && event.category == 'web' && (event.action == 'New-TransportRule' || event.action == 'Set-TransportRule') && event.outcome == 'success'",
     "severity": "high",
-    "type": "o365"
+    "type": "o365",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/o365-exchange-transport-rule-creation-Z5oEn8VnCn"
   },
   {
     "title": "O365 User Login with Suspicious User Agent",
     "expression": "(to_string(o365.audit.Operation) == 'UserLoggedIn' || to_string(o365.audit.LogonError) == 'UserStrongAuthClientAuthNRequiredInterrupt') && o365.audit.ExtendedProperties.UserAgent != null && (!starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Mozilla') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Windows-AzureAD-Authentication-Provider') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'BAV2ROPC') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'AppSSOAgent') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Microsoft%20Authenticator') && !starts_with(to_string(o365.audit.ExtendedProperties.UserAgent), 'Microsoft Authenticator'))",
     "severity": "high",
-    "type": "o365"
+    "type": "o365",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/o365-user-login-with-suspicious-user-agent-2cyTbvuqqj"
   },
   {
     "title": "Excessive O365 Mailbox Items Accessed",
     "expression": "event.dataset == 'o365.audit' && event.provider == 'Exchange' && event.action == 'MailItemsAccessed' && event.code == 'ExchangeItemAggregated' && ((contains(to_string(o365.audit.OperationProperties[].Name), 'IsThrottled') && contains(to_string(o365.audit.OperationProperties[].Value), 'True')) || o365.audit.OperationCount >= `100`)",
     "severity": "high",
-    "type": "o365"
+    "type": "o365",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/excessive-o365-mailbox-items-accessed-53SDGlxXBC"
   },
   {
     "title": "O365 Sharing Abuse from VPS",
     "expression": "(o365.audit.Operation == 'SharingSet' || o365.audit.Operation == 'AddToSecureLink' || o365.audit.Operation == 'SecureLinkCreated') && (\"cybersift.threat_info\".usageType == 'hosting') && !(o365.audit.UserId == 'app@sharepoint' || source.as.organization.name == 'MICROSOFT-CORP-MSN-AS-BLOCK') && o365.audit.AuthenticationType=='FormsCookieAuth'",
     "severity": "high",
-    "type": "o365"
+    "type": "o365",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/o365-sharing-abuse-from-vps-iPlt6zBYyv"
   },
   {
     "title": "O365 Login to High-Risk Admin Application from VPS",
     "expression": "((to_string(o365.audit.Operation) == 'UserLoggedIn' || to_string(o365.audit.LogonError) == 'UserStrongAuthClientAuthNRequiredInterrupt') && \"cybersift.threat_info\".usageType == 'hosting') && ((contains(to_string(o365.cybersift.application), 'Azure') || contains(to_string(o365.cybersift.application), 'Admin')) && (source.as.organization.name != 'MICROSOFT-CORP-MSN-AS-BLOCK') && (source.as.organization.name != 'Microsoft Corporation'))",
     "severity": "high",
-    "type": "o365"
+    "type": "o365",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/o365-login-to-high-risk-admin-application-from-vps-zaPolFAYYC"
   },
   {
     "title": "Possible Password Leak – Failed MFA from Non-Standard Browser",
     "expression": "event.action == 'UserLoginFailed' && o365.audit.LogonError == 'UserStrongAuthClientAuthNRequiredInterrupt' && \"cybersift.DeviceProperties\".BrowserType == 'Other'",
     "severity": "high",
-    "type": "o365"
+    "type": "o365",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/possible-password-leak-failed-mfa-from-non-standard-browser-838B5b00H4"
   },
   {
     "title": "Known Threat O365 User Login Attempt",
@@ -64,46 +73,49 @@
     "title": "Suspicious login from BAV2ROPC User Agent",
     "expression": "o365.audit.ExtendedProperties.UserAgent=='BAV2ROPC' && o365.audit.ExtendedProperties.RequestType=='OAuth2:Token' && to_string(o365.audit.ExtendedProperties.UserAuthenticationMethod)=='16' && source.as.organization.name!='MICROSOFT-CORP-MSN-AS-BLOCK' && o365.audit.ResultStatus!='Failed'",
     "severity": "high",
-    "type": "o365"
+    "type": "o365",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-login-from-bav2ropc-user-agent-E9jpzrPD75"
   },
   {
     "title": "O365 Activity from Tor IP Address",
     "expression": "o365.audit.Operation!='UserLoginFailed' && contains(to_string(\"cybersift.threat_info\".threats), 'Tor')",
     "severity": "high",
-    "type": "o365"
+    "type": "o365",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/o365-activity-from-tor-ip-address-oZPkUQ1U9Z"
   },
   {
     "title": "Sensitive eDiscovery admin action detected",
     "expression": "o365.audit.Workload == 'SecurityComplianceCenter' && ends_with(to_string(o365.audit.Operation), 'eDiscoveryCaseAdmin')",
     "severity": "high",
-    "type": "o365"
+    "type": "o365",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/sensitive-ediscovery-admin-action-detected-QvwDBl88UT"
   },
   {
     "title": "Suspicious Outlook Mobile Silent Authentication (CMSI)",
     "expression": "event.action == 'UserLoggedIn' && o365.audit.ExtendedProperties.RequestType == 'Cmsi:Cmsi' && o365.cybersift.application == 'Outlook Mobile'",
     "severity": "high",
     "type": "o365",
-    "reference" : "https://outline.cybersift.io/s/engineering/doc/suspicious-outlook-mobile-silent-authentication-cmsi-MutnSbauyx"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/suspicious-outlook-mobile-silent-authentication-cmsi-MutnSbauyx"
   },
   {
     "title": "O365 External Partner Added/Modified to Tenant",
     "expression": "to_string(event.action)=='Add partner to company.' || to_string(event.action)=='Update a partner cross-tenant access setting.' || to_string(event.action)=='Add a partner to cross-tenant access setting.'",
     "severity": "high",
     "type": "o365",
-    "reference" : "https://outline.cybersift.io/s/engineering/doc/o365-external-partner-addedmodified-to-tenant-s10Df2EvQp"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/o365-external-partner-addedmodified-to-tenant-s10Df2EvQp"
   },
   {
     "title": "O365 Suspicious Email Sending Pattern",
     "expression": "to_string(o365.audit.Operation)=='AlertEntityGenerated' && to_string(o365.audit.Name)=='Suspicious email sending patterns detected'",
     "severity": "high",
     "type": "o365",
-    "reference" : "https://outline.cybersift.io/s/engineering/doc/o365-suspicious-email-sending-pattern-pFfm4oezxB"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/o365-suspicious-email-sending-pattern-pFfm4oezxB"
   },
   {
     "title": "O365 Potentially Malicious URL Click Detected",
     "expression": "to_string(event.action)=='AlertEntityGenerated' && to_string(o365.audit.Name)=='A potentially malicious URL click was detected'",
     "severity": "high",
     "type": "o365",
-    "reference" : "https://outline.cybersift.io/s/engineering/doc/o365-potentially-malicious-url-click-detected-A4f0jUxXob"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/o365-potentially-malicious-url-click-detected-A4f0jUxXob"
   }
 ]
