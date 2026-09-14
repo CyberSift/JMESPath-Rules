@@ -474,5 +474,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/823affab-daa2-43b5-8ec0-193dde774d83"
+  },
+  {
+    "title": "NTDS.dit Backup via NTDSUtil (IFM)",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'ntdsutil.exe') && (contains(to_string(winlog.event_data.CommandLine), 'activate instance ntds') || contains(to_string(winlog.event_data.CommandLine), 'ifm') || contains(to_string(winlog.event_data.CommandLine), 'create full'))",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/5dba1fb0-5a8b-4465-9c08-a03879ba1184"
   }
 ]
