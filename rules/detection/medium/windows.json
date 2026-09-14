@@ -3,67 +3,78 @@
     "title": "Non-existent user login",
     "expression": "to_string(event.code)=='4625' && winlog.event_data.SubStatus=='0xc0000064' && winlog.cybersift.TargetUserType=='user'",
     "severity": "medium",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/non-existent-user-login-Mr1uDofywU"
   },
   {
     "title": "Abnormal Login Source Workstation First Time Seen",
     "expression": "contains(Abnormalities || '', 'AbnormalLoginSource_FirstTimeSeen')",
     "severity": "medium",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/abnormal-login-source-workstation-first-time-seen-gJe0DEN0FI"
   },
   {
     "title": "Abnormal Login Source Workstation Rarely Seen",
     "expression": "contains(to_string(Abnormalities), 'AbnormalLoginSource_RarelySeen') && !(to_string(winlog.event_data.WorkstationName)=='-' || to_string(winlog.cybersift.LogonTypeText)=='Service' || to_string(winlog.event_data.IpAddress)=='127.0.0.1')",
     "severity": "medium",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/abnormal-login-source-workstation-rarely-seen-oi5ECKBpAv"
   },
   {
     "title": "High Privilege User Login",
     "expression": "contains(Abnormalities || '', 'HighPrivilegeUser')",
     "severity": "medium",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/high-privilege-user-login-7IYL4WjGlH"
   },
   {
     "title": "Possible Lateral Movement",
     "expression": "contains(Abnormalities || '', 'PossibleLateralMovement')",
     "severity": "medium",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/possible-lateral-movement-N2iwomgs9M"
   },
   {
     "title": "Possible NTLM Relay",
     "expression": "contains(Abnormalities || '', 'Possible-NTLM-Relay')",
     "severity": "medium",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/possible-ntlm-relay-fusqKeWExX"
   },
   {
     "title": "Abnormal Login Source Workstation",
     "expression": "contains(to_string(Abnormalities), 'AbnormalLoginSource_Workstation_Normal_Privilege_User') && !(to_string(winlog.event_data.WorkstationName)=='-' || to_string(winlog.cybersift.LogonTypeText)=='Service' || to_string(winlog.event_data.IpAddress)=='127.0.0.1')",
     "severity": "medium",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/abnormal-login-source-workstation-normal-privilege-user-vOuEmDdku1"
   },
   {
     "title": "Disabled User Activity",
     "expression": "winlog.event_data.Status=='0xc0000072' || winlog.event_data.SubStatus=='0xc0000072'",
     "severity": "medium",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/disabled-user-activity-HpPCSmcc3c"
   },
   {
     "title": "nltest Enumeration",
     "expression": "to_string(event.code) == '4688' && (contains(to_string(winlog.event_data.NewProcessName), 'nltest.exe') || contains(to_string(winlog.event_data.CommandLine), 'nltest'))",
     "severity": "medium",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/nltest-enumeration-SkAo0xjUcq"
   },
   {
     "title": "The security log is now full",
     "expression": "to_string(event.code) == '1104' && to_string(winlog.channel) == 'Security'",
     "severity": "medium",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/the-security-log-is-now-full-mTP7ktd5wo"
   },
   {
     "title": "High Risk Binary Executed with Admin Privilege",
     "expression": "to_string(event.code) == '4688' && winlog.event_data.TokenElevationType == '%%1937' && (ends_with(to_string(winlog.event_data.NewProcessName), '\\\\mshta.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\wmic.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\at.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\psexec.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\winrm.cmd') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\winrs.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\bcdedit.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\takeown.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\installutil.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\odbcconf.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\cmstp.exe'))",
     "severity": "medium",
-    "type": "windows"
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/high-risk-binary-executed-with-admin-privilege-OhePPHbhC9"
   },
   {
     "title": "Windows Account Set to Password Never Expires",

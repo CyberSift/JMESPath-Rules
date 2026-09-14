@@ -3,6 +3,7 @@
     "title": "Execution of SELinux Status Check Command",
     "expression": "to_string(event.action) == 'executed' && (to_string(process.name) == 'sestatus' || contains(to_string(process.title), 'sestatus'))",
     "severity": "low",
-    "type": "auditbeat"
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/execution-of-selinux-status-check-command-sr2UtKKSoe"
   }
 ]
