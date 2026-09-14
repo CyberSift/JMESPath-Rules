@@ -440,6 +440,17 @@
     "log_source": "auditbeat"
   },
   {
+    "name": "Potential Disabling of SELinux",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "process.name == 'setenforce' && contains(to_string(process.args),'0')",
+    "version": "1.0",
+    "path": "rules/detection/high/linux.json",
+    "reference": "https://outline.cybersift.io/s/de3f933f-eef7-4836-ab34-b20ebb276b8d",
+    "log_source": "auditbeat"
+  },
+  {
     "name": "NetScaler ADC - Administrative User, Group, or Command Policy Modified",
     "type": "detection",
     "severity": "high",
@@ -1423,7 +1434,7 @@
     "type": "detection",
     "severity": "high",
     "description": "",
-    "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), 'certutil.exe') || contains(to_string(winlog.event_data.CommandLine), 'certutil')) && (contains(to_string(winlog.event_data.CommandLine), '-urlcache') || contains(to_string(winlog.event_data.CommandLine), '-split')) && (contains(to_string(winlog.event_data.CommandLine), 'http:') || contains(to_string(winlog.event_data.CommandLine), 'https:'))",
+    "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), 'certutil.exe') || contains(to_string(winlog.event_data.CommandLine), 'certutil')) && (contains(to_string(winlog.event_data.CommandLine), '-urlcache') || contains(to_string(winlog.event_data.CommandLine), '-split') || contains(to_string(winlog.event_data.CommandLine), '-decode')) && (contains(to_string(winlog.event_data.CommandLine), 'http:') || contains(to_string(winlog.event_data.CommandLine), 'https:'))",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
     "reference": "https://outline.cybersift.io/s/cf440146-54ca-4839-97c1-d1661f0bd016",
@@ -1837,6 +1848,28 @@
     "log_source": "auditbeat"
   },
   {
+    "name": "Direct Modification or Overwrite of Sensitive Authentication Files",
+    "type": "detection",
+    "severity": "medium",
+    "description": "",
+    "expression": "contains(to_string(process.title), '>/etc/passwd') || contains(to_string(process.title), '> /etc/passwd') || contains(to_string(process.title), '>/etc/shadow') || contains(to_string(process.title), '> /etc/shadow') || (contains(to_string(process.title), 'tee ') && (contains(to_string(process.title), '/etc/passwd') || contains(to_string(process.title), '/etc/shadow'))) || (contains(to_string(process.title), 'dd ') && contains(to_string(process.title), 'of=') && (contains(to_string(process.title), '/etc/passwd') || contains(to_string(process.title), '/etc/shadow'))) || (contains(to_string(process.title), 'curl ') && contains(to_string(process.title), '-o') && (contains(to_string(process.title), '/etc/passwd') || contains(to_string(process.title), '/etc/shadow'))) || (contains(to_string(process.title), 'wget ') && contains(to_string(process.title), '-O') && (contains(to_string(process.title), '/etc/passwd') || contains(to_string(process.title), '/etc/shadow'))) || (contains(to_string(process.title), 'sed ') && contains(to_string(process.title), '-i') && (contains(to_string(process.title), '/etc/passwd') || contains(to_string(process.title), '/etc/shadow'))) || (contains(to_string(process.title), 'cp ') && (contains(to_string(process.title), '/etc/passwd') || contains(to_string(process.title), '/etc/shadow'))) || (contains(to_string(process.title), 'mv ') && (contains(to_string(process.title), '/etc/passwd') || contains(to_string(process.title), '/etc/shadow')))",
+    "version": "1.0",
+    "path": "rules/detection/medium/linux.json",
+    "reference": "https://outline.cybersift.io/s/a555270e-ae07-40cc-8f76-70a5bb7ff4c6",
+    "log_source": "auditbeat"
+  },
+  {
+    "name": "Linux Process Hooking via GDB",
+    "type": "detection",
+    "severity": "medium",
+    "description": "",
+    "expression": "(contains(to_string(process.title), '-p') || contains(to_string(process.title), '--pid')) && (process.name == 'gdb' || (contains(to_string(process.executable), '/gdb') && !contains(to_string(process.executable), 'gdbus') && !contains(to_string(process.executable), 'gdbserver')))",
+    "version": "1.0",
+    "path": "rules/detection/medium/linux.json",
+    "reference": "https://outline.cybersift.io/s/4d3f2fdb-843f-4889-98fc-2e0a679dd202",
+    "log_source": "auditbeat"
+  },
+  {
     "name": "O365 Inbox Rule Created or Modified",
     "type": "detection",
     "severity": "medium",
@@ -1885,7 +1918,7 @@
     "type": "detection",
     "severity": "medium",
     "description": "",
-    "expression": "to_string(event.code) == 'SharePointFileOperation' && to_string(\"cybersift.threat_info\".knownThreat) == 'true'",
+    "expression": "(to_string(event.code) == 'SharePointFileOperation' && to_string(\"cybersift.threat_info\".knownThreat) == 'true') && !(to_string(source.as.organization.name)=='Microsoft Corporation')",
     "version": "1.0",
     "path": "rules/detection/medium/o365.json",
     "reference": "https://outline.cybersift.io/s/engineering/doc/o365-sharepoint-operation-from-a-threat-ip-OkS0as2LKU",
