@@ -94,7 +94,7 @@
     "title": "SAM Privilege Usage",
     "expression": "to_string(event.code) == '4673' && winlog.event_data.PrivilegeList == 'SeMachineAccountPrivilege' && winlog.event_data.Service == 'Security Account Manager'",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
     "reference": "https://outline.cybersift.io/s/engineering/doc/sam-privilege-usage-ZUU7m11PlC"
   },
   {
@@ -143,7 +143,7 @@
     "title": "Kerberos Constrained Delegation Configured",
     "expression": "winlog.event_data.AllowedToDelegateTo != null && to_string(winlog.event_data.AllowedToDelegateTo) != '-'",
     "severity": "high",
-    "type": "windows"
+    "type": "windows",
     "reference": "https://outline.cybersift.io/s/engineering/doc/kerberos-constrained-delegation-configured-vSxjvlhIit"
   },
   {
