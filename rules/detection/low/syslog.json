@@ -3,18 +3,21 @@
     "title": "SSH to public IP",
     "expression": "DestinationPort=='22' && isSourceInternal=='true' && isDestinationInternal=='false' && denied_flow==`false` && DestinationAddress!='0.0.0.0'",
     "severity": "low",
-    "type": "syslog"
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/ssh-to-public-ip-kiBcB2P2vc"
   },
   {
     "title": "RDP from public IP",
     "expression": "DestinationPort=='3389' && isSourceInternal=='false' && denied_flow==`false` && DestinationAddress!='0.0.0.0'",
     "severity": "low",
-    "type": "syslog"
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/rdp-from-public-ip-h2RCnvurtk"
   },
   {
     "title": "SMB from public IP",
     "expression": "DestinationPort=='445' && isSourceInternal=='false' && denied_flow==`false` && DestinationAddress!='0.0.0.0'",
     "severity": "low",
-    "type": "syslog"
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/smb-from-public-ip-aEkNHm01wg"
   }
 ]
