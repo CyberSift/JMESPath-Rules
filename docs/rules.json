@@ -1463,6 +1463,28 @@
     "log_source": "windows"
   },
   {
+    "name": "NTDS.dit Backup via NTDSUtil (IFM)",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'ntdsutil.exe') && (contains(to_string(winlog.event_data.CommandLine), 'activate instance ntds') || contains(to_string(winlog.event_data.CommandLine), 'ifm') || contains(to_string(winlog.event_data.CommandLine), 'create full'))",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/5dba1fb0-5a8b-4465-9c08-a03879ba1184",
+    "log_source": "windows"
+  },
+  {
+    "name": "Potential Active Directory Replication Account Backdoor",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '5136' && winlog.event_data.AttributeLDAPDisplayName == 'nTSecurityDescriptor' && contains(winlog.event_data.AttributeValue, '1131f6ad-9c07-11d1-f79f-00c04fc2dcd2;;S-1-5-21-') && contains(winlog.event_data.AttributeValue, '1131f6aa-9c07-11d1-f79f-00c04fc2dcd2;;S-1-5-21-') && contains(winlog.event_data.AttributeValue, '89e95b76-444d-4c62-991a-0facbeda640c;;S-1-5-21-')",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/c0af8f9d-f33d-4f0c-a90b-f6076c28c286",
+    "log_source": "windows"
+  },
+  {
     "name": "Failed command",
     "type": "detection",
     "severity": "info",
