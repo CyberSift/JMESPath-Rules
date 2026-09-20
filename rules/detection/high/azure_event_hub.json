@@ -22,7 +22,7 @@
   },
   {
     "title": "Entra ID Kali365 Default User-Agent Detected",
-    "expression": "starts_with(properties.userAgent, 'kali365-live/')",
+    "expression": "starts_with(to_string(properties.userAgent), 'kali365-live')",
     "severity": "high",
     "type": "azure_event_hub",
     "reference": "https://outline.cybersift.io/s/887e87ac-15d9-4e67-842a-22826f1f6a55"
