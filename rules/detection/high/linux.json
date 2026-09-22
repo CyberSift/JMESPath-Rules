@@ -124,5 +124,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/de3f933f-eef7-4836-ab34-b20ebb276b8d"
+  },
+  {
+    "title": "Authentication Bypass via User Environment Variable",
+    "expression": "process.name == 'login' && contains(to_string(process.args), '-f')",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/02918c01-c5a5-41f3-ad27-a3357df7257c"
   }
 ]
