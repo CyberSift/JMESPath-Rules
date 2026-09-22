@@ -1,0 +1,9 @@
+[
+  {
+      "title": "DUO - Successful User Bypass Following Novel Access IP Assessment",
+      "expression": "to_string(\"adaptive_trust_assessments_remember_me_reason\")=='Novel Access IP' && to_string(reason)=='bypass_user' && to_string(result)=='success'",
+      "severity": "high",
+      "type": "DUO",
+      "reference": "https://outline.cybersift.io/s/engineering/doc/duo-successful-user-bypass-following-novel-access-ip-assessment-WbIrh9zEbd"
+    }
+]
