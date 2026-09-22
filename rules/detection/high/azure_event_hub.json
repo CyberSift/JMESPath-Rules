@@ -21,6 +21,13 @@
     "reference": "https://outline.cybersift.io/s/623f6d24-ca5d-4074-9178-51f5226b993a"
   },
   {
+    "title": "Entra ID High Risk Sign-in",
+    "expression": "(properties.riskLevelDuringSignIn == 'high' || properties.riskLevelAggregated == 'high') && resultSignature != 'FAILURE' && properties.riskState != 'none'",
+    "severity": "high",
+    "type": "azure_event_hub",
+    "reference": "https://outline.cybersift.io/s/4fc28676-6f72-4f88-a31b-7395961f09a9"
+  },
+  {
     "title": "Entra ID Domain Federation Configuration Change",
     "expression": "category == 'AuditLogs' && properties.category == 'DirectoryManagement' && (properties.activityDisplayName == 'Set domain authentication' || properties.activityDisplayName == 'Set federation settings on domain' || properties.activityDisplayName == 'Set Domain Authentication' || properties.activityDisplayName == 'Set Federation Settings On Domain')",
     "severity": "high",
