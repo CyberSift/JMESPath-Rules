@@ -19,5 +19,26 @@
     "severity": "high",
     "type": "azure_event_hub",
     "reference": "https://outline.cybersift.io/s/623f6d24-ca5d-4074-9178-51f5226b993a"
+  },
+  {
+    "title": "Entra ID Kali365 Default User-Agent Detected",
+    "expression": "starts_with(to_string(properties.userAgent), 'kali365-live')",
+    "severity": "high",
+    "type": "azure_event_hub",
+    "reference": "https://outline.cybersift.io/s/887e87ac-15d9-4e67-842a-22826f1f6a55"
+  },
+  {
+    "title": "Entra ID High Risk Sign-in",
+    "expression": "(properties.riskLevelDuringSignIn == 'high' || properties.riskLevelAggregated == 'high') && resultSignature != 'FAILURE' && properties.riskState != 'none'",
+    "severity": "high",
+    "type": "azure_event_hub",
+    "reference": "https://outline.cybersift.io/s/4fc28676-6f72-4f88-a31b-7395961f09a9"
+  },
+  {
+    "title": "Entra ID Domain Federation Configuration Change",
+    "expression": "category == 'AuditLogs' && properties.category == 'DirectoryManagement' && (properties.activityDisplayName == 'Set domain authentication' || properties.activityDisplayName == 'Set federation settings on domain' || properties.activityDisplayName == 'Set Domain Authentication' || properties.activityDisplayName == 'Set Federation Settings On Domain')",
+    "severity": "high",
+    "type": "azure_event_hub",
+    "reference": "https://outline.cybersift.io/s/fa41fd70-79a6-4bf1-bae7-c6d9bb9dd512"
   }
 ]
