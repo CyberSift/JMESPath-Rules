@@ -1,0 +1,9 @@
+[
+  {
+    "title": "DUO - Low Trust Authentication Assessment",
+    "expression": "to_string(adaptive_trust_assessments_more_secure_auth_reason)=='Low level of trust; detection of one or more known attack patterns.'",
+    "severity": "medium",
+    "type": "DUO",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/low-trust-authentication-assessment-a8j081fq4r"
+  }
+]
