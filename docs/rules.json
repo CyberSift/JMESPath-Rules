@@ -99,6 +99,39 @@
     "log_source": "azure_event_hub"
   },
   {
+    "name": "Entra ID Kali365 Default User-Agent Detected",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "starts_with(to_string(properties.userAgent), 'kali365-live')",
+    "version": "1.0",
+    "path": "rules/detection/high/azure_event_hub.json",
+    "reference": "https://outline.cybersift.io/s/887e87ac-15d9-4e67-842a-22826f1f6a55",
+    "log_source": "azure_event_hub"
+  },
+  {
+    "name": "Entra ID High Risk Sign-in",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "(properties.riskLevelDuringSignIn == 'high' || properties.riskLevelAggregated == 'high') && resultSignature != 'FAILURE' && properties.riskState != 'none'",
+    "version": "1.0",
+    "path": "rules/detection/high/azure_event_hub.json",
+    "reference": "https://outline.cybersift.io/s/4fc28676-6f72-4f88-a31b-7395961f09a9",
+    "log_source": "azure_event_hub"
+  },
+  {
+    "name": "Entra ID Domain Federation Configuration Change",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "category == 'AuditLogs' && properties.category == 'DirectoryManagement' && (properties.activityDisplayName == 'Set domain authentication' || properties.activityDisplayName == 'Set federation settings on domain' || properties.activityDisplayName == 'Set Domain Authentication' || properties.activityDisplayName == 'Set Federation Settings On Domain')",
+    "version": "1.0",
+    "path": "rules/detection/high/azure_event_hub.json",
+    "reference": "https://outline.cybersift.io/s/fa41fd70-79a6-4bf1-bae7-c6d9bb9dd512",
+    "log_source": "azure_event_hub"
+  },
+  {
     "name": "Checkpoint - Log Exporter/SIEM Configuration Modified or Deleted",
     "type": "detection",
     "severity": "high",
@@ -448,6 +481,17 @@
     "version": "1.0",
     "path": "rules/detection/high/linux.json",
     "reference": "https://outline.cybersift.io/s/de3f933f-eef7-4836-ab34-b20ebb276b8d",
+    "log_source": "auditbeat"
+  },
+  {
+    "name": "Authentication Bypass via User Environment Variable",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "process.name == 'login' && contains(to_string(process.args), '-f')",
+    "version": "1.0",
+    "path": "rules/detection/high/linux.json",
+    "reference": "https://outline.cybersift.io/s/02918c01-c5a5-41f3-ad27-a3357df7257c",
     "log_source": "auditbeat"
   },
   {
@@ -1463,6 +1507,28 @@
     "log_source": "windows"
   },
   {
+    "name": "NTDS.dit Backup via NTDSUtil (IFM)",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'ntdsutil.exe') && (contains(to_string(winlog.event_data.CommandLine), 'activate instance ntds') || contains(to_string(winlog.event_data.CommandLine), 'ifm') || contains(to_string(winlog.event_data.CommandLine), 'create full'))",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/5dba1fb0-5a8b-4465-9c08-a03879ba1184",
+    "log_source": "windows"
+  },
+  {
+    "name": "Potential Active Directory Replication Account Backdoor",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '5136' && winlog.event_data.AttributeLDAPDisplayName == 'nTSecurityDescriptor' && contains(winlog.event_data.AttributeValue, '1131f6ad-9c07-11d1-f79f-00c04fc2dcd2;;S-1-5-21-') && contains(winlog.event_data.AttributeValue, '1131f6aa-9c07-11d1-f79f-00c04fc2dcd2;;S-1-5-21-') && contains(winlog.event_data.AttributeValue, '89e95b76-444d-4c62-991a-0facbeda640c;;S-1-5-21-')",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/c0af8f9d-f33d-4f0c-a90b-f6076c28c286",
+    "log_source": "windows"
+  },
+  {
     "name": "Failed command",
     "type": "detection",
     "severity": "info",
@@ -1670,6 +1736,17 @@
     "path": "rules/detection/medium/cyberark.json",
     "reference": "https://outline.cybersift.io/s/engineering/doc/cyberark-show-password-action-detected-76s61dzcwT",
     "log_source": "syslog"
+  },
+  {
+    "name": "DUO - Low Trust Authentication Assessment",
+    "type": "detection",
+    "severity": "medium",
+    "description": "",
+    "expression": "to_string(adaptive_trust_assessments_more_secure_auth_reason)=='Low level of trust; detection of one or more known attack patterns.'",
+    "version": "1.0",
+    "path": "rules/detection/medium/duo.json",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/low-trust-authentication-assessment-a8j081fq4r",
+    "log_source": "DUO"
   },
   {
     "name": "Google Workspace Suspicious Login (Success)",
