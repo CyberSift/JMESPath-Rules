@@ -19,5 +19,12 @@
     "severity": "high",
     "type": "azure_event_hub",
     "reference": "https://outline.cybersift.io/s/623f6d24-ca5d-4074-9178-51f5226b993a"
+  },
+  {
+    "title": "Entra ID Domain Federation Configuration Change",
+    "expression": "category == 'AuditLogs' && properties.category == 'DirectoryManagement' && (properties.activityDisplayName == 'Set domain authentication' || properties.activityDisplayName == 'Set federation settings on domain' || properties.activityDisplayName == 'Set Domain Authentication' || properties.activityDisplayName == 'Set Federation Settings On Domain')",
+    "severity": "high",
+    "type": "azure_event_hub",
+    "reference": "https://outline.cybersift.io/s/fa41fd70-79a6-4bf1-bae7-c6d9bb9dd512"
   }
 ]
