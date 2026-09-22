@@ -26,5 +26,12 @@
     "severity": "high",
     "type": "syslog",
     "reference": "https://outline.cybersift.io/s/engineering/doc/fortigate-suspicious-sso-or-config-download-XGRKn7Lm2n"
+  },
+  {
+    "title": "FortiGate Suspicious External CAPWAP Access",
+    "expression": "cybersift.parser.vendor == 'Fortigate' && contains(['5246', '5247', '5248', '5249'], to_string(DestinationPort)) && to_string(isInternalFlow) == 'false' && action != 'deny'",
+    "severity": "high",
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/fbfd8f1a-25c4-4d74-8c7d-9139b27aef49"
   }
 ]
