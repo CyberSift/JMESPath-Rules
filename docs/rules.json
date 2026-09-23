@@ -187,6 +187,17 @@
     "log_source": "syslog"
   },
   {
+    "name": "DUO - Successful User Bypass Following Novel Access IP Assessment",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(\"adaptive_trust_assessments_remember_me_reason\")=='Novel Access IP' && to_string(reason)=='bypass_user' && to_string(result)=='success'",
+    "version": "1.0",
+    "path": "rules/detection/high/duo.json",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/duo-successful-user-bypass-following-novel-access-ip-assessment-WbIrh9zEbd",
+    "log_source": "DUO"
+  },
+  {
     "name": "FortiGate Firewall Policy Creation from External Source IP",
     "type": "detection",
     "severity": "high",
@@ -228,6 +239,17 @@
     "version": "1.0",
     "path": "rules/detection/high/fortigate.json",
     "reference": "https://outline.cybersift.io/s/engineering/doc/fortigate-suspicious-sso-or-config-download-XGRKn7Lm2n",
+    "log_source": "syslog"
+  },
+  {
+    "name": "FortiGate Suspicious External CAPWAP Access",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "cybersift.parser.vendor == 'Fortigate' && contains(['5246', '5247', '5248', '5249'], to_string(DestinationPort)) && to_string(isInternalFlow) == 'false' && action != 'deny'",
+    "version": "1.0",
+    "path": "rules/detection/high/fortigate.json",
+    "reference": "https://outline.cybersift.io/s/fbfd8f1a-25c4-4d74-8c7d-9139b27aef49",
     "log_source": "syslog"
   },
   {
