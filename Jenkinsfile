@@ -44,7 +44,7 @@ pipeline {
             steps {
                 aiPrReview(
                     credentialsId: 'github-pat',
-                    googleChatSpaceId: 'AAQAvFxDcSg',
+                    googleChatSpaceId: 'AAQAZWqTf1c',
                     googleChatKeyCredentialsId: 'google-chat-rules-key',
                     googleChatTokenCredentialsId: 'google-chat-rules-token',
                     reviewPromptFile: 'pi/soc-rules-review-prompt.txt'
