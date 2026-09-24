@@ -6,6 +6,8 @@ on:
       - opened
       - synchronize
       - reopened
+    paths:
+      - "rules/detection/**"
 
 permissions:
   contents: read
@@ -27,10 +29,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-
           SPARK_LLM_API_KEY: ${{ secrets.SPARK_LLM_API_KEY }}
           SPARK_LLM_BASE_URL: ${{ secrets.SPARK_LLM_BASE_URL }}
           SPARK_LLM_MODEL: ${{ secrets.SPARK_LLM_MODEL }}
-
         run: |
           python3 .github/scripts/local_llm_review.py
