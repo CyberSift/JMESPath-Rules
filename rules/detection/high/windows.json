@@ -488,5 +488,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/c0af8f9d-f33d-4f0c-a90b-f6076c28c286"
+  },
+  { 
+    "title": "Test Bad PR",
+    "expression": "to_string(event.code) = '4624'",
+    "severity": "high",
+    "type": "windows",
+    "reference": ""
   }
 ]
