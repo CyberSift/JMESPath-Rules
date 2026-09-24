@@ -1,0 +1,9 @@
+[
+  {
+      "title": "Duo - New MFA User or Device Self-Enrollment Activity",
+      "expression": "to_string(event_type)=='enrollment'",
+      "severity": "low",
+      "type": "DUO",
+      "reference": "https://outline.cybersift.io/s/engineering/doc/duo-new-mfa-user-or-device-self-enrolment-activity-RQh6m6FktA"
+    }
+]
