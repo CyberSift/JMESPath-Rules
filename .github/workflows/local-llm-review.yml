@@ -1,0 +1,36 @@
+name: Local LLM PR Review
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: local-llm-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  local-llm-review:
+    name: Local LLM PR Review
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Run local LLM review
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+
+          SPARK_LLM_API_KEY: ${{ secrets.SPARK_LLM_API_KEY }}
+          SPARK_LLM_BASE_URL: ${{ secrets.SPARK_LLM_BASE_URL }}
+          SPARK_LLM_MODEL: ${{ secrets.SPARK_LLM_MODEL }}
+
+        run: |
+          python3 .github/scripts/local_llm_review.py
