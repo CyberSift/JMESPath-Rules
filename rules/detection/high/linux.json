@@ -131,5 +131,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/02918c01-c5a5-41f3-ad27-a3357df7257c"
+  },
+  {
+    "title": "Setcap setuid/setgid Capability Set",
+    "expression": "process.name == 'setcap' && (contains(to_string(process.args), 'cap_setuid') || contains(to_string(process.args), 'cap_setgid')) && !contains(to_string(process.args), 'newuidmap') && !contains(to_string(process.args), 'newgidmap')",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/d6fe0201-de94-4e72-9af7-b46f3ce67e01"
   }
 ]
