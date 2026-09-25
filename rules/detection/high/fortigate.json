@@ -33,5 +33,12 @@
     "severity": "high",
     "type": "syslog",
     "reference": "https://outline.cybersift.io/s/fbfd8f1a-25c4-4d74-8c7d-9139b27aef49"
+  },
+  {
+    "title": "FortiGate Overly Permissive Firewall Policy Created",
+    "expression": "cybersift.parser.vendor == 'Fortigate' && to_string(logid) == '0100044547' && to_string(cfgpath) == 'firewall.policy' && (to_string(action) == 'Add' || to_string(action) == 'Edit') && (contains(to_string(cfgattr), 'srcaddr[all]') || contains(to_string(cfgattr), 'dstaddr[all]') || contains(to_string(cfgattr), 'service[all]'))",
+    "severity": "high",
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/372d1d20-b7e0-40bb-a102-5f7e1fad0dcc"
   }
 ]
