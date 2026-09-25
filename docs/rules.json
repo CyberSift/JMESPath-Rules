@@ -517,6 +517,17 @@
     "log_source": "auditbeat"
   },
   {
+    "name": "Setcap setuid/setgid Capability Set",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "process.name == 'setcap' && (contains(to_string(process.args), 'cap_setuid') || contains(to_string(process.args), 'cap_setgid')) && !contains(to_string(process.args), 'newuidmap') && !contains(to_string(process.args), 'newgidmap')",
+    "version": "1.0",
+    "path": "rules/detection/high/linux.json",
+    "reference": "https://outline.cybersift.io/s/d6fe0201-de94-4e72-9af7-b46f3ce67e01",
+    "log_source": "auditbeat"
+  },
+  {
     "name": "NetScaler ADC - Administrative User, Group, or Command Policy Modified",
     "type": "detection",
     "severity": "high",
@@ -1582,6 +1593,17 @@
     "path": "rules/detection/info/windows.json",
     "reference": "https://outline.cybersift.io/s/engineering/doc/ntlm-v1-detected-plS0y5OtoS",
     "log_source": "windows"
+  },
+  {
+    "name": "DUO - New MFA User or Device Self-Enrollment Activity",
+    "type": "detection",
+    "severity": "low",
+    "description": "",
+    "expression": "to_string(event_type)=='enrollment'",
+    "version": "1.0",
+    "path": "rules/detection/low/duo.json",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/duo-new-mfa-user-or-device-self-enrolment-activity-RQh6m6FktA",
+    "log_source": "DUO"
   },
   {
     "name": "Google Drive Internet-Accessible File Shared",
