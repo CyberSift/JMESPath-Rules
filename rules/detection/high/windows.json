@@ -488,5 +488,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/c0af8f9d-f33d-4f0c-a90b-f6076c28c286"
+  },
+  {
+    "title": "Windows - Enable RDP via Registry Modification",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), 'reg add') && contains(to_string(winlog.event_data.CommandLine), 'fDenyTSConnections') && contains(to_string(winlog.event_data.CommandLine), 'Terminal Server') && contains(to_string(winlog.event_data.CommandLine), '/d 0')",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/86a120da-3f8a-4008-980e-e77cdd024f3a"
   }
 ]
