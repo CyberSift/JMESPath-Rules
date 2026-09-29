@@ -1573,6 +1573,17 @@
     "log_source": "windows"
   },
   {
+    "name": "Windows - Enable RDP via Registry Modification",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.CommandLine), 'reg add') && contains(to_string(winlog.event_data.CommandLine), 'fDenyTSConnections') && contains(to_string(winlog.event_data.CommandLine), 'Terminal Server') && contains(to_string(winlog.event_data.CommandLine), '/d 0')",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/86a120da-3f8a-4008-980e-e77cdd024f3a",
+    "log_source": "windows"
+  },
+  {
     "name": "Failed command",
     "type": "detection",
     "severity": "info",
