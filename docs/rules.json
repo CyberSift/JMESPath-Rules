@@ -539,6 +539,28 @@
     "log_source": "auditbeat"
   },
   {
+    "name": "rc.local/rc.common File Creation",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "contains(to_string(event.type), 'creation') && (contains(to_string(file.path), '/etc/rc.local') || contains(to_string(file.path), '/etc/rc.common')) && !contains(to_string(process.executable), '/usr/bin/dpkg') && !contains(to_string(process.executable), '/usr/bin/apt') && !contains(to_string(process.executable), '/usr/bin/rpm') && !contains(to_string(process.executable), '/usr/bin/yum') && !contains(to_string(process.executable), '/usr/bin/dnf') && !contains(to_string(process.executable), '/usr/bin/pacman') && !contains(to_string(process.executable), '/usr/bin/apk') && !contains(to_string(process.executable), '/usr/bin/snapd') && !contains(to_string(process.executable), '/usr/bin/dockerd') && !contains(to_string(process.executable), '/usr/bin/podman')",
+    "version": "1.0",
+    "path": "rules/detection/high/linux.json",
+    "reference": "https://outline.cybersift.io/s/252cbd1a-e7e1-4de0-9fd7-58f9f2822a82",
+    "log_source": "auditbeat"
+  },
+  {
+    "name": "Potential snap-confine Privilege Escalation via CVE-2026-3888",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "contains(to_string(event.type), 'creation') && to_string(user.id) != '0' && (starts_with(to_string(file.path), '/tmp/.snap') || (starts_with(to_string(file.path), '/tmp/snap-private-tmp/') && contains(to_string(file.path), '/tmp/.snap')) || starts_with(to_string(file.path), '/var/tmp/.snap') || (starts_with(to_string(file.path), '/var/tmp/snap-private-tmp/') && contains(to_string(file.path), '/tmp/.snap')))",
+    "version": "1.0",
+    "path": "rules/detection/high/linux.json",
+    "reference": "https://outline.cybersift.io/s/ba4b79de-a8d3-4773-848b-434d83602959",
+    "log_source": "auditbeat"
+  },
+  {
     "name": "NetScaler ADC - Administrative User, Group, or Command Policy Modified",
     "type": "detection",
     "severity": "high",
@@ -1581,6 +1603,17 @@
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
     "reference": "https://outline.cybersift.io/s/86a120da-3f8a-4008-980e-e77cdd024f3a",
+    "log_source": "windows"
+  },
+  {
+    "name": "Wireless Credential Dumping using Netsh Command",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'netsh.exe') && contains(to_string(winlog.event_data.CommandLine), 'wlan') && contains(to_string(winlog.event_data.CommandLine), 'clear')",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/65ddf7db-5582-41d0-bfcc-44ab5085b886",
     "log_source": "windows"
   },
   {
