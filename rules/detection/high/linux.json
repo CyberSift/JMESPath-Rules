@@ -138,5 +138,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/d6fe0201-de94-4e72-9af7-b46f3ce67e01"
+  },
+  {
+    "title": "rc.local/rc.common File Creation",
+    "expression": "contains(to_string(event.type), 'creation') && (contains(to_string(file.path), '/etc/rc.local') || contains(to_string(file.path), '/etc/rc.common')) && !contains(to_string(process.executable), '/usr/bin/dpkg') && !contains(to_string(process.executable), '/usr/bin/apt') && !contains(to_string(process.executable), '/usr/bin/rpm') && !contains(to_string(process.executable), '/usr/bin/yum') && !contains(to_string(process.executable), '/usr/bin/dnf') && !contains(to_string(process.executable), '/usr/bin/pacman') && !contains(to_string(process.executable), '/usr/bin/apk') && !contains(to_string(process.executable), '/usr/bin/snapd') && !contains(to_string(process.executable), '/usr/bin/dockerd') && !contains(to_string(process.executable), '/usr/bin/podman')",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/252cbd1a-e7e1-4de0-9fd7-58f9f2822a82"
   }
 ]
