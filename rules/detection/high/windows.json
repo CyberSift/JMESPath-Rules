@@ -502,5 +502,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/25b2fa2e-6b3c-4220-b310-74f8e2709e3b"
+  },
+  {
+    "title": "Wireless Credential Dumping using Netsh Command",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'netsh.exe') && contains(to_string(winlog.event_data.CommandLine), 'wlan') && contains(to_string(winlog.event_data.CommandLine), 'clear')",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/65ddf7db-5582-41d0-bfcc-44ab5085b886"
   }
 ]
