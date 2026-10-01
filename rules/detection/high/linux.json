@@ -152,5 +152,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/ba4b79de-a8d3-4773-848b-434d83602959"
+  },
+  {
+    "title": "Potential Disabling of AppArmor",
+    "expression": "contains(to_string(process.title), 'apparmor') && (contains(to_string(process.title), 'stop') || contains(to_string(process.title), 'disable') || contains(to_string(process.title), 'mask') || contains(to_string(process.title), 'teardown') || contains(to_string(process.title), 'kill') || contains(to_string(process.title), 'remove')) && !contains(to_string(process.title), 'unmask') && !contains(to_string(process.title), 'apparmor.unprivileged-restrictions-disable')",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/2dc03a88-4300-4c60-8ae0-766415b64670"
   }
 ]
