@@ -497,6 +497,13 @@
     "reference": "https://outline.cybersift.io/s/86a120da-3f8a-4008-980e-e77cdd024f3a"
   },
   {
+    "title": "dMSA Account Creation",
+    "expression": "to_string(event.code) == '5137' && to_string(winlog.event_data.ObjectClass) == 'msDS-DelegatedManagedServiceAccount'",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/25b2fa2e-6b3c-4220-b310-74f8e2709e3b"
+  },
+  {
     "title": "Wireless Credential Dumping using Netsh Command",
     "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'netsh.exe') && contains(to_string(winlog.event_data.CommandLine), 'wlan') && contains(to_string(winlog.event_data.CommandLine), 'clear')",
     "severity": "high",
