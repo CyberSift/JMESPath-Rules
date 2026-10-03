@@ -5,5 +5,12 @@
     "severity": "high",
     "type": "syslog",
     "reference": "https://outline.cybersift.io/s/1a21e0be-8450-455b-9e54-b037ed1ade0a"
+  },
+  {
+    "title": "NetScaler - DTLSv1.0 Handshake Failure Exploit Pattern",
+    "expression": "cybersift.netscaler.SubCategory == 'SSL_HANDSHAKE_FAILURE' && contains(to_string(cybersift.netscaler.Message), 'DTLSv1.0') && contains(to_string(cybersift.netscaler.Message), 'Handshake failure-Internal Error')",
+    "severity": "high",
+    "type": "syslog",
+    "reference": "https://outline.cybersift.io/s/32a543cd-f821-4ce6-a9ba-b5ee96e7f75f"
   }
 ]
