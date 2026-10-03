@@ -4,7 +4,7 @@
     "expression": "cybersift.parser.vendor == 'Netscaler_ADC' && cybersift.netscaler.SubCategory == 'CMD_EXECUTED' && (contains(to_string(cybersift.netscaler.Message), 'system user') || contains(to_string(cybersift.netscaler.Message), 'system group') || contains(to_string(cybersift.netscaler.Message), 'system cmdPolicy')) && !(contains(to_string(cybersift.netscaler.Message), 'show system user') || contains(to_string(cybersift.netscaler.Message), 'show system group') || contains(to_string(cybersift.netscaler.Message), 'show system cmdPolicy'))",
     "severity": "high",
     "type": "syslog",
-    "reference": "https://outline.cybersift.io/s/1a21e0be-8450-455b-9e54-b037ed1ade0a"
+    "reference": "https://outline.cybersift.io/s/engineering/doc/netscaler-adc-administrative-user-group-or-command-policy-modified-8vKaN8DFzB"
   },
   {
     "title": "NetScaler - DTLSv1.0 Handshake Failure Exploit Pattern",
