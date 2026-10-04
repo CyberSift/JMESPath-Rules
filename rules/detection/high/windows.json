@@ -497,7 +497,7 @@
     "reference": "https://outline.cybersift.io/s/86a120da-3f8a-4008-980e-e77cdd024f3a"
   },
   {
-    "title": "dMSA Account Creation",
+    "title": "New Delegated Managed Service Account Created",
     "expression": "to_string(event.code) == '5137' && to_string(winlog.event_data.ObjectClass) == 'msDS-DelegatedManagedServiceAccount'",
     "severity": "high",
     "type": "windows",
