@@ -509,5 +509,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/65ddf7db-5582-41d0-bfcc-44ab5085b886"
+  },
+  {
+    "title": "Suspicious MSBuild Project Execution from User-Writable or Network Paths",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.NewProcessName), 'MSBuild.exe') && (contains(to_string(winlog.event_data.CommandLine), '.csproj') || contains(to_string(winlog.event_data.CommandLine), '.vbproj')) && (contains(to_string(winlog.event_data.CommandLine), '\\\\Temp\\\\') || contains(to_string(winlog.event_data.CommandLine), '\\\\AppData\\\\') || contains(to_string(winlog.event_data.CommandLine), '\\\\Downloads\\\\') || contains(to_string(winlog.event_data.CommandLine), '\\\\\\\\'))",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/1d05a7ca-6472-4cdc-a562-deeaebde6898"
   }
 ]
