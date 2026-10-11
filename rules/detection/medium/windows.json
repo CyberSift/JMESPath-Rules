@@ -110,5 +110,12 @@
     "severity": "medium",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/a3e40d09-654d-4d06-ae36-bdbb8c26001d"
+  },
+  {
+    "title": "Windows Netsh PortProxy Tunnel Configuration",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'netsh.exe') && contains(to_string(winlog.event_data.CommandLine), 'interface') && contains(to_string(winlog.event_data.CommandLine), 'portproxy') && contains(to_string(winlog.event_data.CommandLine), 'add')",
+    "severity": "medium",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/d077b97e-c326-4bde-a6df-f29c05e83aa3"
   }
 ]
