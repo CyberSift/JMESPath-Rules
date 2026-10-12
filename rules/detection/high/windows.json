@@ -511,6 +511,13 @@
     "reference": "https://outline.cybersift.io/s/65ddf7db-5582-41d0-bfcc-44ab5085b886"
   },
   {
+    "title": "Suspicious Parent Process Spawning MSBuild",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), '\\\\MSBuild.exe') && (ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\cmd.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\powershell.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\pwsh.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\powershell_ise.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\cscript.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\wscript.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\mshta.exe'))",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/c47aab5b-1a1e-466b-8531-e21307b670f1"
+  },
+  {
     "title": "Suspicious Child Process Spawned by MSBuild",
     "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\msbuild.exe') && (ends_with(to_string(winlog.event_data.NewProcessName), '\\\\powershell.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\pwsh.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\cmd.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\wscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\cscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\mshta.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\rundll32.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\regsvr32.exe'))",
     "severity": "high",
