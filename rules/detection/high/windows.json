@@ -516,5 +516,19 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/1d05a7ca-6472-4cdc-a562-deeaebde6898"
+  },
+  {
+    "title": "AdminSDHolder Backdoor",
+    "expression": "to_string(event.code) == '5136' && contains(to_string(winlog.event_data.ObjectDN), 'CN=AdminSDHolder,CN=System')",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/9ad01c7b-2a47-4c9a-8148-7734cfda3897"
+  },
+  {
+    "title": "AdminSDHolder SDProp Exclusion Added",
+    "expression": "to_string(event.code) == '5136' && to_string(winlog.event_data.AttributeLDAPDisplayName) == 'dSHeuristics' && to_string(winlog.event_data.OperationType) == '%%14674'",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/acb9b00c-2a20-4f1d-8e8b-b739f09faadb"
   }
 ]
