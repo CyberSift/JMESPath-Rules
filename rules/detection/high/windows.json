@@ -509,5 +509,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/65ddf7db-5582-41d0-bfcc-44ab5085b886"
+  },
+  {
+    "title": "AdminSDHolder SDProp Exclusion Added",
+    "expression": "to_string(event.code) == '5136' && to_string(winlog.event_data.AttributeLDAPDisplayName) == 'dSHeuristics' && to_string(winlog.event_data.OperationType) == '%%14674'",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/acb9b00c-2a20-4f1d-8e8b-b739f09faadb"
   }
 ]
