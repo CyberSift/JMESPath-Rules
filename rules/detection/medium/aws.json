@@ -33,5 +33,12 @@
     "severity": "medium",
     "type": "aws",
     "reference": "https://outline.cybersift.io/s/9733a16c-5571-4a79-96d1-9c7c9329bb18"
+  },
+  {
+    "title": "AWS IAM Potential Backdoor User Keys",
+    "expression": "cybersift.aws.eventSource == 'iam.amazonaws.com' && cybersift.aws.eventName == 'CreateAccessKey'",
+    "severity": "medium",
+    "type": "aws",
+    "reference": "https://outline.cybersift.io/s/bf409425-3670-4ffc-9785-742974d5c441"
   }
 ]

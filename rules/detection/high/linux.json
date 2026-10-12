@@ -159,5 +159,12 @@
     "severity": "high",
     "type": "auditbeat",
     "reference": "https://outline.cybersift.io/s/2dc03a88-4300-4c60-8ae0-766415b64670"
+  },
+  {
+    "title": "Defense Evasion via Process Hiding",
+    "expression": "process.name=='mount' && contains(to_string(process.args),'hidepid')",
+    "severity": "high",
+    "type": "auditbeat",
+    "reference": "https://outline.cybersift.io/s/a776a86c-b662-4c8e-81df-fb5ecb2f4fee"
   }
 ]
