@@ -110,5 +110,12 @@
     "severity": "medium",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/a3e40d09-654d-4d06-ae36-bdbb8c26001d"
+  },
+  {
+    "title": "Active Directory Group Modification by SYSTEM",
+    "expression": "to_string(event.code) == '4728' && to_string(winlog.event_data.SubjectUserSid) == 'S-1-5-18' && !(ends_with(to_string(winlog.event_data.TargetSid), '-513') && starts_with(to_string(winlog.event_data.TargetSid), 'S-1-5-21-'))",
+    "severity": "medium",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/d4c3ec43-2c3c-4e3d-9740-a4a7418689dd"
   }
 ]
