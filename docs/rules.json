@@ -539,6 +539,50 @@
     "log_source": "auditbeat"
   },
   {
+    "name": "rc.local/rc.common File Creation",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "contains(to_string(event.type), 'creation') && (contains(to_string(file.path), '/etc/rc.local') || contains(to_string(file.path), '/etc/rc.common')) && !contains(to_string(process.executable), '/usr/bin/dpkg') && !contains(to_string(process.executable), '/usr/bin/apt') && !contains(to_string(process.executable), '/usr/bin/rpm') && !contains(to_string(process.executable), '/usr/bin/yum') && !contains(to_string(process.executable), '/usr/bin/dnf') && !contains(to_string(process.executable), '/usr/bin/pacman') && !contains(to_string(process.executable), '/usr/bin/apk') && !contains(to_string(process.executable), '/usr/bin/snapd') && !contains(to_string(process.executable), '/usr/bin/dockerd') && !contains(to_string(process.executable), '/usr/bin/podman')",
+    "version": "1.0",
+    "path": "rules/detection/high/linux.json",
+    "reference": "https://outline.cybersift.io/s/252cbd1a-e7e1-4de0-9fd7-58f9f2822a82",
+    "log_source": "auditbeat"
+  },
+  {
+    "name": "Potential snap-confine Privilege Escalation via CVE-2026-3888",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "contains(to_string(event.type), 'creation') && to_string(user.id) != '0' && (starts_with(to_string(file.path), '/tmp/.snap') || (starts_with(to_string(file.path), '/tmp/snap-private-tmp/') && contains(to_string(file.path), '/tmp/.snap')) || starts_with(to_string(file.path), '/var/tmp/.snap') || (starts_with(to_string(file.path), '/var/tmp/snap-private-tmp/') && contains(to_string(file.path), '/tmp/.snap')))",
+    "version": "1.0",
+    "path": "rules/detection/high/linux.json",
+    "reference": "https://outline.cybersift.io/s/ba4b79de-a8d3-4773-848b-434d83602959",
+    "log_source": "auditbeat"
+  },
+  {
+    "name": "Potential Disabling of AppArmor",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "contains(to_string(process.title), 'apparmor') && (contains(to_string(process.title), 'stop') || contains(to_string(process.title), 'disable') || contains(to_string(process.title), 'mask') || contains(to_string(process.title), 'teardown') || contains(to_string(process.title), 'kill') || contains(to_string(process.title), 'remove')) && !contains(to_string(process.title), 'unmask') && !contains(to_string(process.title), 'apparmor.unprivileged-restrictions-disable')",
+    "version": "1.0",
+    "path": "rules/detection/high/linux.json",
+    "reference": "https://outline.cybersift.io/s/2dc03a88-4300-4c60-8ae0-766415b64670",
+    "log_source": "auditbeat"
+  },
+  {
+    "name": "Defense Evasion via Process Hiding",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "process.name=='mount' && contains(to_string(process.args),'hidepid')",
+    "version": "1.0",
+    "path": "rules/detection/high/linux.json",
+    "reference": "https://outline.cybersift.io/s/a776a86c-b662-4c8e-81df-fb5ecb2f4fee",
+    "log_source": "auditbeat"
+  },
+  {
     "name": "NetScaler ADC - Administrative User, Group, or Command Policy Modified",
     "type": "detection",
     "severity": "high",
@@ -546,7 +590,18 @@
     "expression": "cybersift.parser.vendor == 'Netscaler_ADC' && cybersift.netscaler.SubCategory == 'CMD_EXECUTED' && (contains(to_string(cybersift.netscaler.Message), 'system user') || contains(to_string(cybersift.netscaler.Message), 'system group') || contains(to_string(cybersift.netscaler.Message), 'system cmdPolicy')) && !(contains(to_string(cybersift.netscaler.Message), 'show system user') || contains(to_string(cybersift.netscaler.Message), 'show system group') || contains(to_string(cybersift.netscaler.Message), 'show system cmdPolicy'))",
     "version": "1.0",
     "path": "rules/detection/high/netscaler.json",
-    "reference": "https://outline.cybersift.io/s/1a21e0be-8450-455b-9e54-b037ed1ade0a",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/netscaler-adc-administrative-user-group-or-command-policy-modified-8vKaN8DFzB",
+    "log_source": "syslog"
+  },
+  {
+    "name": "NetScaler - DTLSv1.0 Handshake Failure Exploit Pattern",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "cybersift.netscaler.SubCategory == 'SSL_HANDSHAKE_FAILURE' && contains(to_string(cybersift.netscaler.Message), 'DTLSv1.0') && contains(to_string(cybersift.netscaler.Message), 'Handshake failure-Internal Error')",
+    "version": "1.0",
+    "path": "rules/detection/high/netscaler.json",
+    "reference": "https://outline.cybersift.io/s/32a543cd-f821-4ce6-a9ba-b5ee96e7f75f",
     "log_source": "syslog"
   },
   {
@@ -1584,6 +1639,83 @@
     "log_source": "windows"
   },
   {
+    "name": "New Delegated Managed Service Account Created",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '5137' && to_string(winlog.event_data.ObjectClass) == 'msDS-DelegatedManagedServiceAccount'",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/25b2fa2e-6b3c-4220-b310-74f8e2709e3b",
+    "log_source": "windows"
+  },
+  {
+    "name": "Wireless Credential Dumping using Netsh Command",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'netsh.exe') && contains(to_string(winlog.event_data.CommandLine), 'wlan') && contains(to_string(winlog.event_data.CommandLine), 'clear')",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/65ddf7db-5582-41d0-bfcc-44ab5085b886",
+    "log_source": "windows"
+  },
+  {
+    "name": "Suspicious Parent Process Spawning MSBuild",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), '\\\\MSBuild.exe') && (ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\cmd.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\powershell.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\pwsh.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\powershell_ise.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\cscript.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\wscript.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\mshta.exe'))",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/c47aab5b-1a1e-466b-8531-e21307b670f1",
+    "log_source": "windows"
+  },
+  {
+    "name": "Suspicious Child Process Spawned by MSBuild",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\msbuild.exe') && (ends_with(to_string(winlog.event_data.NewProcessName), '\\\\powershell.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\pwsh.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\cmd.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\wscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\cscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\mshta.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\rundll32.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\regsvr32.exe'))",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/504b76c7-77bc-4c40-9190-a0d4cb420fc1",
+    "log_source": "windows"
+  },
+  {
+    "name": "Suspicious MSBuild Project Execution from User-Writable or Network Paths",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.NewProcessName), 'MSBuild.exe') && (contains(to_string(winlog.event_data.CommandLine), '.csproj') || contains(to_string(winlog.event_data.CommandLine), '.vbproj')) && (contains(to_string(winlog.event_data.CommandLine), '\\\\Temp\\\\') || contains(to_string(winlog.event_data.CommandLine), '\\\\AppData\\\\') || contains(to_string(winlog.event_data.CommandLine), '\\\\Downloads\\\\') || contains(to_string(winlog.event_data.CommandLine), '\\\\\\\\'))",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/1d05a7ca-6472-4cdc-a562-deeaebde6898",
+    "log_source": "windows"
+  },
+  {
+    "name": "AdminSDHolder Backdoor",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '5136' && contains(to_string(winlog.event_data.ObjectDN), 'CN=AdminSDHolder,CN=System')",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/9ad01c7b-2a47-4c9a-8148-7734cfda3897",
+    "log_source": "windows"
+  },
+  {
+    "name": "AdminSDHolder SDProp Exclusion Added",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '5136' && to_string(winlog.event_data.AttributeLDAPDisplayName) == 'dSHeuristics' && to_string(winlog.event_data.OperationType) == '%%14674'",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/acb9b00c-2a20-4f1d-8e8b-b739f09faadb",
+    "log_source": "windows"
+  },
+  {
     "name": "Failed command",
     "type": "detection",
     "severity": "info",
@@ -1768,6 +1900,17 @@
     "version": "1.0",
     "path": "rules/detection/medium/aws.json",
     "reference": "https://outline.cybersift.io/s/9733a16c-5571-4a79-96d1-9c7c9329bb18",
+    "log_source": "aws"
+  },
+  {
+    "name": "AWS IAM Potential Backdoor User Keys",
+    "type": "detection",
+    "severity": "medium",
+    "description": "",
+    "expression": "cybersift.aws.eventSource == 'iam.amazonaws.com' && cybersift.aws.eventName == 'CreateAccessKey'",
+    "version": "1.0",
+    "path": "rules/detection/medium/aws.json",
+    "reference": "https://outline.cybersift.io/s/bf409425-3670-4ffc-9785-742974d5c441",
     "log_source": "aws"
   },
   {
@@ -2274,6 +2417,28 @@
     "version": "1.0",
     "path": "rules/detection/medium/windows.json",
     "reference": "https://outline.cybersift.io/s/a3e40d09-654d-4d06-ae36-bdbb8c26001d",
+    "log_source": "windows"
+  },
+  {
+    "name": "Windows Netsh PortProxy Tunnel Configuration",
+    "type": "detection",
+    "severity": "medium",
+    "description": "",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), 'netsh.exe') && contains(to_string(winlog.event_data.CommandLine), 'interface') && contains(to_string(winlog.event_data.CommandLine), 'portproxy') && contains(to_string(winlog.event_data.CommandLine), 'add')",
+    "version": "1.0",
+    "path": "rules/detection/medium/windows.json",
+    "reference": "https://outline.cybersift.io/s/d077b97e-c326-4bde-a6df-f29c05e83aa3",
+    "log_source": "windows"
+  },
+  {
+    "name": "Active Directory Group Modification by SYSTEM",
+    "type": "detection",
+    "severity": "medium",
+    "description": "",
+    "expression": "to_string(event.code) == '4728' && to_string(winlog.event_data.SubjectUserSid) == 'S-1-5-18' && !(ends_with(to_string(winlog.event_data.TargetSid), '-513') && starts_with(to_string(winlog.event_data.TargetSid), 'S-1-5-21-'))",
+    "version": "1.0",
+    "path": "rules/detection/medium/windows.json",
+    "reference": "https://outline.cybersift.io/s/d4c3ec43-2c3c-4e3d-9740-a4a7418689dd",
     "log_source": "windows"
   },
   {
