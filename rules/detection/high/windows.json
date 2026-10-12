@@ -509,5 +509,40 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/65ddf7db-5582-41d0-bfcc-44ab5085b886"
+  },
+  {
+    "title": "Suspicious Parent Process Spawning MSBuild",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.NewProcessName), '\\\\MSBuild.exe') && (ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\cmd.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\powershell.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\pwsh.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\powershell_ise.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\cscript.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\wscript.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\mshta.exe'))",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/c47aab5b-1a1e-466b-8531-e21307b670f1"
+  },
+  {
+    "title": "Suspicious Child Process Spawned by MSBuild",
+    "expression": "to_string(event.code) == '4688' && ends_with(to_string(winlog.event_data.ParentProcessName), '\\\\msbuild.exe') && (ends_with(to_string(winlog.event_data.NewProcessName), '\\\\powershell.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\pwsh.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\cmd.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\wscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\cscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\mshta.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\rundll32.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\regsvr32.exe'))",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/504b76c7-77bc-4c40-9190-a0d4cb420fc1"
+  },
+  {
+    "title": "Suspicious MSBuild Project Execution from User-Writable or Network Paths",
+    "expression": "to_string(event.code) == '4688' && contains(to_string(winlog.event_data.NewProcessName), 'MSBuild.exe') && (contains(to_string(winlog.event_data.CommandLine), '.csproj') || contains(to_string(winlog.event_data.CommandLine), '.vbproj')) && (contains(to_string(winlog.event_data.CommandLine), '\\\\Temp\\\\') || contains(to_string(winlog.event_data.CommandLine), '\\\\AppData\\\\') || contains(to_string(winlog.event_data.CommandLine), '\\\\Downloads\\\\') || contains(to_string(winlog.event_data.CommandLine), '\\\\\\\\'))",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/1d05a7ca-6472-4cdc-a562-deeaebde6898"
+  },
+  {
+    "title": "AdminSDHolder Backdoor",
+    "expression": "to_string(event.code) == '5136' && contains(to_string(winlog.event_data.ObjectDN), 'CN=AdminSDHolder,CN=System')",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/9ad01c7b-2a47-4c9a-8148-7734cfda3897"
+  },
+  {
+    "title": "AdminSDHolder SDProp Exclusion Added",
+    "expression": "to_string(event.code) == '5136' && to_string(winlog.event_data.AttributeLDAPDisplayName) == 'dSHeuristics' && to_string(winlog.event_data.OperationType) == '%%14674'",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/acb9b00c-2a20-4f1d-8e8b-b739f09faadb"
   }
 ]
