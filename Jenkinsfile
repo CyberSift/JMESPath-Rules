@@ -47,7 +47,7 @@ pipeline {
                     googleChatSpaceId: 'AAQAZWqTf1c',
                     googleChatKeyCredentialsId: 'google-chat-rules-key',
                     googleChatTokenCredentialsId: 'google-chat-rules-token',
-                    reviewPromptFile: 'pi/soc-rules-review-prompt.txt'
+                    reviewPromptFile: 'omp/soc-rules-review-prompt.txt'
                 )
             }
             post {
