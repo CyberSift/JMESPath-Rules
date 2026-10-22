@@ -29,7 +29,7 @@
   },
   {
     "title": "Entra ID High Risk Sign-in",
-    "expression": "(properties.riskLevelDuringSignIn == 'high' || properties.riskLevelAggregated == 'high') && resultSignature != 'FAILURE' && properties.riskState != 'none'",
+    "expression": "(properties.riskLevelDuringSignIn == 'high' || properties.riskLevelAggregated == 'high') && resultSignature != 'FAILURE' && !(properties.riskState == 'remediated' || properties.riskState == 'dismissed' || properties.riskState == 'confirmedSafe')",
     "severity": "high",
     "type": "azure_event_hub",
     "reference": "https://outline.cybersift.io/s/4fc28676-6f72-4f88-a31b-7395961f09a9"
