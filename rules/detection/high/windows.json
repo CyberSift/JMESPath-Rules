@@ -544,5 +544,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/acb9b00c-2a20-4f1d-8e8b-b739f09faadb"
+  },
+  {
+    "title": "Suspicious Executable or Script Creation in Windows Temp by System Process",
+    "expression": "to_string(event.code) == '11' && event.provider == 'Microsoft-Windows-Sysmon' && winlog.event_data.Image == 'System' && contains(winlog.event_data.TargetFilename, '\\Temp\\') && (ends_with(winlog.event_data.TargetFilename, '.exe') || ends_with(winlog.event_data.TargetFilename, '.dll') || ends_with(winlog.event_data.TargetFilename, '.ps1') || ends_with(winlog.event_data.TargetFilename, '.bat') || ends_with(winlog.event_data.TargetFilename, '.cmd') || ends_with(winlog.event_data.TargetFilename, '.vbs'))",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/bda1f419-115e-4fd6-92c3-8e964513c91c"
   }
 ]
