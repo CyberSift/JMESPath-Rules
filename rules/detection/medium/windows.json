@@ -124,5 +124,12 @@
     "severity": "medium",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/d4c3ec43-2c3c-4e3d-9740-a4a7418689dd"
+  },
+  {
+    "title": "Access to a Sensitive LDAP Attribute",
+    "expression": "to_string(event.code) == '4662' && (contains(to_string(winlog.event_data.Properties), 'b8dfa744-31dc-4ef1-ac7c-84baf7ef9da7') || contains(to_string(winlog.event_data.Properties), 'b3f93023-9239-4f7c-b99c-6745d87adbc2') || contains(to_string(winlog.event_data.Properties), 'b7ff5a38-0818-42b0-8110-d3d154c97f24')) && !starts_with(to_string(winlog.event_data.SubjectUserSid), 'S-1-5-18') && to_string(winlog.event_data.AccessMask) == '0x10'",
+    "severity": "medium",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/36609922-186a-4e7c-a93a-32d7c50443a8"
   }
 ]
