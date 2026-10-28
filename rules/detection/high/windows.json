@@ -551,5 +551,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/bda1f419-115e-4fd6-92c3-8e964513c91c"
+  },
+  {
+    "title": "Potential Credential Access via LSASS Memory Dump",
+    "expression": "to_string(event.code) == '10' && winlog.event_data.TargetImage == 'C:\\\\Windows\\\\system32\\\\lsass.exe' && contains(to_string(winlog.event_data.CallTrace), 'dbgcore')",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/ce0ed6f4-8b15-42ba-95c5-9b5b677659bb"
   }
 ]
