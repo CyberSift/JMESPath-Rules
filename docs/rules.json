@@ -543,7 +543,7 @@
     "type": "detection",
     "severity": "high",
     "description": "",
-    "expression": "contains(to_string(event.type), 'creation') && (contains(to_string(file.path), '/etc/rc.local') || contains(to_string(file.path), '/etc/rc.common')) && !contains(to_string(process.executable), '/usr/bin/dpkg') && !contains(to_string(process.executable), '/usr/bin/apt') && !contains(to_string(process.executable), '/usr/bin/rpm') && !contains(to_string(process.executable), '/usr/bin/yum') && !contains(to_string(process.executable), '/usr/bin/dnf') && !contains(to_string(process.executable), '/usr/bin/pacman') && !contains(to_string(process.executable), '/usr/bin/apk') && !contains(to_string(process.executable), '/usr/bin/snapd') && !contains(to_string(process.executable), '/usr/bin/dockerd') && !contains(to_string(process.executable), '/usr/bin/podman')",
+    "expression": "contains(to_string(event.type), 'creation') && (contains(to_string(file.path), '/etc/rc.local') || contains(to_string(file.path), '/etc/rc.common')) && !contains(to_string(process.executable), '/usr/bin/dpkg') && !contains(to_string(process.executable), '/usr/bin/apt') && event.module != 'file_integrity' && !contains(to_string(process.executable), '/usr/bin/rpm') && !contains(to_string(process.executable), '/usr/bin/yum') && !contains(to_string(process.executable), '/usr/bin/dnf') && !contains(to_string(process.executable), '/usr/bin/pacman') && !contains(to_string(process.executable), '/usr/bin/apk') && !contains(to_string(process.executable), '/usr/bin/snapd') && !contains(to_string(process.executable), '/usr/bin/dockerd') && !contains(to_string(process.executable), '/usr/bin/podman')",
     "version": "1.0",
     "path": "rules/detection/high/linux.json",
     "reference": "https://outline.cybersift.io/s/252cbd1a-e7e1-4de0-9fd7-58f9f2822a82",
@@ -1067,11 +1067,11 @@
     "log_source": "windows"
   },
   {
-    "name": "WSUS RCE Process Spawn",
+    "name": "Windows Server Update Service Spawning Suspicious Processes",
     "type": "detection",
     "severity": "high",
     "description": "",
-    "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.ParentProcessName),'w3wp.exe') || ends_with(to_string(winlog.event_data.ParentProcessName),'wsusservice.exe')) && (ends_with(to_string(winlog.event_data.NewProcessName),'cmd.exe') || ends_with(to_string(winlog.event_data.NewProcessName),'powershell.exe'))",
+    "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.ParentProcessName), 'w3wp.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), 'wsusservice.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), 'WsusService.exe')) && (ends_with(to_string(winlog.event_data.NewProcessName), 'cmd.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'powershell.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'pwsh.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'powershell_ise.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'wscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'cscript.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'mshta.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'rundll32.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'regsvr32.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'certutil.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'bitsadmin.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'msbuild.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'schtasks.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\net.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\net1.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'curl.exe'))",
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
     "reference": "https://outline.cybersift.io/s/engineering/doc/wsus-rce-process-spawn-eSOw85ftEz",
@@ -1724,6 +1724,17 @@
     "version": "1.0",
     "path": "rules/detection/high/windows.json",
     "reference": "https://outline.cybersift.io/s/bda1f419-115e-4fd6-92c3-8e964513c91c",
+    "log_source": "windows"
+  },
+  {
+    "name": "Potential Credential Access via LSASS Memory Dump",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '10' && winlog.event_data.TargetImage == 'C:\\\\Windows\\\\system32\\\\lsass.exe' && contains(to_string(winlog.event_data.CallTrace), 'dbgcore')",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/ce0ed6f4-8b15-42ba-95c5-9b5b677659bb",
     "log_source": "windows"
   },
   {
@@ -2450,6 +2461,17 @@
     "version": "1.0",
     "path": "rules/detection/medium/windows.json",
     "reference": "https://outline.cybersift.io/s/d4c3ec43-2c3c-4e3d-9740-a4a7418689dd",
+    "log_source": "windows"
+  },
+  {
+    "name": "Access to a Sensitive LDAP Attribute",
+    "type": "detection",
+    "severity": "medium",
+    "description": "",
+    "expression": "to_string(event.code) == '4662' && (contains(to_string(winlog.event_data.Properties), 'b8dfa744-31dc-4ef1-ac7c-84baf7ef9da7') || contains(to_string(winlog.event_data.Properties), 'b3f93023-9239-4f7c-b99c-6745d87adbc2') || contains(to_string(winlog.event_data.Properties), 'b7ff5a38-0818-42b0-8110-d3d154c97f24')) && !starts_with(to_string(winlog.event_data.SubjectUserSid), 'S-1-5-18') && to_string(winlog.event_data.AccessMask) == '0x10'",
+    "version": "1.0",
+    "path": "rules/detection/medium/windows.json",
+    "reference": "https://outline.cybersift.io/s/36609922-186a-4e7c-a93a-32d7c50443a8",
     "log_source": "windows"
   },
   {
