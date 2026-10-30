@@ -558,5 +558,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/ce0ed6f4-8b15-42ba-95c5-9b5b677659bb"
+  },
+  {
+    "title": "Volume Shadow Copy Deletion via PowerShell",
+    "expression": "to_string(event.code) == '4688' && (ends_with(to_string(winlog.event_data.NewProcessName), '\\\\powershell.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\pwsh.exe') || ends_with(to_string(winlog.event_data.NewProcessName), '\\\\powershell_ise.exe')) && (contains(to_string(winlog.event_data.CommandLine), 'Get-WmiObject') || contains(to_string(winlog.event_data.CommandLine), 'gwmi') || contains(to_string(winlog.event_data.CommandLine), 'Get-CimInstance') || contains(to_string(winlog.event_data.CommandLine), 'gcim')) && contains(to_string(winlog.event_data.CommandLine), 'Win32_ShadowCopy') && (contains(to_string(winlog.event_data.CommandLine), '.Delete()') || contains(to_string(winlog.event_data.CommandLine), 'Remove-WmiObject') || contains(to_string(winlog.event_data.CommandLine), 'rwmi') || contains(to_string(winlog.event_data.CommandLine), 'Remove-CimInstance') || contains(to_string(winlog.event_data.CommandLine), 'rcim'))",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/f8d7c092-2213-4205-8c22-d54ae591b9c2"
   }
 ]
