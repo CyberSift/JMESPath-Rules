@@ -117,5 +117,12 @@
     "severity": "high",
     "type": "o365",
     "reference": "https://outline.cybersift.io/s/engineering/doc/o365-potentially-malicious-url-click-detected-A4f0jUxXob"
+  },
+  {
+    "title": "O365 Suspicious ApplicationId – Microsoft Login Impersonation",
+    "expression": "contains(to_string(o365.audit.ApplicationId), 'microsoftonline.com.') || contains(to_string(o365.audit.ApplicationId), 'microsoft.com.') || contains(to_string(o365.audit.ApplicationId), 'login.microsoft.') || contains(to_string(o365.audit.ApplicationId), 'office.com.') || contains(to_string(o365.audit.ApplicationId), 'outlook.com.') || contains(to_string(o365.audit.ApplicationId), 'teams.microsoft.') || contains(to_string(o365.audit.ApplicationId), 'portal.microsoftonline.')",
+    "severity": "high",
+    "type": "o365",
+    "reference": "https://outline.cybersift.io/s/b4eb2f7b-3724-483e-90ac-041715755318"
   }
 ]
