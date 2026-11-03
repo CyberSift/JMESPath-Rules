@@ -131,5 +131,12 @@
     "severity": "medium",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/36609922-186a-4e7c-a93a-32d7c50443a8"
+  },
+  {
+    "title": "GPO Access by Non-Admin User",
+    "expression": "to_string(event.code) == '4662' && winlog.cybersift.SubjectUserType == 'user' && winlog.event_data.ObjectServer == 'DS' && winlog.cybersift.KerberosObjectType == 'c-grouppolicycontainer'",
+    "severity": "medium",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/gpo-access-by-non-admin-user-0B9qMf4g7j"
   }
 ]
