@@ -1,0 +1,9 @@
+[
+  {
+    "title": "Entra ID Correct Password Sign-In Blocked by Conditional Access",
+    "expression": "category == 'SignInLogs' && resultType == '53003' && contains(to_string(properties.authenticationDetails[].authenticationMethod), 'Password') && contains(to_string(properties.authenticationDetails[].authenticationStepResultDetail), 'Correct password') && contains(resultDescription, 'blocked by Conditional Access')",
+    "severity": "low",
+    "type": "azure_event_hub",
+    "reference": "https://outline.cybersift.io/s/bce4f9b1-94e3-4872-a524-d96b006a0b59"
+  }
+]
