@@ -1133,17 +1133,6 @@
     "log_source": "windows"
   },
   {
-    "name": "GPO Access by Non-Admin User",
-    "type": "detection",
-    "severity": "high",
-    "description": "",
-    "expression": "to_string(event.code) == '4662' && winlog.cybersift.SubjectUserType == 'user' && winlog.event_data.ObjectServer == 'DS' && winlog.cybersift.KerberosObjectType == 'c-grouppolicycontainer'",
-    "version": "1.0",
-    "path": "rules/detection/high/windows.json",
-    "reference": "https://outline.cybersift.io/s/engineering/doc/gpo-access-by-non-admin-user-0B9qMf4g7j",
-    "log_source": "windows"
-  },
-  {
     "name": "PowerShell Suspicious Download and Extraction",
     "type": "detection",
     "severity": "high",
@@ -1791,6 +1780,17 @@
     "path": "rules/detection/info/windows.json",
     "reference": "https://outline.cybersift.io/s/engineering/doc/ntlm-v1-detected-plS0y5OtoS",
     "log_source": "windows"
+  },
+  {
+    "name": "Entra ID Correct Password Sign-In Blocked by Conditional Access",
+    "type": "detection",
+    "severity": "low",
+    "description": "",
+    "expression": "category == 'SignInLogs' && resultType == '53003' && contains(to_string(properties.authenticationDetails[].authenticationMethod), 'Password') && contains(to_string(properties.authenticationDetails[].authenticationStepResultDetail), 'Correct password') && contains(resultDescription, 'blocked by Conditional Access')",
+    "version": "1.0",
+    "path": "rules/detection/low/azure_event_hub.json",
+    "reference": "https://outline.cybersift.io/s/bce4f9b1-94e3-4872-a524-d96b006a0b59",
+    "log_source": "azure_event_hub"
   },
   {
     "name": "DUO - New MFA User or Device Self-Enrollment Activity",
@@ -2494,6 +2494,17 @@
     "version": "1.0",
     "path": "rules/detection/medium/windows.json",
     "reference": "https://outline.cybersift.io/s/36609922-186a-4e7c-a93a-32d7c50443a8",
+    "log_source": "windows"
+  },
+  {
+    "name": "GPO Access by Non-Admin User",
+    "type": "detection",
+    "severity": "medium",
+    "description": "",
+    "expression": "to_string(event.code) == '4662' && winlog.cybersift.SubjectUserType == 'user' && winlog.event_data.ObjectServer == 'DS' && winlog.cybersift.KerberosObjectType == 'c-grouppolicycontainer'",
+    "version": "1.0",
+    "path": "rules/detection/medium/windows.json",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/gpo-access-by-non-admin-user-0B9qMf4g7j",
     "log_source": "windows"
   },
   {
