@@ -558,5 +558,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/f8d7c092-2213-4205-8c22-d54ae591b9c2"
+  },
+  {
+    "title": "Command and Scripting Interpreter via Windows Scripts - Extended",
+    "expression": "to_string(event.code) == '4688' && winlog.event_data.CommandLine && (ends_with(to_string(winlog.event_data.ParentProcessName), 'wscript.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), 'cscript.exe') || ends_with(to_string(winlog.event_data.ParentProcessName), 'mshta.exe')) && (ends_with(to_string(winlog.event_data.NewProcessName), 'powershell.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'pwsh.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'powershell_ise.exe') || ends_with(to_string(winlog.event_data.NewProcessName), 'cmd.exe')) && to_string(winlog.event_data.SubjectUserSid) != 'S-1-5-18' && !( (contains(to_string(winlog.event_data.CommandLine), 'C:\\\\Windows\\\\system32\\\\cmd.exe') && contains(to_string(winlog.event_data.CommandLine), '/c exit')) || (contains(to_string(winlog.event_data.CommandLine), 'auditpol.exe') && contains(to_string(winlog.event_data.CommandLine), '/get')) || (contains(to_string(winlog.event_data.CommandLine), 'auditpol.exe') && contains(to_string(winlog.event_data.CommandLine), '/set /SUBCATEGORY')))",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/864e57f0-ab97-452d-8570-819dadd7eacc"
   }
 ]
