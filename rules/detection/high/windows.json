@@ -565,5 +565,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/864e57f0-ab97-452d-8570-819dadd7eacc"
+  },
+  {
+    "title": "Disabling Lsa Protection via Registry Modification",
+    "expression": "to_string(event.code) == '4657' && ends_with(to_string(winlog.event_data.ObjectName), '\\\\Control\\\\Lsa') && winlog.event_data.ObjectValueName == 'RunAsPPL' && !(to_string(winlog.event_data.NewValue) == '1' || to_string(winlog.event_data.NewValue) == '2' || to_string(winlog.event_data.NewValue) == '0x00000001' || to_string(winlog.event_data.NewValue) == '0x00000002') && !ends_with(to_string(winlog.event_data.ProcessName), '\\\\SecurityHealthService.exe')",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/e15c7864-7ad9-4c13-b467-76e2374356d7"
   }
 ]
