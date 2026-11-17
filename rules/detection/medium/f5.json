@@ -1,0 +1,9 @@
+[
+  {
+    "title": "F5 - Policy Misconfiguration - Malicious Traffic Permitted",
+    "expression": "(to_string(waf_mode)=='allow' && !(to_string(enforcement_mode)=='Blocking')) && (to_string(rsp_code)=='200' && bot_info.classification=='malicious')",
+    "severity": "medium",
+    "type": "F5_LOADBALANCER",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/f5-policy-misconfiguration-malicious-traffic-permitted-tS7ceB8hKv"
+  }
+]
