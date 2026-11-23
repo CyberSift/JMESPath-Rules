@@ -572,5 +572,12 @@
     "severity": "high",
     "type": "windows",
     "reference": "https://outline.cybersift.io/s/e15c7864-7ad9-4c13-b467-76e2374356d7"
+  },
+  {
+    "title": "KRBTGT Delegation Backdoor",
+    "expression": "(to_string(event.code) == '4738' || to_string(event.code) == '4742') && (contains(to_string(winlog.event_data.AllowedToDelegateTo), 'krbtgt') || contains(to_string(winlog.event_data.AllowedToDelegateTo), 'KRBTGT') || contains(to_string(winlog.event_data.AllowedToDelegateTo), 'Krbtgt'))",
+    "severity": "high",
+    "type": "windows",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/krbtgt-delegation-backdoor-kvrT1hgdiZ"
   }
 ]
