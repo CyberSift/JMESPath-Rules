@@ -803,7 +803,7 @@
     "log_source": "o365"
   },
   {
-    "name": "Successful SonicWall VPN Authentication",
+    "name": "SONICWALL - Successful VPN Authentication",
     "type": "detection",
     "severity": "high",
     "description": "",
@@ -814,14 +814,25 @@
     "log_source": "syslog"
   },
   {
-    "name": "SonicWall VPN Authentication Attempt From Known Threat IP",
+    "name": "SONICWALL - VPN Authentication Attempt From Known Threat IP",
     "type": "detection",
     "severity": "high",
     "description": "",
-    "expression": "cybersift.parser.vendor == 'SONICWALL' && to_string(m) == '1080' && to_string(\"cybersift.threat_info\".knownThreat) == 'true'",
+    "expression": "\"cybersift.parser.vendor\" == 'SONICWALL' && to_string(m) == '1080' && to_string(\"cybersift.threat_info\".knownThreat) == 'true'",
     "version": "1.0",
     "path": "rules/detection/high/sonicwall.json",
     "reference": "https://outline.cybersift.io/s/8c08410d-975a-4e87-93da-d96acdcbf7ef",
+    "log_source": "syslog"
+  },
+  {
+    "name": "SONICWALL - Appliance Firmware Upgrade",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "(to_string(\"cybersift.parser.vendor\")=='SONICWALL' && to_string(Type)=='MANAGEMENT') && contains(to_string(msg), 'Firmware')",
+    "version": "1.0",
+    "path": "rules/detection/high/sonicwall.json",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/sonicwall-appliance-firmware-upgrade-6qDokTsYla",
     "log_source": "syslog"
   },
   {
@@ -1760,6 +1771,28 @@
     "log_source": "windows"
   },
   {
+    "name": "Disabling Lsa Protection via Registry Modification",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "to_string(event.code) == '4657' && ends_with(to_string(winlog.event_data.ObjectName), '\\\\Control\\\\Lsa') && winlog.event_data.ObjectValueName == 'RunAsPPL' && !(to_string(winlog.event_data.NewValue) == '1' || to_string(winlog.event_data.NewValue) == '2' || to_string(winlog.event_data.NewValue) == '0x00000001' || to_string(winlog.event_data.NewValue) == '0x00000002') && !ends_with(to_string(winlog.event_data.ProcessName), '\\\\SecurityHealthService.exe')",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/e15c7864-7ad9-4c13-b467-76e2374356d7",
+    "log_source": "windows"
+  },
+  {
+    "name": "KRBTGT Delegation Backdoor",
+    "type": "detection",
+    "severity": "high",
+    "description": "",
+    "expression": "(to_string(event.code) == '4738' || to_string(event.code) == '4742') && (contains(to_string(winlog.event_data.AllowedToDelegateTo), 'krbtgt') || contains(to_string(winlog.event_data.AllowedToDelegateTo), 'KRBTGT') || contains(to_string(winlog.event_data.AllowedToDelegateTo), 'Krbtgt'))",
+    "version": "1.0",
+    "path": "rules/detection/high/windows.json",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/krbtgt-delegation-backdoor-kvrT1hgdiZ",
+    "log_source": "windows"
+  },
+  {
     "name": "Failed command",
     "type": "detection",
     "severity": "info",
@@ -2011,6 +2044,17 @@
     "path": "rules/detection/medium/duo.json",
     "reference": "https://outline.cybersift.io/s/engineering/doc/low-trust-authentication-assessment-a8j081fq4r",
     "log_source": "DUO"
+  },
+  {
+    "name": "F5 - Policy Misconfiguration - Malicious Traffic Permitted",
+    "type": "detection",
+    "severity": "medium",
+    "description": "",
+    "expression": "(to_string(waf_mode)=='allow' && !(to_string(enforcement_mode)=='Blocking')) && (to_string(rsp_code)=='200' && bot_info.classification=='malicious')",
+    "version": "1.0",
+    "path": "rules/detection/medium/f5.json",
+    "reference": "https://outline.cybersift.io/s/engineering/doc/f5-policy-misconfiguration-malicious-traffic-permitted-tS7ceB8hKv",
+    "log_source": "F5_LOADBALANCER"
   },
   {
     "name": "Google Workspace Suspicious Login (Success)",
