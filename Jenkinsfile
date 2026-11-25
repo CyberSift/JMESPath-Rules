@@ -30,6 +30,7 @@ pipeline {
         timestamps()
         disableConcurrentBuilds(abortPrevious: true)
         buildDiscarder(logRotator(numToKeepStr: '20'))
+        skipDefaultCheckout(true)
     }
    
     environment {        
@@ -37,7 +38,14 @@ pipeline {
         PATH              = "${env.HOME}/.pi/bin:${env.PATH}"
     }
 
-    stages {        
+    stages {
+
+        stage('Checkout') {
+            steps {
+                cleanWs()
+                checkout scm
+            }
+        }
         
         stage('AI PR review') {
             when { changeRequest() }
